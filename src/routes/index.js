@@ -18,7 +18,7 @@ router.get('/', authMeetingStarted, async function(req, res, next) {
       for(var i =0; i < arr2.length; i++) {
         tempArr2.push(arr2[i]._id)
       }
-      res.render('index', { title: 'd.tech Community', displayName: displayName, "controlArr": JSON.stringify(arr1), "tokenArr": JSON.stringify(tempArr2)});
+      res.render('index/index', { title: 'd.tech Community', displayName: displayName, "controlArr": JSON.stringify(arr1), "tokenArr": JSON.stringify(tempArr2)});
     } getData()
   }
 });

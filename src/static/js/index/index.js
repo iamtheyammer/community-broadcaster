@@ -1,34 +1,3 @@
-html
-  head
-    include ./main
-    link(rel="Stylesheet" href="/css/index.css")
-    link(href="https://unpkg.com/video.js@7/dist/video-js.min.css" rel="stylesheet")
-    script.
-      const name = "#{displayName}"
-      if(name.length > 0) {
-        console.log(name)
-      }
-
-  body
-    
-    input.loginbutton(type="button" value="Login" onClick="window.location.href='/auth/google'")
-
-    .slate.fullCenter.reg-image
-    video.fullCenter(id="my-video" muted="muted" class="video-js" controls preload="auto" width="1920" height="1080" poster="/img/download.jpeg" data-setup="{}")
-      source(src="https://stream.designtechhs.com/hls/livestream.m3u8" type="application/x-mpegURL")
-
-    p.fullXCenter By Aiden Appleby and Jackson Lawrence
-script(src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.8.0/video.min.js")
-script(src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.15.0/videojs-contrib-hls.min.js")
-script(src="/videojs-contrib-quality-levels/dist/videojs-contrib-quality-levels.min.js")
-script(src="/videojs-hls-quality-selector/dist/videojs-hls-quality-selector.min.js")
-script.
-
-  var rawTokens = "#{tokenArr}"
-  var tokens = JSON.parse(rawTokens.replace(/&quot;/g,'"'));
-
-  var siteControlsRaw = "#{controlArr}"
-  var siteControls = JSON.parse(siteControlsRaw.replace(/&quot;/g,'"'));
 
   setTimeout(function(){
     var player = videojs('#my-video');
