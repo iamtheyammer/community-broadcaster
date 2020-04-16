@@ -1,0 +1,39 @@
+{
+  "name": "dths-broadcast-ws",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "watchDev": "NODE_ENV=development gulp static && gulp watch",
+    "watch": "gulp static && gulp watch"
+  },
+  "dependencies": {
+    "colors": "^1.4.0",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "~1.4.4",
+    "cookie-session": "^1.4.0",
+    "debug": "~2.6.9",
+    "del": "^5.1.0",
+    "dotenv": "^8.2.0",
+    "express": "~4.16.1",
+    "express-session": "^1.17.0",
+    "http-errors": "~1.6.3",
+    "mongoose": "^5.9.9",
+    "morgan": "~1.9.1",
+    "passport": "^0.4.1",
+    "passport-google-oauth20": "^2.0.0",
+    "passport-oauth2": "^1.5.0",
+    "pug": "2.0.0-beta11",
+    "randomstring": "^1.1.5",
+    "socket.io": "^2.3.0",
+    "videojs-hls-quality-selector": "^1.1.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.7.7",
+    "@babel/preset-env": "^7.7.7",
+    "babel-preset-minify": "^0.3.0",
+    "gulp-babel": "^8.0.0",
+    "gulp-nodemon": "^2.4.2",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-stylus": "^2.7.0"
+  }
+}

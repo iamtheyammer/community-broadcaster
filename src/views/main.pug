@@ -1,0 +1,35 @@
+head
+	title= title
+	link(rel="stylesheet", href="/css/main.css")
+
+body
+
+script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js")
+script(src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js")
+script(src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js")
+script(src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js")
+script(src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js")
+script.
+
+	var socket = io();
+
+	function underdev() {
+		window.alert('This page is currently being developed by our team, please mind that it is not complete.')
+	}
+	
+	function log(call) {
+		console.log(call)
+	}
+
+	function cap(s) {
+		if (typeof s !== 'string') return ''
+		return s.charAt(0).toUpperCase() + s.slice(1)
+	}
+
+	socket.on('reloadSiteClients', function(data) {
+		location.reload();
+	})
+
+	socket.on('siteAlert', function(data) {
+		window.alert(data[1].input)
+	})

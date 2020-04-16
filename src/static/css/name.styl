@@ -1,0 +1,83 @@
+body
+	margin 0
+	overflow hidden
+
+.content
+	width 100%
+	height 100%
+	position absolute
+	top 0
+	left 0
+
+.logo-container
+	background-image url("../img/dtech-logo.png")
+	background-size cover
+	background-repeat no-repeat
+	background-position center
+	width 45px
+	height 45px
+	position absolute
+	top 30px
+	left 37.5px
+	cursor pointer
+
+#main
+	position absolute
+	top calc(50% - 20px)
+	left 50%
+	transform translate(-50%, -50%)
+	h1.title
+		color #333
+		font-size 25px
+		text-align center
+		letter-spacing .3px
+		margin 0
+	p.disclaimer
+		color #8c8c8c
+		font-size 13px
+		margin 10px 0 0
+		text-align center
+		letter-spacing .3px
+	.input-container
+		margin 10px auto 0
+		position relative
+		&.active
+			.placeholder
+				bottom 35px
+				font-size 11px
+		.placeholder
+			font-size 18px
+			position absolute
+			color rgb(186, 186, 196)
+			letter-spacing .3px
+			bottom 8px
+			left 2px
+			z-index -1
+			transition font-size .2s, bottom .2s
+		.name-input
+			width 500px
+			background none
+			z-index 5
+			border none
+			border-bottom 1px solid #dcdce6
+			color #333333
+			font-size 18px
+			letter-spacing .3px
+			font-weight 500
+			padding 30px 2px 8px
+			outline none
+		.next-btn
+			opacity .3
+			position absolute
+			right 10px
+			bottom 12px
+			width 22px
+			height 22px
+			cursor pointer
+			background-image url("../img/black-right-arrow.svg")
+			background-size cover
+			background-position center
+			background-repeat no-repeat
+			transition opacity .3s
+			&:hover
+				opacity .7

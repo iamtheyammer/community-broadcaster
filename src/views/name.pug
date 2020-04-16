@@ -1,0 +1,18 @@
+html
+	head
+		include ./main
+		link(rel="stylesheet" href="/css/name.css")
+		script.
+			window.displayName = "#{displayName}"
+
+	body
+		.content
+			.logo-container
+			#main
+				h1.title Enter Your Display Name
+				.input-container
+					span.placeholder Name
+					input.name-input(type="text")
+					.next-btn
+				p.disclaimer If left blank, your name will be randomized.
+		script(src="/js/name.js")

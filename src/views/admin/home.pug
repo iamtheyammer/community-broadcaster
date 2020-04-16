@@ -1,0 +1,63 @@
+html
+	head
+		include ../main
+		link(rel="stylesheet" href="/css/admin/main.css")
+		script.
+			var rawUsers = "#{userArr}"
+			window.users = JSON.parse(rawUsers.replace(/&quot;/g,'"'));
+
+			var rawuser = "#{user}"
+			window.user = JSON.parse(rawuser.replace(/&quot;/g,'"'));
+
+			var siteControlsRaw = "#{controlArr}"
+			window.siteControls = JSON.parse(siteControlsRaw.replace(/&quot;/g,'"'));
+
+	body 
+		.nav-container
+			.nav-content
+				.logo-container
+					.logo
+					h1.logo-title Community Meeting
+				.nav-links
+					a.nav-link.current-streams-link(href="/admin/current-stream") Current Stream
+					a.nav-link.upcoming-streams-link(href="/admin/upcoming-streams") Upcoming Streams
+					a.nav-link.viewers-link(href="/admin/viewers") Viewers
+		.admin-home-wrapper
+			.admin-home-content
+				h1.page-title=title
+				case title
+					when 'Current Stream'
+						link(rel='stylesheet', href="/css/admin/current-stream.css")
+						include pages/currentStream
+						script(src="/js/admin/current-stream.js")
+					when 'Upcoming Streams'
+						link(rel='stylesheet', href="/css/admin/upcoming-streams.css")
+						include pages/upcomingStreams
+						script(src="/js/admin/upcoming-streams.js")
+					when 'Viewers'
+						link(rel='stylesheet', href="/css/admin/viewers.css")
+						include pages/viewers
+						script(src="/js/admin/viewers.js")
+				br
+				br
+				input(type="button" value="Reload All Stream Clients" onclick="reloadStreamClients()")
+				input(type="button" value="Reload All Site Clients" onclick="reloadSiteClients()")
+				.admin-home-wrapper-send-message
+					input(type="text" placeholder="Message to send") 
+					input(type="button" value="Send Alert" onclick="sendAlert()")
+				select.slateSelectionDrop
+					option Bars and Tones
+					option Splash
+					option Maintainance
+				input(type="button" value="Turn Slate On" onclick="slateState(true)")
+				input(type="button" value="Turn Slate Off" onclick="slateState(false)")
+
+				h3.clientsConnected Pending
+
+				<div class="chart-container" style="position: relative; height:fit-content; width:500px">
+					<canvas id="usersConnected"></canvas>
+				</div>
+
+
+script(src="/js/admin/main.js")
+

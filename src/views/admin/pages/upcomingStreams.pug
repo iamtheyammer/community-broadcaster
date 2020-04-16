@@ -1,0 +1,52 @@
+link(rel="stylesheet" href="https://markdown-images-369543.s3-us-west-2.amazonaws.com/simplepicker/simplepicker.css")
+//script(src="https://markdown-images-369543.s3-us-west-2.amazonaws.com/simplepicker/simplepicker.js")
+
+.darken-overlay
+.add-meeting-modal.modal-container
+	.top
+		h1.modal-title Schedule Community Meeting
+	.modal-form
+		.input-container.name-input-container
+			span.placeholder Community Meeting Name
+			input.name-input(type="text")
+		.date-time-container
+			button.date-time-picker-btn Pick Time
+			p.date-time-display No selected date or time.
+		.btn-wrap
+			p.cancel-btn Cancel
+			button.submit-btn Done
+.edit-meeting-modal.modal-container
+.delete-meeting-modal.modal-container
+	.modal-content
+		h1.modal-title Delete Community Meeting: (Name)
+		p.confirm-msg Deleting a community meeting is permanent!
+		.btn-wrap
+			p.cancel-btn Cancel
+			button.submit-btn Delete
+
+button.add-meeting-btn Add a Community Meeting
+.upcoming-streams-table
+	table
+		thead
+			tr
+				th.stream-id-head ID
+				th.stream-name-head Community Meeting Name
+				th.stream-date-head Date
+				th.stream-time-head Time
+				th.actions-head Actions
+		tbody
+			tr.stream
+				td
+					p.order-id-info 132
+				td
+					p.stream-name-info Meaning of Life
+				td
+					p.stream-date-head April 23, 2020
+				td
+					p.stream-time-head 5:30 PM
+				td
+					.action-btn-wrap
+						.action-btn.edit-btn
+							.icon
+						.action-btn.delete-btn
+							.icon
