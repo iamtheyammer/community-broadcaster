@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
+const getAllParticipants = require('../db/stream/getAllParticipants')
+
 const authCheck = (req, res, next) => {
     if(req.user) {
         if(req.user.auth >= 2) {
@@ -30,8 +32,10 @@ router.get('/upcoming-streams', authCheck, async function(req, res, next) {
     res.render('admin/home', { title: 'Upcoming Streams', upcomingStreams:  JSON.stringify(upcomingStreams)});
 });
 
-router.get('/viewers', authCheck, function(req, res, next) {
-    res.render('admin/home', { title: 'Viewers' });
+router.get('/viewers', authCheck, async function(req, res, next) {
+    const db = req.app.get('db')
+    const allParticipants = await getAllParticipants(db)
+    res.render('admin/home', { title: 'Viewers', allParticipants: JSON.stringify(allParticipants)});
 });
 
 module.exports = router;

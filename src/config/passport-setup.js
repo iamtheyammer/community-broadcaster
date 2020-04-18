@@ -62,7 +62,9 @@ passport.use(
                         grade: grade,
                         schoolAssociation: schoolAssociation,
                         associatedIPs: [],
-                        dateCreated: Date.now()
+                        dateCreated: Date.now(),
+                        banned: false,
+                        chatTag: schoolAssociation
                     }).save().then((newUser) => {
                         console.log('New User Created: ' + newUser)
                         done(null, newUser)
@@ -79,7 +81,9 @@ passport.use(
                         grade: 0,
                         schoolAssociation: "none",
                         associatedIPs: [],
-                        dateCreated: Date.now()
+                        dateCreated: Date.now(),
+                        banned: false,
+                        chatTag: "Unverified"
                     }).save().then((newUser) => {
                         console.log('New User Created: ' + newUser)
                         done(null, newUser)

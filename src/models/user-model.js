@@ -12,7 +12,9 @@ const userSchema = new Schema({
     associatedIPs: Array,
     schoolAssociation: String,
     grade: Number,
-    dateCreated: Date
+    dateCreated: Date,
+    banned: Boolean,
+    chatTag: String
 })
 
 const User = mongoose.model('user', userSchema)

@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const passport = require('passport');
 
+const addParticipant = require('../db/stream/addParticipant')
+
 const authCheck = (req, res, next) => {
     if(!req.user) {
         res.redirect('/')
@@ -25,22 +27,13 @@ router.get('/googleRedirect',  passport.authenticate('google'), (req, res, next)
     if(req.user) {
        
         // Add or Update associated IP Addresses
-
         const db = req.app.get("db")
+        console.log(req.user.associatedIPs.length)
         if(req.user.associatedIPs.length > 0 ) {
-            for(var i = 0; i < req.user.associatedIPs.length; i++) {
-                if(req.user.associatedIPs[i] == req.headers['x-forwarded-for']) {
-                    console.log("Found User IP")
-                    return true;
-                } else {
-                    if(i = req.user.associatedIPs.length) {
-                        console.log("Cannot find user IP, adding to DB")
-                        db.collection("users").updateOne({"googleId": req.user.googleId}, {$push: {
-                            associatedIPs: req.headers['x-forwarded-for']
-                        }})
-                    }
-                    
-                }
+            if(!req.user.associatedIPs.includes(req.headers['x-forwarded-for'])) {
+                db.collection("users").updateOne({"googleId": req.user.googleId}, {$push: {
+                    associatedIPs: req.headers['x-forwarded-for']
+                }})
             }
         } else {
             console.log("no associated IP addresses; adding new IP addresses")
@@ -51,6 +44,7 @@ router.get('/googleRedirect',  passport.authenticate('google'), (req, res, next)
 
         if(req.user.auth > 0) {
             if(req.user.auth == 1) {
+                addParticipant(db, req.user.googleId)
                 res.redirect('/')
             }
             if(req.user.auth == 2 || req.user.auth == 3) {

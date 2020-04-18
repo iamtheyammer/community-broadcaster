@@ -1,59 +1,42 @@
+script.
+	let allParticipantsRaw = "#{allParticipants}"
+	console.log(allParticipantsRaw)
+	if(allParticipantsRaw) {
+		window.allParticipants  = JSON.parse(allParticipantsRaw.replace(/&quot;/g,'"'));
+	}
 
 .table-flex-container
 	.viewers-table.table-container
 		h1.table-title Active Viewers
+		.search-container
+			.input-wrap
+				.search-icon
+				input(type="text" placeholder="Search by name or email" class="search-input")
+			.grade-filter-container
+				p.label Sort By Grade:
+				.grade-select
+					.grade-option.active(data-grade="all")
+						p All
+					.grade-option(data-grade="9")
+						p 9th
+					.grade-option(data-grade="10")
+						p 10th
+					.grade-option(data-grade="11")
+						p 11th
+					.grade-option(data-grade="12")
+						p 12th
+					.grade-option(data-grade="none")
+						p None
 		table
 			thead
 				tr
-					th.viewer-id-head User ID
-					th.viewer-name-head User Name
+					th.viewer-picture-head
+					th.viewer-name-head Name
+					th.viewer-name-head Email
+					th.viewer-name-head Grade
 					th.actions-head Actions
 			tbody
-				tr.viewer
-					td
-						p.viewer-id-info 1
-					td
-						p.viewer-name-info Aiden Appleby
-					td
-						.action-btn-wrap
-							p.kick-user Kick User
-							p.ban-user Ban User
-				tr.viewer
-					td
-						p.viewer-id-info 2
-					td
-						p.viewer-name-info Test Account
-					td
-						.action-btn-wrap
-							p.kick-user Kick User
-							p.ban-user Ban User
-				tr.viewer
-					td
-						p.viewer-id-info 4
-					td
-						p.viewer-name-info Test Account
-					td
-						.action-btn-wrap
-							p.kick-user Kick User
-							p.ban-user Ban User
-				tr.viewer
-					td
-						p.viewer-id-info 5
-					td
-						p.viewer-name-info Test Account
-					td
-						.action-btn-wrap
-							p.kick-user Kick User
-							p.ban-user Ban User
-				tr.viewer
-					td
-						p.viewer-id-info 6
-					td
-						p.viewer-name-info Jackson Lawrence
-					td
-						.action-btn-wrap
-							p.kick-user Kick User
-							p.ban-user Ban User
+		p.no-viewers No viewers
 	.banned-viewers-table.table-container
 		h1.table-title Banned Viewers
 		table

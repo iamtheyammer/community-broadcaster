@@ -127,6 +127,10 @@ io.on('connection', function(socket){
     console.log('message: ' + msg);
     io.emit('slateControl', msg)
   });
+  socket.on('newChat', function(msg){
+    console.log('newChat: ' + msg);
+    io.emit('newChat', msg)
+  });
 });
 
 module.exports = app;

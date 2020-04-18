@@ -1,11 +1,97 @@
 .table-flex-container
     display flex
     justify-content space-between
+    flex-flow column wrap
     margin 75px auto 0
 
+.viewers-table
+  .search-container
+    display flex
+    justify-content space-between
+    width 100%
+    max-width 1200px
+    min-width 500px
+    margin 20px auto
+    align-items flex-end
+    .input-wrap
+      position relative
+      width calc(100% - 460px)
+      .search-icon
+        position absolute
+        top 50%
+        transform translateY(-50%)
+        left 12px
+        background-image url("/img/black-search-icon.svg")
+        background-repeat no-repeat
+        background-size cover
+        background-position center
+        width 20px
+        height 20px
+        opacity .15
+      .search-input
+        font-size 17px
+        border none
+        outline none
+        color #333
+        font-weight 500
+        letter-spacing .5px
+        border-bottom 1px solid #e7e8ea
+        padding 7px 7px 7px 45px
+        width 100%
+        &::placeholder
+          color #cdc8c8
+          font-weight 400
+    .grade-filter-container
+      p.label
+        color #cdc8c8
+        font-size 14px
+        margin 0
+        letter-spacing .3px
+      .grade-select
+        display flex
+        justify-content left
+        align-items center
+        .grade-option
+          width 70px
+          position relative
+          height 30px
+          border 1px solid #e7e8ea
+          cursor pointer
+          transition background .3s, border-color .3s
+          &:hover
+            background #e6e6e6
+            border-color #e6e6e6
+          &.active
+            background #f05027
+            border-color #f05027
+            p
+              color white
+          p
+            color #333
+            font-size 13px
+            font-weight 600
+            letter-spacing .3px
+            position absolute
+            top 50%
+            left 50%
+            transform translate(-50%, -50%)
+            transition color .3s
+        .grade-option:first-child
+          border-top-left-radius 30px
+          border-bottom-left-radius 30px
+        .grade-option:last-child
+          border-top-right-radius 30px
+          border-bottom-right-radius 30px
+  .no-viewers
+    color #b5b5b5
+    font-size 17px
+    font-weight 500
+    letter-spacing .3px
+    margin 30px 0 0
+    text-align center
 .table-container
-  width calc(50% - 50px)
-  margin 0
+  width 100%
+  margin 0 auto 40px
   .table-title
     font-size 25px
     color #333
@@ -17,7 +103,7 @@
     border-collapse: collapse
     overflow-x auto
     min-width 500px
-    max-width 1000px
+    max-width 1200px
     thead
       border-color rgb(237, 234, 234)
       box-sizing border-box
@@ -46,6 +132,15 @@
       td
         height 20px !important
         padding 30px 13px
+        &.viewer-picture-container
+          width 60px
+          .viewer-picture-info
+            background-size cover
+            background-position center
+            background-repeat no-repeat
+            width 40px
+            height 40px
+            border-radius 100%
         p
           margin 0
           color #4e4e4e
