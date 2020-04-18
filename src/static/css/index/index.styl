@@ -1,3 +1,55 @@
+.index-wrapper
+    width 100%
+    height 100vh
+    position relative
+
+// Index Content
+
+.index-wrapper-center
+    width fit-Content
+    height fit-Content
+    display flex
+    top 52%
+
+.index-wrapper-center-chat-wrapper
+    width 700px
+    height auto
+    position relative
+
+.slate
+    position absolute 
+    top 0px
+
+.index-wrapper-center-stream-wrapper-dataTrails
+    width 100%
+    height 200px
+    display flex
+
+.index-wrapper-center-stream-wrapper-dataTrails-left
+    width 70%
+    height 100%
+
+.index-wrapper-center-stream-wrapper-dataTrails-right
+    width 30%
+    height 100%
+
+.index-wrapper-center-stream-wrapper-dataTrails-left-data
+    margin-left 5%
+    h3
+        font-size: 60px
+    p
+        font-size: 20px;
+        font-weight: 300;
+        margin-top: 10px;
+
+
+.index-wrapper-center-stream-wrapper-dataTrails-right-data
+    width 100%
+    p
+        font-size: 45px
+        text-align center
+
+
 .video-js .vjs-picture-in-picture-control
     display none !important
 
@@ -41,38 +93,108 @@ p.fullXCenter
     z-index 90 
     display none
 
+.index-wrapper-logo-wrapper
+    width fit-Content
+    height fit-Content
+    position absolute
+    top 60px
+    left 3%
+    display flex
 
-@media screen and (max-width: 2500px) {
+.index-wrapper-logo-wrapper-text
+    p
+        color: #333;
+        font-weight: 600;
+        margin: 0 0 0 10px;
+        width 300px
+        letter-spacing: .3px;
+        font-size: 25px;
+        margin-left 20px
+
+.index-wrapper-logo-wrapper-logo
+    width 70px
+    height 70px
+    background-image url('/img/dtech-logo.png')
+
+
+
+@media screen and (max-width: 2700px) {
     .my-video-dimensions, .slate {
         width 1600px
         height 900px
     }
 }
 
-@media screen and (max-width: 2100px) {
+@media screen and (max-width: 2400px) {
     .my-video-dimensions, .slate {
         width 1366px
         height 768px
     }
+    .index-wrapper-center-stream-wrapper-dataTrails-right-data p {
+        font-size: 1.8vw;
+    }
+    .index-wrapper-center-stream-wrapper-dataTrails-left-data h3 {
+        font-size: 2.5vw;
+    }
+    .index-wrapper-center-chat-wrapper {
+        width 600px !important
+    }
+    .index-chat-wrapper {
+        width 500px !important
+    }
+    .index-chat-wrapper-body-content-wrapper-object-chatmodal {
+        max-width: 270px !important
+    }
+
 }
 
-@media screen and (max-width: 1700px) {
+@media screen and (max-width: 2200px) {
     .my-video-dimensions, .slate {
         width 1280px
         height 720px
+    }
+    .index-wrapper-center-stream-wrapper-dataTrails {
+        height 180px
+    }
+}
+
+@media screen and (max-width: 2100px) {
+    .my-video-dimensions, .slate {
+        width 853px
+        height 480px
+    }
+    .index-wrapper-center-chat-wrapper {
+        width 500px !important
+    }
+    .index-chat-wrapper {
+        width 400px !important
+    }
+    .index-chat-wrapper-body-content-wrapper-object-chatmodal {
+        max-width: 220px !important
+    }
+    .index-wrapper-center-stream-wrapper-dataTrails {
+        height 150px
+    }
+    .index-wrapper-center-stream-wrapper-dataTrails-right-data p {
+        font-size: 1.2vw;
+    }
+    .index-wrapper-center-stream-wrapper-dataTrails-left-data h3 {
+        font-size: 1.9vw;
     }
 }
 
 @media screen and (max-width: 1600px) {
     .my-video-dimensions, .slate {
-        width 853px
-        height 480px
-    }
-}
-
-@media screen and (max-width: 1200px) {
-    .my-video-dimensions, .slate {
         width 640px
         height 360px
+    }
+    .index-wrapper-center-chat-wrapper {
+        width 450px !important
+    }
+    .index-chat-wrapper {
+        width 350px !important
+    }
+    .index-chat-wrapper-body-content-wrapper-object-chatmodal {
+        max-width: 190px !important
     }
 }

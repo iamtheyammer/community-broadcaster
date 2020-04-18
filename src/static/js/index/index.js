@@ -5,7 +5,7 @@
     if(videoPlay !== undefined) {
       videoPlay.then(_ => {
         player.play();
-        //- player.muted(false);
+        player.muted(false);
       }).catch(error => {
         player.play();
         player.muted(false);
@@ -78,3 +78,41 @@
       $('.slate').hide()
     }
   },500)
+
+  socket.on('clientChange', function(data){
+    $('.index-wrapper-center-stream-wrapper-dataTrails-right-data p').text('Live Viewers: ' +  data[0]);
+  })
+
+
+  //  Chat Controls
+
+
+  $('.index-chat-wrapper-bottom-textWrap-submit').click(function(){
+    var inputVal = $('.index-chat-wrapper-bottom-textWrap textarea').val()
+    if(inputVal.length > 0) {
+      var whoIs = name
+      var chatID = makeid(15)
+      $('.index-chat-wrapper-body-content-wrapper').append('<div id="'+chatID+'" class="index-chat-wrapper-body-content-wrapper-object send"> <div class="index-chat-wrapper-body-content-wrapper-object-wrapper"> <h3>'+whoIs+'</h3> <div class="index-chat-wrapper-body-content-wrapper-object-chatmodal"> <p>'+inputVal+'</p> </div> </div> </div>')
+      var objectHeight = $('#' + chatID).children().height()
+      $('#' + chatID).height(objectHeight)
+      $(".index-chat-wrapper-body").scrollTop(10000)
+      $('.index-chat-wrapper-bottom-textWrap textarea').val('')
+    } else {
+      log('Input insuffi')
+    }
+    
+  })
+
+  $('.index-chat-wrapper-bottom-textWrap textarea').keypress(function (e) {
+    var key = e.which;
+    if(key == 13)  // the enter key code
+     {
+      e.preventDefault();
+      $('.index-chat-wrapper-bottom-textWrap-submit').click();
+     }
+   });   
+
+$(".index-chat-wrapper-body-content-wrapper-object-chatmodal").text('Hey ' + name + "! write your first message, then select if it's a question or chat!")
+
+$('.streamTitle').text(stream[0].streamName)
+$('.streamRunner').text(stream[0].streamRunner)

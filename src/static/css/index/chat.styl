@@ -1,0 +1,151 @@
+.index-chat-wrapper
+    width 600px
+    height 100%
+    background #eff0f4
+    margin-left 100px
+    border-radius 0px 20px 20px 20px
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
+    -moz-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
+    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
+
+.index-chat-wrapper-top
+    width 100%
+    height 100px
+    background: rgb(235,99,71);
+    border-radius 0px 20px 0px 0px
+    background: linear-gradient(98deg, rgba(235,99,71,1) 0%, rgba(236,148,106,1) 100%);
+    p
+        color: white;
+        font-size: 30px;
+        margin-left: 10%;
+
+.index-chat-wrapper-body
+    width 100%
+    height calc(100% - 300px)
+    overflow-y auto
+    &::-webkit-scrollbar
+        display: none; 
+
+.index-chat-wrapper-bottom
+    width 100%
+    height 200px
+
+.index-chat-wrapper-bottom-textWrap
+    width 85%
+    height fit-content
+    border-radius 30px
+    background white
+    display flex
+    textarea 
+        width: 85%;
+        height: 60px
+        background: transparent;
+        color: #000;
+        border: none;
+        font-size: 20px;
+        padding-top 17px
+        padding-left: 60px;
+        outline: none;
+        font-weight: 200;
+        resize: none;
+        overflow: auto;
+    
+.index-chat-wrapper-bottom-textWrap-submit
+    width: 50px;
+    height: 100%;
+    background-image: url(/img/send.svg);
+    position: absolute;
+    right: 5%;
+    background-size: 20px;
+    cursor pointer
+
+.index-chat-wrapper-body-content-wrapper
+    width: 80%;
+    height: fit-content;
+    bottom: 0;
+    position: absolute;
+    max-height: 100%;
+
+.index-chat-wrapper-body-content-wrapper-object
+    width 100%
+    height fit-content
+    margin-top 20px
+    &.revieve
+        .index-chat-wrapper-body-content-wrapper-object-chatmodal
+            border-radius 10px 10px 10px 0px
+            background white
+    &.send
+        .index-chat-wrapper-body-content-wrapper-object-chatmodal
+            border-radius 10px 10px 0px 10px
+            background: rgb(247,149,101);
+            background: linear-gradient(98deg, rgba(247,149,101,1) 0%, rgba(242,187,110,1) 100%);
+        p
+            color white
+        h3
+            text-align right
+        .index-chat-wrapper-body-content-wrapper-object-wrapper
+            right 0px
+            position absolute
+            
+    h3
+        font-weight: 100;
+        font-size: 15px;
+        margin-bottom: 8px;
+        color: gray;
+        letter-spacing: 1px;
+    p
+        word-wrap: break-word
+        
+.index-chat-wrapper-body-content-wrapper-object-chatmodal
+    width fit-content
+    height fit-content
+    padding 14px
+    padding-left 20px
+    padding-right 20px
+    max-width 300px
+
+.index-chat-wrapper-body-content-wrapper-object-wrapper
+    width fit-content
+    height fit-content
+
+
+@media screen and (max-width: 2000px) {
+    .index-chat-wrapper-top {
+        height 60px
+        p {
+            font-size 20px
+        }
+    }
+    .index-chat-wrapper-body-content-wrapper-object p {
+        font-size 17px !important
+    }
+    .index-chat-wrapper-bottom {
+        height 150px
+    }
+    .index-chat-wrapper-body {
+        height calc(100% - 210px)
+    }
+    .index-chat-wrapper-bottom-textWrap textarea {
+        font-size: 17px;
+        padding-top: 20px;
+    }
+    .index-wrapper-logo-wrapper-logo {
+        height 50px
+        width 50px
+    }
+}
+
+@media screen and (max-width: 1600px) { 
+    .index-chat-wrapper-bottom-textWrap textarea {
+        height 45px
+        font-size: 17px;
+        padding-top: 13px;
+        padding-left: 30px;
+    }
+    .index-chat-wrapper-bottom {
+        height 100px
+    }
+    .index-chat-wrapper-body {
+        height calc(100% - 160px)
+    }
+}

@@ -1,4 +1,4 @@
-const communityMeetingTime = 1586997000000;
+const communityMeetingTime = 15869970000000;
 const currentTime = Date.now();
 const diffTime = communityMeetingTime - currentTime
 let duration = moment.duration(diffTime, 'milliseconds');

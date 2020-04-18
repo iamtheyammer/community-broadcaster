@@ -11,7 +11,9 @@ const authCheck = (req, res, next) => {
     } else {
         res.redirect('/')
     }
-} 
+}
+
+const getUpcomingStreams = require('../db/stream/getUpcomingStreams')
 
 router.get('/current-stream', authCheck, function(req, res, next) {
     const db = req.app.get("db")
@@ -22,8 +24,10 @@ router.get('/current-stream', authCheck, function(req, res, next) {
     } getData()
 });
 
-router.get('/upcoming-streams', authCheck, function(req, res, next) {
-    res.render('admin/home', { title: 'Upcoming Streams' });
+router.get('/upcoming-streams', authCheck, async function(req, res, next) {
+    const db = req.app.get('db')
+    let upcomingStreams = await getUpcomingStreams(db)
+    res.render('admin/home', { title: 'Upcoming Streams', upcomingStreams:  JSON.stringify(upcomingStreams)});
 });
 
 router.get('/viewers', authCheck, function(req, res, next) {

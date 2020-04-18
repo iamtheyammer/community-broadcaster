@@ -14,9 +14,15 @@ html
       var siteControlsRaw = "#{controlArr}"
       window.siteControls = JSON.parse(siteControlsRaw.replace(/&quot;/g,'"'));
 
+      var streamRaw = "#{stream}"
+      window.stream = JSON.parse(streamRaw.replace(/&quot;/g,'"'));
   body
-
-    include ./content
+    .index-wrapper
+      .index-wrapper-logo-wrapper
+        .index-wrapper-logo-wrapper-logo.reg-image(onclick="window.location.href='/auth/redirect'")
+        .index-wrapper-logo-wrapper-text
+          p.fullVertCenter Community Broadcast
+      include ./content
     
 //-     input.loginbutton(type="button" value="Login" onClick="window.location.href='/auth/google'")
 

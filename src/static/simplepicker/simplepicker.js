@@ -138,10 +138,23 @@ var SimplePicker = function(e) {
                 }, e.prototype.setDate = function(date) {
                     var e = new Date(date),
                         t = e.getDate().toString(),
-                        h = e.getHours() + ":" + e.getMinutes()
+                        hh = e.getHours(),
+                        hhh = hh,
+                        h = hh,
+                        m = e.getMinutes(),
+                        dd = "AM",
                         i = this.findElementWithDate(t);
-                    this.$time.value=h
-                    console.log(this.$time.value)
+                    m = m < 10 ? "0" + m : m;
+                    hhh = hhh < 10 ? "0" + hhh : hhh;
+                    $(this.$timeInput).val(hhh + ":" + m)
+                    if (h >= 12) {
+                        h = hh - 12;
+                        dd = "PM";
+                    }
+                    if (h == 0) {
+                        h = 12;
+                    }
+                    $(this.$time).text(h + ":" + m + " " + dd)
                     i.classList.contains("active") || (this.selectDateElement(i), this.updateDateComponents(e))
                 }, e.prototype.compactMode = function() {
                     this.$date.style.display = "none"
@@ -180,7 +193,6 @@ var SimplePicker = function(e) {
                     var c = s[0].parentElement;
                     c.style.display = a && c ? "none" : "table-row", this.updateDateComponents(r)
                 }, e.prototype.updateSelectedDate = function(e) {
-                    console.log(this.$time)
                     var t, i = this.$monthAndYear,
                         r = this.$time;
                     this.$date;

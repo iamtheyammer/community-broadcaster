@@ -1,5 +1,10 @@
 link(rel="stylesheet" href="/simplepicker/simplepicker.css")
 script(src="/simplepicker/simplepicker.js")
+script.
+	let streamsRaw = "#{upcomingStreams}"
+	if(streamsRaw) {
+		window.streams  = JSON.parse(streamsRaw.replace(/&quot;/g,'"'));
+	}
 
 .darken-overlay
 .add-meeting-modal.modal-container
@@ -35,18 +40,4 @@ button.add-meeting-btn Add a Community Meeting
 				th.stream-time-head Time
 				th.actions-head Actions
 		tbody
-			tr.stream
-				td
-					p.order-id-info 132
-				td
-					p.stream-name-info Meaning of Life
-				td
-					p.stream-date-head April 23, 2020
-				td
-					p.stream-time-head 5:30 PM
-				td
-					.action-btn-wrap
-						.action-btn.edit-btn
-							.icon
-						.action-btn.delete-btn
-							.icon
+	h1.no-streams There are currently no scheduled streams.

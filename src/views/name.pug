@@ -9,10 +9,15 @@ html
 		.content
 			.logo-container
 			#main
-				h1.title Enter Your Display Name
-				.input-container
-					span.placeholder Name
-					input.name-input(type="text")
-					.next-btn
-				p.disclaimer If left blank, your name will be randomized.
+				h1.title Please login with your school account
+				.google-auth-container
+					.google-auth-container-btn-wrapper.fullXCenter(onclick="window.location.href='/auth/google'")
+						.google-auth-container-btn-wrapper-iconWrappe.reg-image
+						p.fullVertCenter Sign in with Google
+				//- .input-container
+				//- 	span.placeholder Name
+				//- 	input.name-input(type="text")
+				//- 	.next-btn
+				//- p.disclaimer If left blank, your name will be randomized.
+
 		script(src="/js/name.js")

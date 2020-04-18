@@ -1,0 +1,67 @@
+.table-flex-container
+    display flex
+    justify-content space-between
+    margin 75px auto 0
+
+.table-container
+  width calc(50% - 50px)
+  margin 0
+  .table-title
+    font-size 25px
+    color #333
+    text-align center
+    letter-spacing .5px
+  table
+    width 100%
+    margin 15px auto !important
+    border-collapse: collapse
+    overflow-x auto
+    min-width 500px
+    max-width 1000px
+    thead
+      border-color rgb(237, 234, 234)
+      box-sizing border-box
+      tr
+        width 100%
+        padding 0
+        box-sizing border-box
+        border 0
+        th
+          text-align left
+          padding 13px
+          background #f1f0f0
+          color #333
+          font-size 14px
+          font-weight 500
+
+  tbody
+    margin 0
+    height 47px
+    tr.viewer
+      width 100%
+      vertical-align middle
+      background #f8f8f8
+      &.hidden
+        display none
+      td
+        height 20px !important
+        padding 30px 13px
+        p
+          margin 0
+          color #4e4e4e
+          letter-spacing .3px
+          font-weight 600
+        .action-btn-wrap
+          display flex
+          justify-content left
+          align-items center
+          p
+            color rgb(240, 80, 39)
+            font-size 14px
+            margin 0
+            cursor pointer
+            letter-spacing .3px
+            &.kick-user
+                margin-right 30px !important
+            &:hover
+                text-decoration underline

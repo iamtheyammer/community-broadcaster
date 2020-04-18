@@ -14,6 +14,7 @@ const setName = () => {
 }
 
 $(document).keypress((e) => {
+    console.log(e.keyCode)
     if(e.keyCode === 13) {
         setName()
     }

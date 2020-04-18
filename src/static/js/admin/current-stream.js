@@ -29,7 +29,7 @@ function slateState(stateSelection) {
   var data = [token, {"state": state, selection}]
   socket.emit('slateControl', data)
   $.ajax({
-    url: "/api/slateControl",
+    url: "/admin/api/slateControl",
     method: "POST",
     data: {token, state, selection},
     success: function(result) {

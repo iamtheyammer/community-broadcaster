@@ -21,29 +21,4 @@ router.post("/setName", function(req, res, next) {
     res.sendStatus(200)
 })
 
-router.post('/slateControl', (req, res, next) => {
-    if(req.user && req.user.auth == 2) {
-        const db = req.app.get("db")
-        let slateType = 1;
-        console.log(req.body)
-        console.log(req.body)
-        if(req.body.selection == "Bars and Tones") {
-            slateType = 1
-        }
-        if(req.body.selection == "Splash") {
-            slateType = 2
-        }
-        if(req.body.selection == "Maintainance") {
-            slateType = 3
-        }
-        async function run() {
-            db.collection("siteControls").updateOne({"identifier": "slate"}, {$set: {
-                state: (req.body.state == 'true'),
-                slateType
-            }})
-            res.json("Success")
-        } run()
-    }
-})
-
 module.exports = router;

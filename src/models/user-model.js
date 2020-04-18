@@ -7,7 +7,11 @@ const userSchema = new Schema({
     lastName: String,
     googleId: String,
     authenticationFrom: String,
+    googleProfilePicture: String,
     auth: Number,
+    associatedIPs: Array,
+    schoolAssociation: String,
+    grade: Number,
     dateCreated: Date
 })
 
