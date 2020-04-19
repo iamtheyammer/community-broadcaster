@@ -3,9 +3,10 @@ const router = express.Router();
 
 const createStream = require('../db/stream/createStream')
 const deleteStream = require('../db/stream/deleteStream')
+const banUser = require('../db/stream/banUser')
 
 const adminAuth = (req,res,next) => {
-    if(req.user.auth === 2) {
+    if(req.user.auth >= 2) {
         next();
     } else {
         res.sendStatus(403);
@@ -36,13 +37,20 @@ router.post('/deleteStream', adminAuth, (req,res,next) => {
         deleteStream(db, req.body.streamId)
         res.sendStatus(200)
     } catch(e) {
-        throw new Error(e);
         res.sendStatus(500)
+        throw new Error(e);
     }
 })
 
+router.post('/banUser', adminAuth, (req,res,next) => {
+    const db = req.app.get("db")
+    const googleId = req.body.googleId
+    banUser(db, googleId)
+    res.sendStatus(200)
+})
+
 router.post('/slateControl', adminAuth, (req, res, next) => {
-    if(req.user && req.user.auth == 2) {
+    if(req.user && req.user.auth >= 2) {
         const db = req.app.get("db")
         let slateType = 1;
         console.log(req.body)

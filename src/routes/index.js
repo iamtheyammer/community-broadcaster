@@ -11,6 +11,9 @@ router.get('/', authMeetingStarted, async function(req, res, next) {
   if(!req.user) {
     res.redirect("/check")
   } else {
+    if(req.user.banned) {
+      res.redirect('/banned')
+    }
     if(req.user.auth > 0) {
       async function getData() {
         var tempArr2 = []
@@ -31,6 +34,10 @@ router.get('/', authMeetingStarted, async function(req, res, next) {
 
 router.get('/countdown', function(req, res, next) {
   res.render('countdown', { title: 'Countdown' });
+});
+
+router.get('/banned', function(req, res, next) {
+  res.render('banned', { title: 'Banned' });
 });
 
 router.get('/check', authMeetingStarted, async function(req, res, next) {

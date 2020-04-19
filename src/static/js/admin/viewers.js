@@ -1,8 +1,22 @@
 
-
 const searchViewers = () => {
     const val = $(".viewers-table .search-container .search-input").val().toLowerCase()
-    if($('.viewers-table .viewer:not(.hidden)').length <= 0 ) {
+    const viewers = $(".viewers-table .viewer")
+
+    viewers.each(function() {
+        const e = $(this)
+        const name = e.find(".viewer-name-info").text().toLowerCase()
+        const firstName = name.split(" ")[0]
+        const lastName = name.split(" ")[1]
+        const email = e.find(".viewer-email-info").text().toLowerCase()
+        if(email.startsWith(val) || firstName.startsWith(val) || lastName.startsWith(val) || name.startsWith(val)) {
+            e.removeClass('search-hidden')
+        } else {
+            e.addClass('search-hidden')
+        }
+    })
+
+    if($('.viewers-table .viewer:not(.grade-hidden, .search-hidden)').length <= 0 ) {
         $(".viewers-table .no-viewers").show()
     } else {
         $(".viewers-table .no-viewers").hide()
@@ -12,7 +26,7 @@ const searchViewers = () => {
 const applyGradeFilter = (grade) => {
     const viewers = $(".viewers-table .viewer")
     if(grade==="all") {
-        viewers.removeClass('hidden')
+        viewers.removeClass('grade-hidden')
         searchViewers()
         return;
     }
@@ -21,9 +35,9 @@ const applyGradeFilter = (grade) => {
         console.log(e.find(".viewer-grade-info").text())
         console.log(grade)
         if(e.find(".viewer-grade-info").text().toLowerCase() === grade) {
-            $(this).removeClass('hidden')
+            $(this).removeClass('grade-hidden')
         } else {
-            $(this).addClass('hidden')
+            $(this).addClass('grade-hidden')
         }
     })
     searchViewers()
@@ -77,4 +91,19 @@ const appendParticipants = () => {
 
 $(document).ready(() => {
     appendParticipants()
+})
+
+$(() => { // BAN CODE
+    $(document).on("click", ".viewers-table .viewer .ban-user", function() {
+        const data = {
+            googleId: $(this).parents("viewer").data("google-id")
+        }
+        $.post({
+            url: "/admin/api/banUser",
+            data: data,
+            success: () => {
+                console.log("user banned")
+            }
+        })
+    })
 })

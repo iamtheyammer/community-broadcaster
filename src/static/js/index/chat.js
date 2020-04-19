@@ -48,6 +48,9 @@ if(stream[0].liveChats.length > 30) {
         var chatID = stream[0].liveChats[b].chatID
         var whoIs = cap(stream[0].liveChats[b].user_firstName)
         var inputVal = stream[0].liveChats[b].message
+        if(stream[0].liveChats[b].chatTag != "Student") {
+            whoIs = whoIs + " | " + stream[0].liveChats[b].chatTag
+        }
         if(stream[0].liveChats[b].user == user.googleId) {
             $('.index-chat-wrapper-body-content-wrapper').append('<div id="'+chatID+'" class="index-chat-wrapper-body-content-wrapper-object send"> <div class="index-chat-wrapper-body-content-wrapper-object-wrapper"> <h3>'+whoIs+'</h3> <div class="index-chat-wrapper-body-content-wrapper-object-chatmodal"> <p>'+inputVal+'</p> </div> </div> </div>')
         } else {
@@ -62,12 +65,15 @@ if(stream[0].liveChats.length > 30) {
         var chatID = stream[0].liveChats[i].chatID
         var whoIs = cap(stream[0].liveChats[i].user_firstName)
         var inputVal = stream[0].liveChats[i].message
+        if(stream[0].liveChats[i].chatTag != "Student") {
+            whoIs = whoIs + " | " + stream[0].liveChats[i].chatTag
+        }
         if(stream[0].liveChats[i].user == user.googleId) {
             $('.index-chat-wrapper-body-content-wrapper').append('<div id="'+chatID+'" class="index-chat-wrapper-body-content-wrapper-object send"> <div class="index-chat-wrapper-body-content-wrapper-object-wrapper"> <h3>'+whoIs+'</h3> <div class="index-chat-wrapper-body-content-wrapper-object-chatmodal"> <p>'+inputVal+'</p> </div> </div> </div>')
         } else {
             $('.index-chat-wrapper-body-content-wrapper').append('<div id="'+chatID+'" class="index-chat-wrapper-body-content-wrapper-object revieve"> <div class="index-chat-wrapper-body-content-wrapper-object-wrapper"> <h3>'+whoIs+'</h3> <div class="index-chat-wrapper-body-content-wrapper-object-chatmodal"> <p>'+inputVal+'</p> </div> </div> </div>')
         }
-        var objectHeight = $('#' + chatID).children().height()
+        var objectHeight = $('#' + chatID).children().find("h3").height() + 33 + $('#' + chatID).children().find(".index-chat-wrapper-body-content-wrapper-object-chatmodal").height()
         $('#' + chatID).height(objectHeight)
         $(".index-chat-wrapper-body").scrollTop(10000)
     }
