@@ -27,19 +27,19 @@ html
     //-     .index-wrapper-logo-wrapper-logo.reg-image(onclick="window.location.href='/auth/redirect'")
     //-     .index-wrapper-logo-wrapper-text
     //-       p.fullVertCenter Community Broadcast
-    //-   include ./content
     .nav-container
         .nav-content
             .logo-wrap
-                .logo
+                .logo(onclick="window.location.href='/auth/redirect'")
                 h1.title Community Broadcast
-            button.logout-btn Logout
+            button.logout-btn(onclick="window.location.href='/auth/logout'") Logout
     .page-content
       .stream-container
         .stream-video
-          img(src="/img/countdown-bg.png")
-          //- video(id="my-video" muted="muted" class="video-js" controls preload="auto" width="1920" height="1080" poster="/img/download.jpeg" data-setup="{}")
-          //-   source(src="https://stream.designtechhs.com/hls/livestream.m3u8" type="application/x-mpegURL")
+          //- img(src="/img/countdown-bg.png")
+          .slate.reg-image
+          video(id="my-video" muted="muted" class="video-js" controls preload="auto" width="1920" height="1080" poster="/img/download.jpeg" data-setup='{"fluid": true}')
+            source(src="https://stream.designtechhs.com/hls/livestream.m3u8" type="application/x-mpegURL")
         .stream-info-container
           .stream-info-content
             h1.stream-title
@@ -54,8 +54,6 @@ html
         .live-chat-container
           .chat-content
             h1.no-chats No Messages
-            
-            //p.chat <b class="sender">Student - Jackson Lawrence</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         .input-container
           textarea.chat-input(data-gramm_editor="false" placeholder="Send a message...")
           .submit-chat-btn

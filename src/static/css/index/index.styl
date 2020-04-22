@@ -62,8 +62,8 @@ body
         flex-flow column wrap
         .stream-video
             position relative
-            img
-                width 100%
+            .my-video-dimensions
+                width 100% !important
         .stream-info-container
             width 100%
             background white
@@ -112,6 +112,7 @@ body
     .chat-widget
         width 400px
         height calc(100% - 130px)
+        max-height 824px
         background white
         box-shadow 0 0 10px 0 rgba(0,0,0,0.06)
         position relative
@@ -226,16 +227,16 @@ body
 
 
 
-// .video-js .vjs-picture-in-picture-control
-//     display none !important
+.video-js .vjs-picture-in-picture-control
+    display none !important
 
-// button , video, div
-//     outline none !important
+button , video, div
+    outline none !important
 
-// .vjs-big-play-button
-//     top 50% !important 
-//     left 50% !important 
-//     transform translate(-50%, -50%)
+.vjs-big-play-button
+    top 50% !important 
+    left 50% !important 
+    transform translate(-50%, -50%)
 
 // p.fullXCenter
 //     bottom: 5%;
@@ -244,12 +245,13 @@ body
 //     font-size: 21px;
 //     text-align center
 
-// .slate
-//     width 1920px
-//     height 1080px
-//     background-image url('/img/2880px-SMPTE_Color_Bars_16x9.svg.png')
-//     z-index 90 
-//     display none
+.slate
+    width 100%
+    height 100%
+    background-image url('/img/2880px-SMPTE_Color_Bars_16x9.svg.png')
+    z-index 90 
+    display none
+    position absolute
 
 @media only screen and (max-width: 1200px)
     .stream-container
@@ -282,3 +284,7 @@ body
 @media only screen and (max-height: 900px)
     .chat-widget
         height 100% !important
+
+// @media only screen and(max-width: 700px)
+//     .stream-container
+//         .stream-info-container 

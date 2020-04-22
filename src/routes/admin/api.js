@@ -39,6 +39,7 @@ router.post('/createStream', adminAuth, (req,res,next) => {
 router.post('/deleteStream', adminAuth, (req,res,next) => {
     const db = req.app.get("db")
     try {
+        // addLog(db, )
         deleteStream(db, req.body.streamId)
         res.sendStatus(200)
     } catch(e) {

@@ -27,12 +27,7 @@ gulp.task('img', () => {
         .pipe(gulp.dest('./bin/img'))
 })
 
-gulp.task('simplepicker', () => {
-    return gulp.src('./src/static/simplepicker/**/*')
-        .pipe(gulp.dest('./bin/simplepicker'))
-})
-
-exports.static = gulp.series([ 'clean', gulp.parallel([ 'stylus', 'babel', 'img', 'simplepicker']) ]);
+exports.static = gulp.series([ 'clean', gulp.parallel([ 'stylus', 'babel', 'img']) ]);
 
 gulp.task('watch', (done) => {
     gulp.watch(['./src/static/**/*.*'], gulp.series(['static']));

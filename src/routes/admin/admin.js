@@ -5,6 +5,7 @@ const getAllParticipants = require('../db/stream/getAllParticipants')
 const getBannedUsers = require('../db/users/getBannedUsers')
 const getUsers = require('../db/users/getUsers')
 const getLogs = require('../db/logs/getLogs')
+const getStream = require('../db/stream/getStream')
 
 const authCheck = (req, res, next) => {
     if(req.user) {
@@ -25,8 +26,11 @@ router.get('/current-stream', authCheck, function(req, res, next) {
     async function getData() {
         var arr1 = await db.collection('siteControls').find({}).toArray()
         var arr2 = await db.collection('users').find({}).toArray()
-        res.render('admin/home', { title: 'Current Stream', userArr: JSON.stringify(arr2), controlArr: JSON.stringify(arr1), user: JSON.stringify(req.user) });
-    } getData()
+        var arr3 = await getStream(db)
+        var arr4 = await getAllParticipants(db)
+        res.render('admin/home', { title: 'Current Stream', userArr: JSON.stringify(arr2), controlArr: JSON.stringify(arr1), user: JSON.stringify(req.user), stream: JSON.stringify(arr3), allParticipants: JSON.stringify(arr4) });
+    } 
+    getData()
 });
 
 router.get('/upcoming-streams', authCheck, async function(req, res, next) {

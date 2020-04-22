@@ -42,6 +42,11 @@ router.get('/new-index', function(req, res, next) {
   res.render('new-index', { title: 'New Index' });
 });
 
+router.get('/privacy', function(req, res, next) {
+  res.render('privacy', { title: 'Privacy' });
+});
+
+
 router.get('/banned', function(req, res, next) {
   if(!req.user) {
     res.redirect("/check")

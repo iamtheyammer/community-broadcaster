@@ -1,33 +1,54 @@
 script.
-    var rawUsers = "#{userArr}"
-    window.users = JSON.parse(rawUsers.replace(/&quot;/g,'"'));
+	var rawUsers = "#{userArr}"
+	if(rawUsers) {
+		window.users = JSON.parse(rawUsers.replace(/&quot;/g,'"'));
+	}
+	
+	var rawUser = "#{user}"
+	if(rawUser) {
+		window.user = JSON.parse(rawUser.replace(/&quot;/g,'"'));
+	}
 
-    var rawuser = "#{user}"
-    window.user = JSON.parse(rawuser.replace(/&quot;/g,'"'));
+	var siteControlsRaw = "#{controlArr}"
+	if(siteControlsRaw) {
+		window.siteControls = JSON.parse(siteControlsRaw.replace(/&quot;/g,'"'));
+	}
 
-    var siteControlsRaw = "#{controlArr}"
-    window.siteControls = JSON.parse(siteControlsRaw.replace(/&quot;/g,'"'));
+	var streamRaw = "#{stream}"
+	if(streamRaw) {
+		window.stream = JSON.parse(streamRaw.replace(/&quot;/g,'"'));
+	}
+	
+	var allParticipantsRaw = "#{allParticipants}"
+	if(allParticipantsRaw) {
+		window.allParticipants = JSON.parse(allParticipantsRaw.replace(/&quot;/g,'"'));
+	}
 
-.stream-inactive-container.active
-    h1.container-title The Community Meeting Stream is Currently <b class="inactive">Inactive</b>
-    p.info If you would like to see the upcoming community meetings <a href="/admin/upcoming-streams">click here</a>
+	var participantLogsRaw = "#{participantLogs}"
+	if(participantLogsRaw) {
+		window.participantLogs = JSON.parse(participantLogsRaw.replace(/&quot;/g,'"'));
+	}
+
+//- .stream-inactive-container.active
+//-     h1.container-title The Community Meeting Stream is Currently <b class="inactive">Inactive</b>
+//-     p.info If you would like to see the upcoming community meetings <a href="/admin/upcoming-streams">click here</a>
 
 br
 br
 input(type="button" value="Reload All Stream Clients" onclick="reloadStreamClients()")
 input(type="button" value="Reload All Site Clients" onclick="reloadSiteClients()")
 .admin-home-wrapper-send-message
-    input(type="text" placeholder="Message to send") 
-    input(type="button" value="Send Alert" onclick="sendAlert()")
+	input(type="text" placeholder="Message to send") 
+	input(type="button" value="Send Alert" onclick="sendAlert()")
 select.slateSelectionDrop
-    option Bars and Tones
-    option Splash
-    option Maintainance
+	option Bars and Tones
+	option Splash
+	option Maintainance
 input(type="button" value="Turn Slate On" onclick="slateState(true)")
 input(type="button" value="Turn Slate Off" onclick="slateState(false)")
 
 h3.clientsConnected Pending
 
 <div class="chart-container" style="position: relative; height:fit-content; width:500px">
-    <canvas id="usersConnected"></canvas>
+	<canvas id="usersConnected"></canvas>
 </div>
