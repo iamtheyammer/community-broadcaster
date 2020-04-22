@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 
 const authMeetingStarted = require('./auth/meetingStarted')
-const getParticipant = require('./db/stream/getParticipant')
+const getIndexStream = require('./db/stream/getIndexStream')
+
 
 /* GET home page. */
 router.get('/', authMeetingStarted, async function(req, res, next) {
@@ -19,13 +20,14 @@ router.get('/', authMeetingStarted, async function(req, res, next) {
         var tempArr2 = []
         var arr1 = await db.collection('siteControls').find({}).toArray()
         var arr2 = await db.collection('users').find({"auth": 3}).toArray()
-        var arr3 = await db.collection('stream').find({"currentStream": true}).toArray()
+        var arr3 = await getIndexStream(db)
         var arr4 = await db.collection('users').find({"googleId": req.user.googleId}).toArray()
         for(var i =0; i < arr2.length; i++) {
           tempArr2.push(arr2[i]._id)
         }
         res.render('index/index', { title: 'd.tech Community', "user": JSON.stringify(arr4), "controlArr": JSON.stringify(arr1), "tokenArr": JSON.stringify(tempArr2), "stream": JSON.stringify(arr3)});
-      } getData()
+      } 
+      getData()
     } else {
       res.redirect('auth/redirect')
     }
@@ -36,13 +38,25 @@ router.get('/countdown', function(req, res, next) {
   res.render('countdown', { title: 'Countdown' });
 });
 
+router.get('/new-index', function(req, res, next) {
+  res.render('new-index', { title: 'New Index' });
+});
+
 router.get('/banned', function(req, res, next) {
-  res.render('banned', { title: 'Banned' });
+  if(!req.user) {
+    res.redirect("/check")
+  }
+  if(req.user.banned) {
+    res.render('banned', { title: 'Banned' , user: JSON.stringify(req.user)});
+  } else {
+    res.redirect("/")
+  }
+  
 });
 
 router.get('/check', authMeetingStarted, async function(req, res, next) {
   if(req.user) {
-    res.redirect('')
+    res.redirect('/')
   } else {
     const db = req.app.get('db')
     // let displayName = await getParticipant(req, db, req.session.participantId)

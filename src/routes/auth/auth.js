@@ -44,7 +44,6 @@ router.get('/googleRedirect',  passport.authenticate('google'), (req, res, next)
 
         if(req.user.auth > 0) {
             if(req.user.auth == 1) {
-                addParticipant(db, req.user.googleId)
                 res.redirect('/')
             }
             if(req.user.auth == 2 || req.user.auth == 3) {

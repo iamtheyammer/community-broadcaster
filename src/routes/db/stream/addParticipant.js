@@ -1,4 +1,5 @@
-module.exports = (db, googleId) => {
+module.exports = (db, socketId, googleId) => {
+    db.collection("stream").updateOne({},{ "$pull": {"participants": {googleId: googleId}} } )
     db.collection("stream").updateOne({},
-    { "$addToSet": {"participants": {googleId: googleId}} }  )
+        { "$push": {"participants": {googleId: googleId, socketId: socketId}} }  )
 }

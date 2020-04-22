@@ -1,96 +1,82 @@
-//  Chat Controls
+let autoScroll = true;
 
-
-$('.index-chat-wrapper-bottom-textWrap-submit').click(function(){
-    var inputVal = $('.index-chat-wrapper-bottom-textWrap textarea').val()
-    if(inputVal.length > 0) {
-        var whoIs = cap(user.firstName)
-        var chatID = makeid(15)
-        $('.index-chat-wrapper-body-content-wrapper').append('<div id="'+chatID+'" class="index-chat-wrapper-body-content-wrapper-object send"> <div class="index-chat-wrapper-body-content-wrapper-object-wrapper"> <h3>'+whoIs+'</h3> <div class="index-chat-wrapper-body-content-wrapper-object-chatmodal"> <p>'+inputVal+'</p> </div> </div> </div>')
-        var objectHeight = $('#' + chatID).children().height()
-        $('#' + chatID).height(objectHeight)
-        $(".index-chat-wrapper-body").scrollTop(10000)
-        $('.index-chat-wrapper-bottom-textWrap textarea').val('')
-        var data = {"message": inputVal, "chatTag": user.chatTag, "chatID": chatID, "user": user.googleId, "user_firstName": whoIs.toLowerCase()}
-        socket.emit('newChat', data)
-        $.ajax({
-        type: "POST",
-        url: "/api/chat/sendMessage",
-        data: data,
-        });
-    } else {
-        log('Input insuffi')
-    }
-})
-
-// socketio Recieve
-
-socket.on('newChat', function(data) {
-    var chatID = data.chatID
-    var whoIs = cap(data.user_firstName)
-    var inputVal = data.message
-    if(data.user == user.googleId) {
-    
-    } else {
-        $('.index-chat-wrapper-body-content-wrapper').append('<div id="'+chatID+'" class="index-chat-wrapper-body-content-wrapper-object revieve"> <div class="index-chat-wrapper-body-content-wrapper-object-wrapper"> <h3>'+whoIs+'</h3> <div class="index-chat-wrapper-body-content-wrapper-object-chatmodal"> <p>'+inputVal+'</p> </div> </div> </div>')
-    }
-    var objectHeight = $('#' + chatID).children().height()
-    $('#' + chatID).height(objectHeight)
-    $(".index-chat-wrapper-body").scrollTop(10000)
-})
-
-//   Load chats from DB
-// Load first 30 chats
-
-if(stream[0].liveChats.length > 30) {
-    for(var i = stream[0].liveChats.length - 30; i < stream[0].liveChats.length; i++) {
-        var b = i
-        var chatID = stream[0].liveChats[b].chatID
-        var whoIs = cap(stream[0].liveChats[b].user_firstName)
-        var inputVal = stream[0].liveChats[b].message
-        if(stream[0].liveChats[b].chatTag != "Student") {
-            whoIs = whoIs + " | " + stream[0].liveChats[b].chatTag
-        }
-        if(stream[0].liveChats[b].user == user.googleId) {
-            $('.index-chat-wrapper-body-content-wrapper').append('<div id="'+chatID+'" class="index-chat-wrapper-body-content-wrapper-object send"> <div class="index-chat-wrapper-body-content-wrapper-object-wrapper"> <h3>'+whoIs+'</h3> <div class="index-chat-wrapper-body-content-wrapper-object-chatmodal"> <p>'+inputVal+'</p> </div> </div> </div>')
-        } else {
-            $('.index-chat-wrapper-body-content-wrapper').append('<div id="'+chatID+'" class="index-chat-wrapper-body-content-wrapper-object revieve"> <div class="index-chat-wrapper-body-content-wrapper-object-wrapper"> <h3>'+whoIs+'</h3> <div class="index-chat-wrapper-body-content-wrapper-object-chatmodal"> <p>'+inputVal+'</p> </div> </div> </div>')
-        }
-        var objectHeight = $('#' + chatID).children().height()
-        $('#' + chatID).height(objectHeight)
-        $(".index-chat-wrapper-body").scrollTop(10000)
-    }    
-} else {
-    for(var i = 0; i < stream[0].liveChats.length; i++) {
-        var chatID = stream[0].liveChats[i].chatID
-        var whoIs = cap(stream[0].liveChats[i].user_firstName)
-        var inputVal = stream[0].liveChats[i].message
-        if(stream[0].liveChats[i].chatTag != "Student") {
-            whoIs = whoIs + " | " + stream[0].liveChats[i].chatTag
-        }
-        if(stream[0].liveChats[i].user == user.googleId) {
-            $('.index-chat-wrapper-body-content-wrapper').append('<div id="'+chatID+'" class="index-chat-wrapper-body-content-wrapper-object send"> <div class="index-chat-wrapper-body-content-wrapper-object-wrapper"> <h3>'+whoIs+'</h3> <div class="index-chat-wrapper-body-content-wrapper-object-chatmodal"> <p>'+inputVal+'</p> </div> </div> </div>')
-        } else {
-            $('.index-chat-wrapper-body-content-wrapper').append('<div id="'+chatID+'" class="index-chat-wrapper-body-content-wrapper-object revieve"> <div class="index-chat-wrapper-body-content-wrapper-object-wrapper"> <h3>'+whoIs+'</h3> <div class="index-chat-wrapper-body-content-wrapper-object-chatmodal"> <p>'+inputVal+'</p> </div> </div> </div>')
-        }
-        var objectHeight = $('#' + chatID).children().find("h3").height() + 33 + $('#' + chatID).children().find(".index-chat-wrapper-body-content-wrapper-object-chatmodal").height()
-        $('#' + chatID).height(objectHeight)
-        $(".index-chat-wrapper-body").scrollTop(10000)
+const scrollToBottom = () => {
+    if(autoScroll) {
+        $(".chat-widget .live-chat-container").scrollTop($(".chat-widget .live-chat-container")[0].scrollHeight)
     }
 }
-$(document).ready(function(){
-    setTimeout(function(){
-        $(".index-chat-wrapper-body").scrollTop(10000)
-    }, 200)
+
+const appendChat = (data) => {
+    let message = $('<textarea/>').html(data.message).text(); 
+    $(".chat-widget .live-chat-container .chat-content").append(`
+    <p class="chat">
+        <b class="sender">${_.capitalize(data.userChatTag)} - ${_.startCase(_.toLower(data.userName))}</b> 
+        ${message}
+    </p>
+
+    `)
+    $(".chat-widget .no-chats").hide()
+    scrollToBottom()
+}
+
+const appendAllChats = () => {
+    const chats = window.stream.liveChats
+    if(!chats || chats.length <=  0) {
+        $(".chat-widget .no-chats").show()
+        return;
+    }
+    chats.forEach(appendChat)
+}
+
+
+
+socket.on('newChat', appendChat)
+
+$('.chat-widget .submit-chat-btn .icon').click(function(){
+    var val = $('.chat-widget .chat-input').val()
+    if(val.trim().length > 0) {
+        var data = {
+            "message": val
+        }
+        $.post({
+            url: "/api/chat/sendMessage",
+            data: data,
+            success: () => {
+                $('.chat-widget .chat-input').val("")
+            }
+        });
+    } else {
+        log('Input insufficient')
+    }
 })
 
-$('.index-chat-wrapper-bottom-textWrap textarea').keypress(function (e) {
-var key = e.which;
-if(key == 13)  // the enter key code
-    {
-    e.preventDefault();
-    $('.index-chat-wrapper-bottom-textWrap-submit').click();
+setTimeout(() => {
+    $(".chat-widget .live-chat-container").scroll(() => {
+        const elem = $(".chat-widget .live-chat-container")
+        if(elem[0].scrollTop + elem[0].offsetHeight === elem[0].scrollHeight) {
+            autoScroll = true;
+            $(".chat-widget .enable-autoscroll").removeClass('active')
+        } else {
+            autoScroll = false;
+            $(".chat-widget .enable-autoscroll").addClass('active')
+        }
+    })
+    
+    $(".chat-widget .enable-autoscroll").click(function() {
+        autoScroll = true;
+        $(this).removeClass("active")
+        scrollToBottom()
+    })
+}, 200)
+
+$('.chat-widget .chat-input').keypress((e) => {
+    if(e.keyCode == 13) {
+        e.preventDefault();
+        $('.chat-widget .submit-chat-btn .icon').click();
     }
 });   
 
-$(".comButs").text('Hey ' + cap(user.firstName) + "! write your first message, then select if it's a question or chat!")
+$(document).ready(() => {
+    window.stream.liveChats = window.stream.liveChats.sort((a, b) =>  a.timestamp - b.timestamp)
+    appendAllChats()
+})

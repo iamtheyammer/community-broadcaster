@@ -1,8 +1,12 @@
 script.
 	let allParticipantsRaw = "#{allParticipants}"
-	console.log(allParticipantsRaw)
 	if(allParticipantsRaw) {
 		window.allParticipants  = JSON.parse(allParticipantsRaw.replace(/&quot;/g,'"'));
+	}
+
+	let bannedUsersRaw = "#{bannedUsers}"
+	if(allParticipantsRaw) {
+		window.bannedUsers  = JSON.parse(bannedUsersRaw.replace(/&quot;/g,'"'));
 	}
 
 .table-flex-container
@@ -37,23 +41,3 @@ script.
 					th.actions-head Actions
 			tbody
 		p.no-viewers No viewers
-	.banned-viewers-table.table-container
-		h1.table-title Banned Viewers
-		table
-			thead
-				tr
-					th.stream-id-head User ID
-					th.stream-name-head Viewer Name
-					th.viewer-ip-head IP Address
-					th.actions-head Actions
-			tbody
-				tr.viewer
-					td
-						p.viewer-id-info 3
-					td
-						p.viewer-name-info Test Account
-					td
-						p.viewer-name-info 249.7.216.151
-					td
-						.action-btn-wrap
-							p.unban-user Unban User

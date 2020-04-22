@@ -1,0 +1,38 @@
+script.
+	let usersRaw = "#{users}"
+	if(usersRaw) {
+		window.users  = JSON.parse(usersRaw.replace(/&quot;/g,'"'));
+	}
+ 
+.users-page-content
+	.search-container
+		.input-wrap
+			.search-icon
+			input(type="text" placeholder="Search by name or email" class="search-input")
+		.filters-container
+			.filter
+				p.label Sort By Grade:
+				.grade-select.select
+					.grade-option.option.active(data-grade="all")
+						p All
+					.grade-option.option(data-grade="9")
+						p 9th
+					.grade-option.option(data-grade="10")
+						p 10th
+					.grade-option.option(data-grade="11")
+						p 11th
+					.grade-option.option(data-grade="12")
+						p 12th
+					.grade-option.option(data-grade="none")
+						p None
+			.filter
+				p.label Sort By Banned:
+				.banned-select.select
+					.banned-option.option.active(data-banned="all")
+						p All
+					.banned-option.option(data-banned="no")
+						p Not Banned
+					.banned-option.option(data-banned="yes")
+						p Banned
+	.users-container
+		p.no-users No Users

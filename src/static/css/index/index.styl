@@ -1,200 +1,284 @@
-.index-wrapper
+body
+    background #eeeeee
+    overflow-y hidden
+
+.nav-container
     width 100%
-    height 100vh
+    height 75px
+    background white
+    box-shadow 0 0 10px 0 rgba(0,0,0,0.06)
+    .nav-content
+        width calc(100% - 60px)
+        margin 0 auto
+        display flex 
+        height 100%
+        justify-content space-between
+        align-items center
+        .logo-wrap
+            display flex
+            justify-content left
+            align-items center
+            .logo
+                background-image url("/img/dtech-logo.png")
+                background-size cover
+                background-position center
+                background-repeat no-repeat
+                width 37px
+                height 37px
+                margin-right 10px
+            .title
+                color #333
+                font-size 22px
+                letter-spacing .3px
+                margin 0
+        .logout-btn
+            background #f05027
+            padding 8px 30px
+            color white
+            letter-spacing .3px
+            font-size 14px
+            cursor pointer
+            border none
+            outline none
+            border-radius .3em
+            transition background .3s
+            &:hover
+                background #e0441d
+
+.page-content
+    width calc(100% - 60px)
+    max-width 1600px
+    height calc(100% - 135px)
+    margin 30px auto 0
+    display flex
+    justify-content left
     position relative
+    overflow-y hidden
+    .stream-container
+        margin-right 30px
+        overflow-y auto
+        width calc(100% - 430px)
+        display flex
+        flex-flow column wrap
+        .stream-video
+            position relative
+            img
+                width 100%
+        .stream-info-container
+            width 100%
+            background white
+            box-shadow 0 0 10px 0 rgba(0,0,0,0.06)
+            margin-top 30px
+            height fit-content 
+            .stream-info-content
+                width 95%
+                margin 0 auto
+                padding 40px 0
+                height fit-content
+                position relative
+                .stream-title
+                    color #333
+                    font-size 30px
+                    letter-spacing .5px
+                    line-height 110%
+                    font-weight 700
+                .stream-runner
+                    font-size 18px
+                    color #727272
+                    font-weight 500
+                    letter-spacing .3px
+                .viewer-count-container
+                    position absolute
+                    top 15px
+                    right -5px
+                    display flex
+                    justify-content left
+                    align-items center
+                    width fit-content
+                    height fit-content
+                    .icon
+                        background-image url("/img/viewer-icon.svg")
+                        background-size cover
+                        background-position center
+                        background-repeat no-repeat
+                        width 18px
+                        height 22px
+                        margin-right 5px
+                    p
+                        color #f05027
+                        font-size 14px
+                        letter-spacing .3px
+                        margin -2px 0 0
+    .chat-widget
+        width 400px
+        height calc(100% - 130px)
+        background white
+        box-shadow 0 0 10px 0 rgba(0,0,0,0.06)
+        position relative
+        .title-container
+            height 60px
+            border-bottom 1px solid #ededed
+            width 100%
+            position relative
+            .title
+                color grey
+                font-size 20px
+                font-weight 500
+                letter-spacing .3px
+                position absolute
+                top 50%
+                left 50%
+                transform translate(-50%, -50%)
+        .enable-autoscroll
+            background rgba(0,0,0,0.8)
+            color white
+            border none
+            outline none
+            font-size 14px
+            position absolute
+            padding 8px 20px
+            bottom 65px
+            left 50%
+            transform translateX(-50%)
+            cursor pointer
+            letter-spacing .3px
+            z-index 100
+            border-radius .3em
+            visibility hidden
+            opacity 0
+            transition opacity .3s, visibility .3s
+            &.active
+                opacity 1
+                visibility visible
+        .live-chat-container
+            height calc(100% - 112px)
+            max-height 100%
+            width 100%
+            overflow-y auto
+            .chat-content
+                width 95%
+                margin 0 auto
+                padding 10px 0
+                height calc(100% - 20px)
+                .no-chats
+                    color #b8b8b8
+                    font-weight 500
+                    font-size 16px
+                    text-align center
+                    margin 20px 0 0
+                    display none
+                .chat
+                    color #333
+                    font-size 15px
+                    font-weight 500
+                    word-wrap break-word;
+                    letter-spacing .3px
+                    margin-bottom 25px
+                    .sender
+                        color #adadad
+                        font-size 14px
+                        font-weight 600
+                        margin-right 3px
+        .input-container
+            width 100%
+            height 50px
+            display flex
+            justify-content left
+            align-items center
+            border-top 1px solid #ededed
+            .chat-input
+                height calc(100% - 15px)
+                background white
+                border none
+                resize none
+                outline none
+                width calc(100% - 40px)
+                font-size 15px
+                color #333
+                padding 0 10px 5px 20px
+                letter-spacing .3px
+                font-weight 500
+                margin-top 15px
+                &::placeholder
+                    color lightgrey
+                    font-weight 400
+            .submit-chat-btn
+                width 50px
+                height 100%
+                position relative
+                //background linear-gradient(rgba(247,149,101,1) 0%, #F04F27 100%);
+                .icon
+                    background-image url("/img/send.svg")
+                    background-position center
+                    background-size cover
+                    background-repeat no-repeat
+                    width 20px
+                    height 20px
+                    position absolute
+                    cursor pointer
+                    top 50%
+                    opacity 0.6
+                    left 6px
+                    transform translateY(-50%)
+                    transition opacity .3s
+                    &:hover
+                        opacity .9
 
-// Index Content
-
-.index-wrapper-center
-    width fit-Content
-    height fit-Content
-    display flex
-    top 52%
-
-.index-wrapper-center-chat-wrapper
-    width 700px
-    height auto
-    position relative
-
-.slate
-    position absolute 
-    top 0px
-
-.index-wrapper-center-stream-wrapper-dataTrails
-    width 100%
-    height 200px
-    display flex
-
-.index-wrapper-center-stream-wrapper-dataTrails-left
-    width 70%
-    height 100%
-
-.index-wrapper-center-stream-wrapper-dataTrails-right
-    width 30%
-    height 100%
-
-.index-wrapper-center-stream-wrapper-dataTrails-left-data
-    margin-left 5%
-    h3
-        font-size: 60px
-    p
-        font-size: 20px;
-        font-weight: 300;
-        margin-top: 10px;
 
 
-.index-wrapper-center-stream-wrapper-dataTrails-right-data
-    width 100%
-    p
-        font-size: 45px
-        text-align center
+// .video-js .vjs-picture-in-picture-control
+//     display none !important
 
+// button , video, div
+//     outline none !important
 
-.video-js .vjs-picture-in-picture-control
-    display none !important
+// .vjs-big-play-button
+//     top 50% !important 
+//     left 50% !important 
+//     transform translate(-50%, -50%)
 
-button , video, div
-    outline none !important
+// p.fullXCenter
+//     bottom: 5%;
+//     color: #bbbbbb;
+//     font-weight: 100;
+//     font-size: 21px;
+//     text-align center
 
-.vjs-big-play-button
-    top 50% !important 
-    left 50% !important 
-    transform translate(-50%, -50%)
+// .slate
+//     width 1920px
+//     height 1080px
+//     background-image url('/img/2880px-SMPTE_Color_Bars_16x9.svg.png')
+//     z-index 90 
+//     display none
 
-
-.loginbutton
-    position: absolute;
-    right: 3%;
-    top: 3%;
-    width: 150px;
-    height: 40px;
-    background: #f04f27;
-    border: none;
-    outline: none;
-    border-radius: 5px;
-    color: white;
-    font-size: 17px;
-    letter-spacing: 2px;
-    font-weight: 300;
-    text-transform: uppercase;
-    cursor pointer
-
-p.fullXCenter
-    bottom: 5%;
-    color: #bbbbbb;
-    font-weight: 100;
-    font-size: 21px;
-    text-align center
-
-.slate
-    width 1920px
-    height 1080px
-    background-image url('/img/2880px-SMPTE_Color_Bars_16x9.svg.png')
-    z-index 90 
-    display none
-
-.index-wrapper-logo-wrapper
-    width fit-Content
-    height fit-Content
-    position absolute
-    top 60px
-    left 3%
-    display flex
-
-.index-wrapper-logo-wrapper-text
-    p
-        color: #333;
-        font-weight: 600;
-        margin: 0 0 0 10px;
-        width 300px
-        letter-spacing: .3px;
-        font-size: 25px;
-        margin-left 20px
-
-.index-wrapper-logo-wrapper-logo
-    width 70px
-    height 70px
-    background-image url('/img/dtech-logo.png')
-
-
-
-@media screen and (max-width: 2700px) {
-    .my-video-dimensions, .slate {
-        width 1600px
-        height 900px
-    }
-}
-
-@media screen and (max-width: 2400px) {
-    .my-video-dimensions, .slate {
-        width 1366px
-        height 768px
-    }
-    .index-wrapper-center-stream-wrapper-dataTrails-right-data p {
-        font-size: 1.8vw;
-    }
-    .index-wrapper-center-stream-wrapper-dataTrails-left-data h3 {
-        font-size: 2.5vw;
-    }
-    .index-wrapper-center-chat-wrapper {
-        width 600px !important
-    }
-    .index-chat-wrapper {
-        width 500px !important
-    }
-    .index-chat-wrapper-body-content-wrapper-object-chatmodal {
-        max-width: 270px !important
-    }
-
-}
-
-@media screen and (max-width: 2200px) {
-    .my-video-dimensions, .slate {
-        width 1280px
-        height 720px
-    }
-    .index-wrapper-center-stream-wrapper-dataTrails {
-        height 180px
-    }
-}
-
-@media screen and (max-width: 2100px) {
-    .my-video-dimensions, .slate {
-        width 853px
-        height 480px
-    }
-    .index-wrapper-center-chat-wrapper {
-        width 500px !important
-    }
-    .index-chat-wrapper {
-        width 400px !important
-    }
-    .index-chat-wrapper-body-content-wrapper-object-chatmodal {
-        max-width: 220px !important
-    }
-    .index-wrapper-center-stream-wrapper-dataTrails {
-        height 150px
-    }
-    .index-wrapper-center-stream-wrapper-dataTrails-right-data p {
-        font-size: 1.2vw;
-    }
-    .index-wrapper-center-stream-wrapper-dataTrails-left-data h3 {
-        font-size: 1.9vw;
-    }
-}
-
-@media screen and (max-width: 1600px) {
-    .my-video-dimensions, .slate {
-        width 640px
-        height 360px
-    }
-    .index-wrapper-center-chat-wrapper {
-        width 450px !important
-    }
-    .index-chat-wrapper {
+@media only screen and (max-width: 1200px)
+    .stream-container
+        width calc(100% - 380px) !important
+    .chat-widget
         width 350px !important
-    }
-    .index-chat-wrapper-body-content-wrapper-object-chatmodal {
-        max-width: 190px !important
-    }
-}
+
+@media only screen and (max-width: 1000px)
+    body
+        overflow-y auto
+    .page-content
+        height fit-content
+        justify-content center !important
+        flex-flow column wrap !important
+        .stream-container
+            height fit-content !important
+            width 100% !important
+            flex-flow column-reverse wrap !important
+            overflow none !important
+            .stream-video
+                margin-top 30px !important
+            .stream-info-container
+                margin-top 0 !important
+        .chat-widget
+            height 500px !important
+            margin-top 30px !important
+            width 100% !important
+            margin-bottom 30px
+
+@media only screen and (max-height: 900px)
+    .chat-widget
+        height 100% !important

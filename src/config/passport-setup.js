@@ -2,6 +2,8 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20');
 const User = require('../models/user-model');
 
+const firstLoginLog = require('../routes/db/logs/firstLoginLog')
+
 passport.serializeUser((user, done) => {
     done(null, user.id);
 })
@@ -67,6 +69,7 @@ passport.use(
                         chatTag: schoolAssociation
                     }).save().then((newUser) => {
                         console.log('New User Created: ' + newUser)
+                        firstLoginLog(newUser)
                         done(null, newUser)
                     })
                 } else {
@@ -86,6 +89,7 @@ passport.use(
                         chatTag: "Unverified"
                     }).save().then((newUser) => {
                         console.log('New User Created: ' + newUser)
+                        firstLoginLog(newUser)
                         done(null, newUser)
                     })
                 }

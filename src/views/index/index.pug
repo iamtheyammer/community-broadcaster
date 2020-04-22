@@ -3,6 +3,7 @@ html
     include ../main
     link(rel="Stylesheet" href="/css/index/index.css")
     link(href="https://unpkg.com/video.js@7/dist/video-js.min.css" rel="stylesheet")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js")
     script.
       const name = "#{displayName}"
       if(name.length > 0) {
@@ -21,22 +22,46 @@ html
       var streamRaw = "#{stream}"
       window.stream = JSON.parse(streamRaw.replace(/&quot;/g,'"'));
   body
-    .index-wrapper
-      .index-wrapper-logo-wrapper
-        .index-wrapper-logo-wrapper-logo.reg-image(onclick="window.location.href='/auth/redirect'")
-        .index-wrapper-logo-wrapper-text
-          p.fullVertCenter Community Broadcast
-      include ./content
+    //- .index-wrapper
+    //-   .index-wrapper-logo-wrapper
+    //-     .index-wrapper-logo-wrapper-logo.reg-image(onclick="window.location.href='/auth/redirect'")
+    //-     .index-wrapper-logo-wrapper-text
+    //-       p.fullVertCenter Community Broadcast
+    //-   include ./content
+    .nav-container
+        .nav-content
+            .logo-wrap
+                .logo
+                h1.title Community Broadcast
+            button.logout-btn Logout
+    .page-content
+      .stream-container
+        .stream-video
+          img(src="/img/countdown-bg.png")
+          //- video(id="my-video" muted="muted" class="video-js" controls preload="auto" width="1920" height="1080" poster="/img/download.jpeg" data-setup="{}")
+          //-   source(src="https://stream.designtechhs.com/hls/livestream.m3u8" type="application/x-mpegURL")
+        .stream-info-container
+          .stream-info-content
+            h1.stream-title
+            p.stream-runner
+            .viewer-count-container
+              .icon
+              p 2 Viewers
+      .chat-widget
+        .title-container
+          h1.title Live Chat
+        button.enable-autoscroll Enable Autoscroll
+        .live-chat-container
+          .chat-content
+            h1.no-chats No Messages
+            
+            //p.chat <b class="sender">Student - Jackson Lawrence</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        .input-container
+          textarea.chat-input(data-gramm_editor="false" placeholder="Send a message...")
+          .submit-chat-btn
+            .icon
     include ../notifications
-//-     input.loginbutton(type="button" value="Login" onClick="window.location.href='/auth/google'")
-
-//-     .slate.fullCenter.reg-image
-//-     video.fullCenter(id="my-video" muted="muted" class="video-js" controls preload="auto" width="1920" height="1080" poster="/img/download.jpeg" data-setup="{}")
-//-       source(src="https://stream.designtechhs.com/hls/livestream.m3u8" type="application/x-mpegURL")
-//- `
-//-     p.fullXCenter By Aiden Appleby and Jackson Lawrence
-
-
 script(src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.8.0/video.min.js")
 script(src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.15.0/videojs-contrib-hls.min.js")
 script(src="/js/index/index.js")
+script(src="/js/index/chat.js")

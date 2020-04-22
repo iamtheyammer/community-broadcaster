@@ -56,36 +56,40 @@ $(".viewers-table .search-container .grade-filter-container .grade-option").clic
 })
 
 const appendParticipants = () => {
-    if(!window.allParticipants) {
-        // Show no participants
+    $(".viewers-table tbody .viewer").remove()
+    if(!window.allParticipants || window.allParticipants.length <= 0) {
+        $(".viewers-table .no-viewers").show()
         return;
     }
     window.allParticipants.forEach((u) => {
         const fullName = 
             u.firstName[0].toUpperCase() + u.firstName.slice(1) + " " +
             u.lastName[0].toUpperCase() + u.lastName.slice(1)
-        $(".viewers-table tbody").append(`
-            <tr class="viewer" data-google-id="${u.googleId}">
-                <td class="viewer-picture-container">
-                    <div class="viewer-picture-info" style="background-image:url(${u.googleProfilePicture});"></div> 
-                </td>
-                <td>
-                    <p class="viewer-name-info">${fullName}</p>
-                </td>
-                <td>
-                    <p class="viewer-email-info">${u.email}</p>
-                </td>
-                <td>
-                    <p class="viewer-grade-info">${u.grade === 0 ? "Unkown" : u.grade}</p>
-                </td>
-                <td>
-                    <div class="action-btn-wrap">
-                        <p class="kick-user">Kick User</p>
-                        <p class="ban-user">Ban User</p>
-                    </div>
-                </td>
-            </tr>
-        `)
+        if(!u.banned) {
+            $(".viewers-table tbody").append(`
+                <tr class="viewer" data-google-id="${u.googleId}">
+                    <td class="viewer-picture-container">
+                        <div class="viewer-picture-info" style="background-image:url(${u.googleProfilePicture});"></div> 
+                    </td>
+                    <td>
+                        <p class="viewer-name-info">${fullName}</p>
+                    </td>
+                    <td>
+                        <p class="viewer-email-info">${u.email}</p>
+                    </td>
+                    <td>
+                        <p class="viewer-grade-info">${u.grade === 0 ? "None" : u.grade}</p>
+                    </td>
+                    <td>
+                        <div class="action-btn-wrap">
+                            <p class="ban-user">Ban User</p>
+                        </div>
+                    </td>
+                </tr>
+            `)
+
+            
+        }
     })
 }
 
@@ -96,14 +100,39 @@ $(document).ready(() => {
 $(() => { // BAN CODE
     $(document).on("click", ".viewers-table .viewer .ban-user", function() {
         const data = {
-            googleId: $(this).parents("viewer").data("google-id")
+            googleId: $(this).parents(".viewer").data("google-id")
         }
         $.post({
             url: "/admin/api/banUser",
             data: data,
             success: () => {
-                console.log("user banned")
+                window.location.reload()
             }
         })
+    })
+
+    $(document).on("click", ".banned-viewers-table .viewer .unban-user", function() {
+        const data = {
+            googleId: $(this).parents(".viewer").data("google-id")
+        }
+        $.post({
+            url: "/admin/api/unbanUser",
+            data: data,
+            success: () => {
+                window.location.reload()
+            }
+        })
+    })
+
+})
+
+socket.on("participantsChange", () => {
+    $.get({
+        url: "/admin/api/getParticipants",
+        success: (data) => {
+            window.allParticipants = data
+            appendParticipants()
+            applyGradeFilter($(".viewers-table .search-container .grade-filter-container .grade-option.active").data("grade"))
+        }
     })
 })

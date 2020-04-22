@@ -10,5 +10,11 @@ $(document).ready(() => {
         case "/admin/viewers":
           $(".nav-container .viewers-link").addClass("active")
           break;
-      }
+        case "/admin/logs":
+          $(".nav-container .logs-link").addClass("active")
+          break;
+        case "/admin/users":
+          $(".nav-container .users-link").addClass("active")
+          break;
+    }
 })

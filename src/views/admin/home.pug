@@ -15,7 +15,9 @@ html
 					a.nav-link.goHome(href="/") Go Home
 					a.nav-link.current-streams-link(href="/admin/current-stream") Current Stream
 					a.nav-link.upcoming-streams-link(href="/admin/upcoming-streams") Upcoming Streams
-					a.nav-link.viewers-link(href="/admin/viewers") Viewers
+					a.nav-link.logs-link(href="/admin/logs") Logs
+					//a.nav-link.viewers-link(href="/admin/viewers") Viewers
+					a.nav-link.users-link(href="/admin/users") Users
 		.admin-home-wrapper
 			.admin-home-content
 				h1.page-title=title
@@ -32,7 +34,14 @@ html
 						link(rel='stylesheet', href="/css/admin/viewers.css")
 						include pages/viewers
 						script(src="/js/admin/viewers.js")
-
+					when 'Users'
+						link(rel='stylesheet', href="/css/admin/users.css")
+						include pages/users
+						script(src="/js/admin/users.js")
+					when 'Logs'
+						link(rel='stylesheet', href="/css/admin/logs.css")
+						include pages/logs
+						script(src="/js/admin/logs.js")
 
 script(src="/js/admin/main.js")
 

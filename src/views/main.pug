@@ -11,7 +11,7 @@ head
 	meta(name='msapplication-config' content='/img/favicons/browserconfig.xml')
 	meta(name='theme-color' content='#f04f22')
 
-body
+bodyd
 
 script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js")
 script(src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js")
@@ -37,10 +37,6 @@ script.
 
 	socket.on('reloadSiteClients', function(data) {
 		location.reload();
-	})
-
-	socket.on('siteAlert', function(data) {
-		window.alert(data[1].input)
 	})
 
 	function makeid(length) {

@@ -1,0 +1,29 @@
+script.
+	let logsRaw = "#{logs}"
+	if(logsRaw) {
+		window.logs  = JSON.parse(logsRaw.replace(/&quot;/g,'"'));
+	}
+
+.logs-page-container
+	.search-container
+		.input-wrap
+			.search-icon
+			input(type="text" placeholder="Search by name, email, or keywords" class="search-input")
+		.log-type-filter-container
+			p.label Filter by Log Type:
+			.log-type-select
+				.select-btn
+					p.select-value All
+					.arrow-icon
+				.select-menu
+					.option.all-option.active
+						p All
+	.logs-container
+		p.no-logs No Logs
+		.log
+			.log-content
+				.msg-info
+					p.log-type Bans/Unbans
+					p.message This is a test Message
+				p.time March 1, 2020 5:30 PM
+				
