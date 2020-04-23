@@ -29,26 +29,56 @@ script.
 		window.participantLogs = JSON.parse(participantLogsRaw.replace(/&quot;/g,'"'));
 	}
 
-//- .stream-inactive-container.active
-//-     h1.container-title The Community Meeting Stream is Currently <b class="inactive">Inactive</b>
-//-     p.info If you would like to see the upcoming community meetings <a href="/admin/upcoming-streams">click here</a>
+body
+	.currentStream-wrapper.fullCenter
+		.currentStream-wrapper-top
+			h3.fullVertCenter Current Stream
+			.currentStream-wrapper-top-right.fullVertCenter
+				p 22:14, Tuesday, Apr 21, 2020
+		.currentStream-wrapper-body
+			.currentStream-wrapper-body-s1
+				.currentStream-wrapper-body-s1-currentViewersGraph
+					.currentStream-wrapper-body-s1-currentViewersGraph-top
+						p.fullVertCenter Viewers
+					.currentStream-wrapper-body-s1-currentViewersGraph-body.fullXCenter
+						canvas(id="viewersGraph") // Render Viewers Graph
 
-br
-br
-input(type="button" value="Reload All Stream Clients" onclick="reloadStreamClients()")
-input(type="button" value="Reload All Site Clients" onclick="reloadSiteClients()")
-.admin-home-wrapper-send-message
-	input(type="text" placeholder="Message to send") 
-	input(type="button" value="Send Alert" onclick="sendAlert()")
-select.slateSelectionDrop
-	option Bars and Tones
-	option Splash
-	option Maintainance
-input(type="button" value="Turn Slate On" onclick="slateState(true)")
-input(type="button" value="Turn Slate Off" onclick="slateState(false)")
+				.currentStream-wrapper-body-s1-demographicsGraph
+					.currentStream-wrapper-body-s1-demographicsGraph-top
+						p.fullVertCenter Demographics
+					.currentStream-wrapper-body-s1-demographicsGraph-body
+						.currentStream-wrapper-body-s1-demographicsGraph-wrapper.fullCenter
+							canvas(id="demographicsPie")
 
-h3.clientsConnected Pending
+			.currentStream-wrapper-body-s2
+				.currentStream-wrapper-body-s1-module
+				.currentStream-wrapper-body-s1-module
+				.currentStream-wrapper-body-s1-module
+				.currentStream-wrapper-body-s1-module
+			.currentStream-wrapper-body-s3
+				
+		
 
-<div class="chart-container" style="position: relative; height:fit-content; width:500px">
-	<canvas id="usersConnected"></canvas>
-</div>
+//- //- .stream-inactive-container.active
+//- //-     h1.container-title The Community Meeting Stream is Currently <b class="inactive">Inactive</b>
+//- //-     p.info If you would like to see the upcoming community meetings <a href="/admin/upcoming-streams">click here</a>
+
+//- br
+//- br
+//- input(type="button" value="Reload All Stream Clients" onclick="reloadStreamClients()")
+//- input(type="button" value="Reload All Site Clients" onclick="reloadSiteClients()")
+//- .admin-home-wrapper-send-message
+//- 	input(type="text" placeholder="Message to send") 
+//- 	input(type="button" value="Send Alert" onclick="sendAlert()")
+//- select.slateSelectionDrop
+//- 	option Bars and Tones
+//- 	option Splash
+//- 	option Maintainance
+//- input(type="button" value="Turn Slate On" onclick="slateState(true)")
+//- input(type="button" value="Turn Slate Off" onclick="slateState(false)")
+
+//- h3.clientsConnected Pending
+
+//- <div class="chart-container" style="position: relative; height:fit-content; width:500px">
+//- 	<canvas id="usersConnected"></canvas>
+//- </div>

@@ -16,6 +16,7 @@ const randomstring = require('randomstring')
 const passportSetup = require('./config/passport-setup')
 const addParticipant = require('./routes/db/stream/addParticipant')
 const getParticipantCount = require('./routes/db/stream/getParticipantCount')
+const removeParticipant = require('./routes/db/stream/removeParticipant')
 
 var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth/auth');
@@ -94,38 +95,20 @@ app.set('socketio', io)
 let connectedUsers = 0
 
 io.on('connection', function(socket){
-  console.log(socket.id)
   app.set('socketId', socket.id)
-  connectedUsers++
-  let dTS = [connectedUsers, Date.now()]
-  io.emit('clientChange', dTS)
-  mongoose.connect('mongodb://localhost:27017/DesignTechHS', {useNewUrlParser: true, useUnifiedTopology: true }, (err, client) => {
-    client.collection('siteControls').updateOne({"identifier": "connectedClients"}, {$set: {
-      clientsConnected: connectedUsers,
-      lastchanged: Date.now()
-    }})
-  });
   socket.on('disconnect', async function(){
-    connectedUsers--
-    let dTS = [connectedUsers, Date.now]
-    
-    io.emit('clientChange', dTS)
-    mongoose.connect('mongodb://localhost:27017/DesignTechHS', {useNewUrlParser: true, useUnifiedTopology: true }, (err, client) => {
-      client.collection('siteControls').updateOne({"identifier": "connectedClients"}, {$set: {
-        clientsConnected: connectedUsers,
-        lastchanged: Date.now()
-      }})
-    });
-
-    app.get("db").collection("stream").updateOne({},{ "$pull": {"participants": {socketId: socket.id}} } )
-    io.emit('participantsChange', await getParticipantCount(app.get("db")))
+    const log = await removeParticipant(app.get("db"), socket.id)
+    if(log) {
+      io.emit('participantsChangeAdmin', log)
+      io.emit('participantsChange', await getParticipantCount(app.get("db")))
+    }
   });
   socket.on('reloadStreamClients', function(msg){
-    console.log('message: ' + msg);
     io.emit('reloadStreamClients', msg)
   });
   socket.on('initParticipant', async (googleId) => {
-    addParticipant(app.get("db"), socket.id, googleId)
+    const log = await addParticipant(app.get("db"), socket.id, googleId)
+    io.emit('participantsChangeAdmin', log)
     io.emit('participantsChange', await getParticipantCount(app.get("db")))
   })
   socket.on('reloadSiteClients', function(msg){

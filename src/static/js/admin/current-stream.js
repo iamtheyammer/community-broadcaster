@@ -48,47 +48,150 @@ function findDBSlateState() {
   }
 }
 
-var chartColors = {
-  red: 'rgb(255, 99, 132)',
-  orange: 'rgb(255, 159, 64)',
-  yellow: 'rgb(255, 205, 86)',
-  green: 'rgb(75, 192, 192)',
-  blue: 'rgb(54, 162, 235)',
-  purple: 'rgb(153, 102, 255)',
-  grey: 'rgb(231,233,237)'
-};
+var tempData = [0, 20, 10, 50, 70, 150, 20, 60, 40, 10, 0]
+var tempData2 = [0, 70, 20, 10, 50, 250, 50, 20, 80, 20, 0]
+var tempLabelsConnected = [0, 20, 10, 50, 100, 150, 20, 60, 40, 10, 0]
+var tempStudents = ["Freshman", "Sophomores", "Juniors", "Seniors", "Faculty", "Other"]
 
-var ctx = document.getElementById('usersConnected').getContext('2d');
-var cntChart = new Chart(ctx, {
-  type: 'line',
-  data: {
-    datasets: [{
-      data: dataConnections,
-      label: "Currently Connected Users",
-      backgroundColor: chartColors.blue,
-      borderColor: chartColors.blue,
-      fill: false,
-    }],
-    labels: labelsConnections,
-  },
+Chart.plugins.unregister(ChartDataLabels);
 
-});
+setTimeout(function(){
+  var ctx = document.getElementById('viewersGraph').getContext('2d');
+  var pieCTX = document.getElementById('demographicsPie').getContext('2d');
 
-socket.on('clientChange', function(data){
-  log(data)
-  $('.clientsConnected').text('Clients Connected: ' +  data[0]);
-  if(dataConnections.length == 10) {
-    dataConnections.splice(0, 1);
-    labelsConnections.splice(0, 1);
-  }
-  dataConnections.push(data[0])
-  if(data[1] == null) {
-    labelsConnections.push("Client Reload")
-  } else {
-    labelsConnections.push(moment(data[1]).format('HH:mm:ss'))
-  }
-  cntChart.update();
-})
+  var data = [10, 50, 30, 10, 50]
+
+  var myPieChart = new Chart(pieCTX, {
+    type: 'pie',
+    plugins: [ChartDataLabels],
+    data: { 
+      datasets: [{
+        data: data,
+        backgroundColor: [
+          "#d8deff",
+          "#c8d0ff",
+          "#a8b4ff",
+          "#8999ff",
+          "#5d75ff"
+        ],
+        hoverBackgroundColor: [
+          "#aeb6e8",
+          "#919bd8",
+          "#7984d1",
+          "#5260bf",
+          "#2d43bf"
+        ]
+      }],
+      labels: tempStudents,
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      legend: {
+        // display: false
+        position: "left"
+      },
+      tooltips: {
+          enabled: false
+      },
+      plugins: {
+          // Change options for ALL labels of THIS CHART
+          datalabels: {
+              formatter: (value, ctx) => {
+                let sum = 0;
+                let dataArr = ctx.chart.data.datasets[0].data;
+                dataArr.map(data => {
+                    sum += data;
+                });
+                let percentage = (value*100 / sum).toFixed(2);
+                let final = percentage.substring(0, percentage.length - 3) + "%"
+                return final;
+              },
+              color: '#fff',
+              anchor: 'end',
+              align: "start",
+              offset: 10,
+              backgroundColor: 'rgba(0,0,0,0.5)',
+              hoverBackgroundColor: '#000000',
+              borderRadius: 5,
+              padding: {
+                left: 10,
+                right: 10
+              }
+          }
+      },
+      hover: {
+        mode: 'nearest',
+        intersect: true
+      },
+    }
+  });
+
+  var cntChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      datasets: [{
+        data: tempData,
+        label: "Currently Connected Users",
+        backgroundColor: "RGBA(93, 117, 255, 0.7)",
+        borderColor: "RGBA(93, 117, 255, 0)",
+      },{
+        data: tempData2,
+        label: "Currently Connected Users",
+        backgroundColor: "RGBA(203, 136, 236, 1)",
+        borderColor: "RGBA(93, 117, 255, 0)",
+      }],
+      labels: tempLabelsConnected,
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      bezierCurve: false,
+      legend: {
+        display: false
+      },
+      hover: {
+        mode: 'nearest',
+        intersect: true
+      },
+      scales: {
+        xAxes : [{
+            gridLines : {
+                  display : false
+            }
+        }],
+        yAxes: [{
+            gridLines : {
+                  // display : false
+                  color: "#f4f4f4"
+            }
+        }]
+    },
+    elements: {
+        point:{
+            radius: 0
+        }
+      }
+    }
+  
+  });
+}, 1000)
+
+// socket.on('clientChange', function(data){
+//   log(data)
+//   $('.clientsConnected').text('Clients Connected: ' +  data[0]);
+//   if(dataConnections.length == 10) {
+//     dataConnections.splice(0, 1);
+//     labelsConnections.splice(0, 1);
+//   }
+//   dataConnections.push(data[0])
+//   if(data[1] == null) {
+//     labelsConnections.push("Client Reload")
+//   } else {
+//     labelsConnections.push(moment(data[1]).format('HH:mm:ss'))
+//   }
+//   cntChart.update();
+// })
 
 for(var i = 0; i < siteControls.length; i++) {
   if(siteControls[i].identifier == "connectedClients") {

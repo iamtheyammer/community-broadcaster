@@ -6,6 +6,7 @@ const getBannedUsers = require('../db/users/getBannedUsers')
 const getUsers = require('../db/users/getUsers')
 const getLogs = require('../db/logs/getLogs')
 const getStream = require('../db/stream/getStream')
+const getParticipantLogs = require('../db/stream/getParticipantLogs')
 
 const authCheck = (req, res, next) => {
     if(req.user) {
@@ -42,8 +43,8 @@ router.get('/upcoming-streams', authCheck, async function(req, res, next) {
 router.get('/viewers', authCheck, async function(req, res, next) {
     const db = req.app.get('db')
     const allParticipants = await getAllParticipants(db)
-    const bannedUsers = await getBannedUsers(db)
-    res.render('admin/home', { title: 'Viewers', allParticipants: JSON.stringify(allParticipants), bannedUsers: JSON.stringify(bannedUsers) });
+    const participantLogs = await getParticipantLogs(db)
+    res.render('admin/home', { title: 'Viewers', allParticipants: JSON.stringify(allParticipants), participantLogs: JSON.stringify(participantLogs) });
 });
 
 router.get('/users', authCheck, async function(req, res, next) {

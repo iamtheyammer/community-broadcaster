@@ -39,6 +39,7 @@
 				border-bottom 1px solid #e7e8ea
 				padding 7px 7px 7px 45px
 				width 100%
+				background transparent
 				&::placeholder
 					color #cdc8c8
 					font-weight 400
@@ -53,7 +54,7 @@
 				justify-content left
 				align-items center
 				.grade-option
-					width 70px
+					width 100px
 					position relative
 					height 30px
 					border 1px solid #e7e8ea
@@ -67,8 +68,11 @@
 						border-color #f05027
 						p
 							color white
+							b
+								color #e6e6e6
 					p
 						color #333
+						width fit-content
 						font-size 13px
 						font-weight 600
 						letter-spacing .3px
@@ -77,6 +81,10 @@
 						left 50%
 						transform translate(-50%, -50%)
 						transition color .3s
+						b
+							color grey
+							font-size 14px
+							font-weight 400
 				.grade-option:first-child
 					border-top-left-radius 30px
 					border-bottom-left-radius 30px
@@ -93,11 +101,12 @@
 		display none
 .table-container
 	width 100%
+	min-width 500px
+	max-width 1200px
 	margin 0 auto 80px
 	.table-title
 		font-size 25px
 		color #333
-		text-align center
 		letter-spacing .5px
 	table
 		width 100%
@@ -168,14 +177,14 @@
 	max-width 1200px
 	min-width 500px
 	width 100%
+	margin 40px auto
 	.title
 		font-size 25px
 		color #333
-		text-align center
 		letter-spacing .5px
 	.search-container
 		width 100%
-		margin-top 20px
+		margin-top 30px
 		.input-wrap
 			width 100%
 			position relative
@@ -201,6 +210,45 @@
 				border-bottom 1px solid #e7e8ea
 				padding 7px 7px 7px 45px
 				width 100%
+				background transparent
 				&::placeholder
 					color #cdc8c8
 					font-weight 400
+	.logs-container
+		width 100%
+		height 500px
+		margin-top 20px
+		padding 15px 0
+		background #F8F8F8
+		overflow-y auto
+		p.no-logs
+			color #b5b5b5
+			font-size 17px
+			font-weight 500
+			letter-spacing .3px
+			margin 30px 0
+			text-align center
+			display none
+		.log
+			width calc(90% - 40px)
+			margin 15px auto
+			padding 20px
+			display flex
+			justify-content space-between
+			&.join
+				background rgba(#19c963, 0.1)
+				p
+					color #17b358
+			&.leave
+				background rgba(#e00b0b, 0.1)
+				p
+					color #e00b0b
+					
+			p
+				font-size 15px
+				margin 0
+				font-weight 500
+				letter-spacing .3px
+				b
+					font-size 12px
+					margin-left 15px

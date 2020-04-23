@@ -38,10 +38,6 @@ router.get('/countdown', function(req, res, next) {
   res.render('countdown', { title: 'Countdown' });
 });
 
-router.get('/new-index', function(req, res, next) {
-  res.render('new-index', { title: 'New Index' });
-});
-
 router.get('/privacy', function(req, res, next) {
   res.render('privacy', { title: 'Privacy' });
 });

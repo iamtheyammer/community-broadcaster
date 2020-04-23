@@ -4,9 +4,9 @@ script.
 		window.allParticipants  = JSON.parse(allParticipantsRaw.replace(/&quot;/g,'"'));
 	}
 
-	let bannedUsersRaw = "#{bannedUsers}"
-	if(allParticipantsRaw) {
-		window.bannedUsers  = JSON.parse(bannedUsersRaw.replace(/&quot;/g,'"'));
+	let participantLogsRaw = "#{participantLogs}"
+	if(participantLogsRaw) {
+		window.participantLogs  = JSON.parse(participantLogsRaw.replace(/&quot;/g,'"'));
 	}
 
 .table-flex-container
@@ -20,17 +20,17 @@ script.
 				p.label Sort By Grade:
 				.grade-select
 					.grade-option.active(data-grade="all")
-						p All
+						p All <b>(0)</b>
 					.grade-option(data-grade="9")
-						p 9th
+						p 9th <b>(0)</b>
 					.grade-option(data-grade="10")
-						p 10th
+						p 10th <b>(0)</b>
 					.grade-option(data-grade="11")
-						p 11th
+						p 11th <b>(0)</b>
 					.grade-option(data-grade="12")
-						p 12th
+						p 12th <b>(0)</b>
 					.grade-option(data-grade="none")
-						p None
+						p None <b>(0)</b>
 		table
 			thead
 				tr
@@ -49,5 +49,4 @@ script.
 			.search-icon
 			input(type="text" placeholder="Search by name or email" class="search-input")
 	.logs-container
-		.log
-	
+		p.no-logs No Viewer Logs

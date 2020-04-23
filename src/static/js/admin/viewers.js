@@ -1,4 +1,30 @@
 
+const viewerCounts = () => {
+    const counts = {
+        "9": 0,
+        "10": 0,
+        "11": 0,
+        "12": 0,
+        "none": 0
+    }
+    window.allParticipants.forEach((p) => {
+        const grade = p.grade
+        if(grade===0) {
+            counts["none"]++
+        } else {
+            counts[grade + ""]++
+        }
+    })
+    counts.all = counts["9"] + counts["10"] + counts["11"] + counts["12"] + counts["none"]
+    $('.grade-filter-container .grade-option[data-grade="all"] b').text(`(${counts["all"]})`)
+    $('.grade-filter-container .grade-option[data-grade="9"] b').text(`(${counts["9"]})`)
+    $('.grade-filter-container .grade-option[data-grade="10"] b').text(`(${counts["10"]})`)
+    $('.grade-filter-container .grade-option[data-grade="11"] b').text(`(${counts["11"]})`)
+    $('.grade-filter-container .grade-option[data-grade="12"] b').text(`(${counts["12"]})`)
+    $('.grade-filter-container .grade-option[data-grade="none"] b').text(`(${counts["none"]})`)
+    return counts
+}
+
 const searchViewers = () => {
     const val = $(".viewers-table .search-container .search-input").val().toLowerCase()
     const viewers = $(".viewers-table .viewer")
@@ -61,6 +87,7 @@ const appendParticipants = () => {
         $(".viewers-table .no-viewers").show()
         return;
     }
+    viewerCounts()
     window.allParticipants.forEach((u) => {
         const fullName = 
             u.firstName[0].toUpperCase() + u.firstName.slice(1) + " " +
@@ -93,8 +120,29 @@ const appendParticipants = () => {
     })
 }
 
+const appendParticipantLog = (data) => {
+    const message = `${data.name} ${data.type==="join" ? "joined" : "left"} the stream. <b>${data.email}</b>`
+    $(".viewer-logs-container .logs-container").prepend(`
+        <div class="log ${data.type}">
+            <p class="msg">${message}</p>
+            <p class="time">${moment(data.timestamp).format("h:m A")}</p>
+        </div>
+    `)
+    $(".logs-container .no-logs").hide()
+}
+
+const appendAllParticipantLogs = () => {
+    if(!window.participantLogs || window.participantLogs.length <= 0) {
+        $(".logs-container .no-logs").show()
+        return;
+    }
+    window.participantLogs = window.participantLogs.sort((a, b) =>  b.timestamp - a.timestamp)
+    window.participantLogs.forEach(appendParticipantLog)
+}
+
 $(document).ready(() => {
     appendParticipants()
+    appendAllParticipantLogs()
 })
 
 $(() => { // BAN CODE
@@ -106,7 +154,10 @@ $(() => { // BAN CODE
             url: "/admin/api/banUser",
             data: data,
             success: () => {
-                window.location.reload()
+                setTimeout(() => {
+                    window.location.reload()
+                }, 500)
+                
             }
         })
     })
@@ -119,7 +170,9 @@ $(() => { // BAN CODE
             url: "/admin/api/unbanUser",
             data: data,
             success: () => {
-                window.location.reload()
+                setTimeout(() => {
+                    window.location.reload()
+                }, 500)
             }
         })
     })
@@ -136,3 +189,5 @@ socket.on("participantsChange", () => {
         }
     })
 })
+
+socket.on("participantsChangeAdmin", appendParticipantLog)

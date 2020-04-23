@@ -96,14 +96,16 @@ window.onload = () => {
   }, 3000)
 }
 
-const fixVideoHeight = () => {
-  $(".stream-video").height($(".vjs-poster").height())
-  $(".slate").height($(".vjs-poster").height())
-  $(".slate").width($(".vjs-poster").width())
-}
+// const fixVideoHeight = () => {
+//   $(".stream-video").height($(".vjs-poster").height())
+//   $(".slate").height($(".vjs-poster").height())
+//   $(".slate").width($(".vjs-poster").width())
+// }
 
-$(window).resize(fixVideoHeight)
+//$(window).resize(fixVideoHeight)
 
-setTimeout(function(){
-  fixVideoHeight()
-}, 200)
+// window.onload = () => {
+//   setTimeout(function(){
+//     fixVideoHeight()
+//   }, 300)
+// }
