@@ -29,7 +29,7 @@ router.post('/createStream', adminAuth, (req,res,next) => {
         return;
     }
     try {
-        res.json(createStream(db, data))
+        res.json(createStream(db, data, req.user))
     } catch(e) {
         throw new Error(e);
         res.sendStatus(500)
@@ -39,7 +39,11 @@ router.post('/createStream', adminAuth, (req,res,next) => {
 router.post('/deleteStream', adminAuth, (req,res,next) => {
     const db = req.app.get("db")
     try {
-        // addLog(db, )
+        const fullName = 
+            req.user.firstName[0].toUpperCase() + req.user.firstName.slice(1) + " " +
+            req.user.lastName[0].toUpperCase() + req.user.lastName.slice(1)
+        const msg = `${fullName} (${req.user.email}) deleted an upcoming stream: ${req.body.streamId}`
+        addLog(db, msg, "upcomingStreams")
         deleteStream(db, req.body.streamId)
         res.sendStatus(200)
     } catch(e) {

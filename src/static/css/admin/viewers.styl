@@ -178,10 +178,29 @@
 	min-width 500px
 	width 100%
 	margin 40px auto
-	.title
-		font-size 25px
-		color #333
-		letter-spacing .5px
+	.logs-title-container
+		display flex
+		align-items center
+		justify-content left
+		.title
+			font-size 25px
+			color #333
+			letter-spacing .5px
+			margin-right 20px
+			b
+				font-weight 400
+				color grey
+				font-size 20px
+		.download-csv-btn
+			color #f05027
+			font-size 15px
+			letter-spacing .3px
+			margin 5px 0 0
+			width fit-content
+			cursor pointer
+			text-deocration none
+			&:hover
+				text-decoration underline !important
 	.search-container
 		width 100%
 		margin-top 30px
@@ -235,6 +254,8 @@
 			padding 20px
 			display flex
 			justify-content space-between
+			&.hidden
+				display none
 			&.join
 				background rgba(#19c963, 0.1)
 				p

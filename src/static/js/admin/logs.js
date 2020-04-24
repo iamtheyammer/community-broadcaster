@@ -1,6 +1,7 @@
 const categories = {
     bans: {title: "Bans/Unbans", color: "#E74B3B"},
-    firstLogin: {title: "First Login", color: "#28AE60" }
+    firstLogin: {title: "First Login", color: "#28AE60" },
+    upcomingStreams: {title: "Upcoming Streams", color: "#3467eb"}
 }
 
 const filterLogs = () => {
@@ -74,11 +75,11 @@ const appendLogs = () => {
         $(".logs-container").append(`
             <div class="log">
                 <div class="log-content">
+                    <p class="log-type" style="background-color:${category.color};">${category.title}</p>
                     <div class="msg-info">
-                        <p class="log-type" style="background-color:${category.color};">${category.title}</p>
+                        <p class="time">${moment(l.time).format("LLL")}</p>
                         <p class="message">${l.message}</p>
                     </div>
-                    <p class="time">${moment(l.time).format("LLL")}</p>
                 </div>
             </div>
         `)

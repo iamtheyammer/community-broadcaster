@@ -1,0 +1,62 @@
+.REPOP-darken
+
+.REPOP-wrapper.fullCenter
+    .REPOP-wrapper-modal
+        .REPOP-wrapper-modal-top.reg-image
+        .REPOP-wrapper-modal-body
+            p Report an Error
+            h2 Please select your error
+            .REPOP-wrapper-modal-body-selectors
+                input(type="radio" name="errorType" value="1" checked id="errorType1")
+                label(for="errorType1") Video is buffering excessively 
+                br
+                input(type="radio" name="errorType" value="2" id="errorType2")
+                label(for="errorType2") Video not loading
+                br
+                input(type="radio" name="errorType" value="3" id="errorType3")
+                label(for="errorType3") Audio cutting out
+                br
+                input(type="radio" name="errorType" value="4" id="errorType4")
+                label(for="errorType4") Video and Audio not aligned
+                br
+                input(type="radio" name="errorType" value="5" id="errorType5")
+                label(for="errorType5") Website not working
+                br
+                input(type="radio" name="errorType" value="6" id="errorType6")
+                label(for="errorType") Chat not working
+                br
+                br
+                br
+                .submit-wrap
+                    input(type="submit" value="Send Report")
+                    p.cancel-btn Cancel
+        
+
+
+script.
+
+    $('.report-error').click(function(){
+        $('.REPOP-darken').fadeToggle()
+        $('.REPOP-wrapper').fadeToggle()
+    })
+
+    $('.cancel-btn').click(function(){
+        $('.REPOP-wrapper-modal-body-selectors input[type="radio"]').prop("checked", false)
+        $('.REPOP-wrapper-modal-body-selectors #errorType1').prop("checked", true)
+        $('.REPOP-darken').fadeToggle()
+        $('.REPOP-wrapper').fadeToggle()
+    })
+
+    $('.REPOP-wrapper input[type="submit"]').click(() => {
+        const data = {
+            errorType: $('.REPOP-wrapper-modal-body-selectors input[type="radio"]:checked').val()
+        }
+        console.log(data)
+        $.post({
+            url: "/api/errorReport",
+            data: data,
+            success: () => {
+                $('.cancel-btn').click()
+            }
+        })
+    })

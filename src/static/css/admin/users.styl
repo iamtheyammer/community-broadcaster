@@ -91,7 +91,7 @@
         display flex
         flex-flow wrap row
         justify-content left
-        margin 30px auto 0
+        margin 30px auto 40px
         .no-users
             color #b5b5b5
             font-size 17px
@@ -167,3 +167,31 @@
                 transition background .3s
                 &:hover
                     background #ff663e
+
+@media only screen and (max-width: 1350px)
+    .users-page-content
+        width 960px !important
+        .filters-container
+            justify-content center !important
+
+@media only screen and (max-width: 1040px)
+    .users-page-content
+        width 640px !important
+        .filters-container
+            flex-direction column !important
+            .filter
+                margin-bottom 25px !important
+                &:first-child
+                    margin-bottom 30px !important
+                .grade-select
+                    margin-right 0 !important
+                .label
+                    text-align center !important
+
+@media only screen and (max-width: 730px)
+    .users-page-content
+        width 450px !important
+        .users-container
+            justify-content center !important
+            .user
+                margin 10px 0 !important

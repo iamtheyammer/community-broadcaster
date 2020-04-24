@@ -17,6 +17,10 @@
     location.reload();
   })
 
+  socket.on('logoutAllStreamClients', function(data) {
+    window.location.href = '/auth/logout'
+  })
+
   socket.on('slateControl', function(data) {
     log(data)
     if(data[1].state) {

@@ -1,5 +1,7 @@
 const getStream = require('./getStream') 
 const getParticipantCount = require('./getParticipantCount')
+const Filter = require('bad-words'),
+    filter = new Filter();
 
 module.exports = async (db) => {
     const stream = await getStream(db);
@@ -8,7 +10,7 @@ module.exports = async (db) => {
     let chats = []
     if(stream.liveChats && stream.liveChats.length > 0) {
         chats = stream.liveChats.map((x) => {
-            return {message: x.message, userName: x.userName, userChatTag: x.userChatTag, timestamp: x.timestamp}
+            return {message: filter.clean(x.message), userName: x.userName, userChatTag: x.userChatTag, timestamp: x.timestamp}
         })
     }
     

@@ -29,12 +29,18 @@ script.
 		window.participantLogs = JSON.parse(participantLogsRaw.replace(/&quot;/g,'"'));
 	}
 
+head
+	script(src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.8.0/video.min.js")
+	link(href="https://unpkg.com/video.js@7/dist/video-js.min.css" rel="stylesheet")
+
+
+
 body
 	.currentStream-wrapper.fullCenter
 		.currentStream-wrapper-top
 			h3.fullVertCenter Current Stream
 			.currentStream-wrapper-top-right.fullVertCenter
-				p 22:14, Tuesday, Apr 21, 2020
+				p 22:14, Tuesday, Apr 24, 2020
 		.currentStream-wrapper-body
 			.currentStream-wrapper-body-s1
 				.currentStream-wrapper-body-s1-currentViewersGraph
@@ -51,13 +57,84 @@ body
 							canvas(id="demographicsPie")
 
 			.currentStream-wrapper-body-s2
-				.currentStream-wrapper-body-s1-module
-				.currentStream-wrapper-body-s1-module
-				.currentStream-wrapper-body-s1-module
-				.currentStream-wrapper-body-s1-module
+				.currentStream-wrapper-body-s2-modWrap.fullVertCenter
+					.currentStream-wrapper-body-s1-module
+						.currentStream-wrapper-body-s1-module-txt.fullVertCenter
+							h2.csv Value
+							p Site Clients
+						.currentStream-wrapper-body-s1-module-icon.fullVertCenter.reg-image.clients
+
+					.currentStream-wrapper-body-s1-module
+						.currentStream-wrapper-body-s1-module-txt.fullVertCenter
+							h2.slS ON
+							p Stream Slate
+						.currentStream-wrapper-body-s1-module-icon.fullVertCenter.reg-image.slate
+
+					.currentStream-wrapper-body-s1-module
+						.currentStream-wrapper-body-s1-module-txt.fullVertCenter
+							h2.clvv Value
+							p Stream Viewers
+						.currentStream-wrapper-body-s1-module-icon.fullVertCenter.reg-image.viewers
+
+					.currentStream-wrapper-body-s1-module
+						.currentStream-wrapper-body-s1-module-txt.fullVertCenter
+							h2 Open
+							p Site Status
+						.currentStream-wrapper-body-s1-module-icon.fullVertCenter.reg-image.live
+						
 			.currentStream-wrapper-body-s3
-				
-		
+				.currentStream-wrapper-body-s3-object
+					.currentStream-wrapper-body-s3-object-header
+						p.fullVertCenter Stream Controls
+					.currentStream-wrapper-body-s3-object-body.fullXCenter
+						.currentStream-wrapper-body-s3-object-body-container
+							.currentStream-wrapper-body-s3-object-body-switchWrapper#slateControl
+								.currentStream-wrapper-body-s3-object-body-switchWrapper-switch.fullVertCenter
+							h5 Slate Controls
+
+							select.slateSelectionDrop
+								option Bars and Tones
+								option Splash
+								option Maintainance
+						.currentStream-wrapper-body-s3-object-body-container
+							input.notifTXT(type="text" placeholder="Message to send") 
+							input(type="button" value="Send Notification" onclick="sendNotification()")
+							
+						.currentStream-wrapper-body-s3-object-body-container
+							input.alertTXT(type="text" placeholder="Alert to send") 
+							input(type="button" value="Send Alert" onclick="sendAlert()")
+
+						br
+
+						.currentStream-wrapper-body-s3-object-body-container
+							.currentStream-wrapper-body-s3-object-body-switchWrapper#reloadStreamClients
+								.currentStream-wrapper-body-s3-object-body-switchWrapper-switch.fullVertCenter
+							h5 Reload Stream Clients
+
+						.currentStream-wrapper-body-s3-object-body-container
+							.currentStream-wrapper-body-s3-object-body-switchWrapper#reloadSiteClients
+								.currentStream-wrapper-body-s3-object-body-switchWrapper-switch.fullVertCenter
+							h5 Reload All Site Clients
+						
+						.currentStream-wrapper-body-s3-object-body-container
+							.currentStream-wrapper-body-s3-object-body-switchWrapper#logoutStreamClients
+								.currentStream-wrapper-body-s3-object-body-switchWrapper-switch.fullVertCenter
+							h5 Logout Stream Clients
+
+						.currentStream-wrapper-body-s3-object-body-container
+							.currentStream-wrapper-body-s3-object-body-switchWrapper#siteAccessibility.active
+								.currentStream-wrapper-body-s3-object-body-switchWrapper-switch.fullVertCenter
+							h5 Site Accessibility
+
+				.currentStream-wrapper-body-s3-object
+					.currentStream-wrapper-body-s3-object-header
+						p.fullVertCenter Livestream
+						input.fullVertCenter.goHomeButton(type="button" value="Go To Livestream" onclick="window.location.href='/'")
+					.currentStream-wrapper-body-s3-object-body.fullXCenter
+						video.fullCenter(id="my-video" muted="muted" class="video-js" controls preload="auto" width="1920" height="1080" poster="/img/download.jpeg")
+							source(src="https://stream.designtechhs.com/hls/livestream.m3u8" type="application/x-mpegURL")
+				.currentStream-wrapper-body-s3-object
+			
 
 //- //- .stream-inactive-container.active
 //- //-     h1.container-title The Community Meeting Stream is Currently <b class="inactive">Inactive</b>
@@ -68,8 +145,8 @@ body
 //- input(type="button" value="Reload All Stream Clients" onclick="reloadStreamClients()")
 //- input(type="button" value="Reload All Site Clients" onclick="reloadSiteClients()")
 //- .admin-home-wrapper-send-message
-//- 	input(type="text" placeholder="Message to send") 
-//- 	input(type="button" value="Send Alert" onclick="sendAlert()")
+	input(type="text" placeholder="Message to send") 
+	input(type="button" value="Send Alert" onclick="sendAlert()")
 //- select.slateSelectionDrop
 //- 	option Bars and Tones
 //- 	option Splash

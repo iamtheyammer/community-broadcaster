@@ -96,6 +96,14 @@ let connectedUsers = 0
 
 io.on('connection', function(socket){
   app.set('socketId', socket.id)
+  connectedUsers++
+  console.log('connect')
+  io.emit('clientChange', connectedUsers)
+  socket.on('disconnect', () => {
+    connectedUsers--
+    console.log('disconnect')
+    io.emit('clientChange', connectedUsers)
+  });
   socket.on('disconnect', async function(){
     const log = await removeParticipant(app.get("db"), socket.id)
     if(log) {
@@ -115,6 +123,10 @@ io.on('connection', function(socket){
     console.log('message: ' + msg);
     io.emit('reloadSiteClients', msg)
   });
+  socket.on('logoutAllStreamClients', function(msg){
+    console.log('message: ' + msg);
+    io.emit('logoutAllStreamClients', msg)
+  });
   socket.on('siteAlert', function(msg){
     console.log('message: ' + msg);
     io.emit('siteAlert', msg)
@@ -126,6 +138,10 @@ io.on('connection', function(socket){
   socket.on('newChat', function(msg){
     console.log('newChat: ' + msg);
     io.emit('newChat', msg)
+  });
+  socket.on('siteNotification', function(msg){
+    console.log('newChat: ' + msg);
+    io.emit('siteNotification', msg)
   });
 });
 

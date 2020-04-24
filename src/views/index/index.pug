@@ -44,9 +44,12 @@ html
           .stream-info-content
             h1.stream-title
             p.stream-runner
+            .report-error
+              .icon
+              p Report an Error
             .viewer-count-container
               .icon
-              p 2 Viewers
+              p
       .chat-widget
         .title-container
           h1.title Live Chat
@@ -58,6 +61,7 @@ html
           textarea.chat-input(data-gramm_editor="false" placeholder="Send a message...")
           .submit-chat-btn
             .icon
+    include ./reportErrors
     include ../notifications
 script(src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.8.0/video.min.js")
 script(src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.15.0/videojs-contrib-hls.min.js")

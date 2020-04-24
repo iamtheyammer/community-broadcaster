@@ -40,7 +40,7 @@
 .currentStream-wrapper
 	width calc(100% - 150px)
 	max-width 2000px
-	height calc(100% - 150px)
+	height 100%
 	position relative
 
 .currentStream-wrapper-top
@@ -85,7 +85,7 @@
 	background white
 	border-radius 4px
 
-.currentStream-wrapper-body-s1-currentViewersGraph-top
+.currentStream-wrapper-body-s1-currentViewersGraph-top, .currentStream-wrapper-body-s3-object-header
 	width 100%
 	height 100px
 	position relative
@@ -117,3 +117,158 @@
 
 .chartjs-size-monitor
 	overflow visible
+
+// Section Two
+
+.currentStream-wrapper-body-s2
+	width 100%
+	height 20%
+
+.currentStream-wrapper-body-s2-modWrap
+	width 100%
+	height 60%
+	display flex
+	justify-content space-between
+
+.currentStream-wrapper-body-s1-module
+	width 20%
+	height 100%
+	-webkit-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.05)
+	-moz-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.05)
+	box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.05)
+	background: #fff
+	border-radius: 4px
+
+.currentStream-wrapper-body-s1-module-txt
+	left 15%
+	h2
+		margin-bottom 10px
+		font-size: 40px;
+
+.currentStream-wrapper-body-s1-module-icon
+	width 70px
+	height 70px
+	right 15%
+	&.clients
+		background-image url('/img/client.svg')
+	&.slate
+		background-image url('/img/fullScreen.svg')
+	&.viewers
+		background-image url('/img/viewers.svg')
+		width 80px
+		height 80px
+	&.live
+		background-image url('/img/stream.svg')
+
+// Section Three
+
+.currentStream-wrapper-body-s3
+	width 100%
+	height 45%
+	display flex
+	justify-content space-between
+
+.currentStream-wrapper-body-s3-object
+	width 30%
+	height 90%
+	-webkit-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.05)
+	-moz-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.05)
+	box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.05)
+	background: #fff
+	border-radius: 4px
+
+.currentStream-wrapper-body-s3-object-body
+	width calc(100% - 80px)
+	height calc(100% - 140px)
+
+.my-video-dimensions
+	width 0px
+	height 0px
+
+.video-js
+	width 100%
+	// height 80%
+	padding-bottom 56.25% !important
+
+.goHomeButton	
+	right 40px
+	width: 130px;
+	height: 32px;
+	border: none;
+	background: #f0542c;
+	color: white;
+	cursor: pointer;
+	outline: none;
+
+// Switch
+
+.currentStream-wrapper-body-s3-object-body-switchWrapper
+	width 36px
+	height 14px
+	border-radius 25px
+	background #9b9b9b
+	transition .2s
+	cursor pointer
+	&.active
+		background #ffa48d
+		.currentStream-wrapper-body-s3-object-body-switchWrapper-switch
+			margin-left 16px
+			background #f05027
+
+.currentStream-wrapper-body-s3-object-body-switchWrapper-switch
+	width 20px
+	height 20px
+	background #cecece
+	border-radius 50%
+	transition .2s
+
+.currentStream-wrapper-body-s3-object-body-container
+	width 100%
+	height fit-content
+	display flex
+	margin-top 10px
+	margin-bottom 10px
+	h5
+		height: fit-content;
+		position: relative;
+		bottom: 3px;
+		font-size: 16px;
+		font-weight: 300;
+		letter-spacing: .5;
+		margin-left: 20px;
+	input[type="text"]
+		width: 60%;
+		height: 40px;
+		padding-left: 15px;
+		font-size: 14px;
+		outline none
+		margin-top 20px
+		border 1px solid #adadad
+		border-right none
+		font-weight: 300;
+	input[type="button"]
+		FONT-WEIGHT: 300;
+		width: 130px;
+		background: #f0542c;
+		border: none;
+		outline: none;
+		color: #fff;
+		bottom: 0px;
+		position: absolute;
+		height: 40px;
+		font-size: 14px;
+		cursor: pointer;
+		left: 59.9%;
+	select 
+		width: 140px;
+		cursor pointer
+		height: 30px;
+		bottom: 7px;
+		position: relative;
+		border: none;
+		background: #737373;
+		margin-left: 20px;
+		color: white;
+		outline none
+		font-size: 12px;
+		font-weight: 300;

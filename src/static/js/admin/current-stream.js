@@ -1,25 +1,25 @@
 
-var token = "I needs to make one"
+var token = user.googleId
 
 var CurslateState = false
 
 var dataConnections = []
 var labelsConnections = []
 
-
-function reloadSiteClients() {
-    socket.emit('reloadSiteClients', token);
-}
-
-function reloadStreamClients() {
-    socket.emit('reloadStreamClients', token);
-}
-
 function sendAlert() {
-    var input = $('.admin-home-wrapper-send-message input[type="text"]').val()
+    var input = $('.alertTXT').val()
     var data = [token, {"input": input}]
     socket.emit('siteAlert', data)
+    $('.alertTXT').val('')
 }
+
+function sendNotification() {
+  var input = $('.notifTXT').val()
+  var data = [token, {"input": input}]
+  socket.emit('siteNotification', data)
+  $('.notifTXT').val('')
+}
+
 
 findDBSlateState()
 
@@ -27,6 +27,7 @@ function slateState(stateSelection) {
   var selection = $('.slateSelectionDrop').val()
   var state = stateSelection
   var data = [token, {"state": state, selection}]
+  updateDashboardSlateState(stateSelection)
   socket.emit('slateControl', data)
   $.ajax({
     url: "/admin/api/slateControl",
@@ -133,12 +134,12 @@ setTimeout(function(){
       datasets: [{
         data: tempData,
         label: "Currently Connected Users",
-        backgroundColor: "RGBA(93, 117, 255, 0.7)",
+        backgroundColor: "RGBA(38, 199, 240, 0.7)",
         borderColor: "RGBA(93, 117, 255, 0)",
       },{
         data: tempData2,
         label: "Currently Connected Users",
-        backgroundColor: "RGBA(203, 136, 236, 1)",
+        backgroundColor: "RGBA(240, 80, 39, 0.5)",
         borderColor: "RGBA(93, 117, 255, 0)",
       }],
       labels: tempLabelsConnected,
@@ -177,35 +178,88 @@ setTimeout(function(){
   });
 }, 1000)
 
-// socket.on('clientChange', function(data){
-//   log(data)
-//   $('.clientsConnected').text('Clients Connected: ' +  data[0]);
-//   if(dataConnections.length == 10) {
-//     dataConnections.splice(0, 1);
-//     labelsConnections.splice(0, 1);
-//   }
-//   dataConnections.push(data[0])
-//   if(data[1] == null) {
-//     labelsConnections.push("Client Reload")
-//   } else {
-//     labelsConnections.push(moment(data[1]).format('HH:mm:ss'))
-//   }
-//   cntChart.update();
-// })
+// Functions
 
-for(var i = 0; i < siteControls.length; i++) {
-  if(siteControls[i].identifier == "connectedClients") {
-    $('.clientsConnected').text('Clients Connected: ' + siteControls[i].clientsConnected);  
-    if(dataConnections.length == 10) {
-      dataConnections.splice(0, 1);
-      labelsConnections.splice(0, 1);
-    }
-    dataConnections.push(siteControls[i].clientsConnected)
-    if(siteControls[i].lastchanged == null) {
-      labelsConnections.push("Client Reload")
-    } else {
-      labelsConnections.push(moment(siteControls[i].lastchanged).format('HH:mm:ss'))
-    }
-    cntChart.update();
+function updateDashboardSlateState(stateSelection) {
+  if(stateSelection) {
+    $('.slS').text("ON")
+  } else {
+    $('.slS').text("OFF")
   }
 }
+
+
+// Set Values from DB
+
+$('.clvv').text(stream.participants.length)
+
+if(siteControls[0].state) {
+  $('.slS').text("ON")
+  $('#slateControl').addClass('active')
+} else {
+  $('.slS').text("OFF")
+  $('#slateControl').removeClass('active')
+}
+
+// Websockets
+
+socket.on('participantsChange', function(count){
+  log(count)
+  $('.clvv').text(count)
+})
+
+socket.on('clientChange', function(data){
+  log(data)
+  $('.csv').text(data);
+})
+
+// VideoJS
+
+setTimeout(function(){
+  var player = videojs('#my-video');
+  var videoPlay = player.play();
+  if(videoPlay !== undefined) {
+    videoPlay.then(_ => {
+      player.play();
+      player.muted(false);
+    }).catch(error => {
+      player.play();
+      player.muted(false);
+    })
+  }
+}, 1000)
+
+// Switches
+
+$('.currentStream-wrapper-body-s3-object-body-switchWrapper').click(function(){
+  $(this).toggleClass('active')
+})
+
+$('#slateControl').click(function(){
+  if($(this).hasClass('active')) {
+    slateState(true)
+  } else {
+    slateState(false)
+  }
+})
+
+$('#reloadStreamClients').click(function(){
+  socket.emit('reloadStreamClients', token);
+  setTimeout(function(){
+    $('#reloadStreamClients').removeClass("active")
+  }, 2000)
+})
+
+$('#reloadSiteClients').click(function(){
+  socket.emit('reloadSiteClients', token);
+  setTimeout(function(){
+    $('#reloadSiteClients').removeClass("active")
+  }, 2000)
+})
+
+$('#logoutStreamClients').click(function(){
+  socket.emit('logoutAllStreamClients', token);
+  setTimeout(function(){
+    $('#logoutStreamClients').removeClass("active")
+  }, 2000)
+})

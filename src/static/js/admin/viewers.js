@@ -1,4 +1,25 @@
 
+let viwerLogsCSVArr = [];
+let csvContent;
+let encodedUri;
+
+
+const updateCSVArr = () => {
+    viwerLogsCSVArr = [];
+    viwerLogsCSVArr.push(["GoogleID", "Email", "Name", "Action", "Date/Time"])
+    viwerLogsCSVArr = [...viwerLogsCSVArr, ...window.participantLogs.sort((a, b) =>  b.timestamp - a.timestamp).map(x => [x.googleId, x.email, x.name, x.type === "join" ? "joined" : "left", moment(x.timestamp).format("LLL").replace(/,/g, "")])]
+    csvContent = "data:text/csv;charset=utf-8," 
+    viwerLogsCSVArr.forEach(function(rowArray) {
+        let row = rowArray.join(",");
+        csvContent += row + "\r\n";
+    });
+    viewerLogsFile = encodeURI(csvContent)
+    const btn = $(".viewer-logs-container .download-csv-btn")
+    btn.attr("href", viewerLogsFile)
+    btn.attr("target", "_blank")
+    btn.attr("download", `viewerLogs${moment(Date.now()).format("MM-DD-YYYY")}.csv`)
+}
+
 const viewerCounts = () => {
     const counts = {
         "9": 0,
@@ -120,12 +141,43 @@ const appendParticipants = () => {
     })
 }
 
+const searchParticipantLogs = () => {
+    const val = $(".viewer-logs-container .search-input").val().toLowerCase()
+    const logs = $(".viewer-logs-container .log")
+
+    if(val.trim().length <= 0) {
+        logs.removeClass('hidden')
+        return;
+    }
+
+    logs.each(function() {
+        const e = $(this)
+        const name = e.data("name").toLowerCase()
+        const firstName = name.split(" ")[0]
+        const lastName = name.split(" ")[1]
+        const email = e.data("email").toLowerCase()
+        if(email.startsWith(val) || firstName.startsWith(val) || lastName.startsWith(val) || name.startsWith(val)) {
+            e.removeClass('hidden')
+        } else {
+            e.addClass('hidden')
+        }
+    })
+
+    if($('.viewer-logs-container .log:not(.hidden)').length <= 0 ) {
+        $(".logs-container .no-logs").show()
+    } else {
+        $(".logs-container .no-logs").hide()
+    }
+}
+
+$(".viewer-logs-container .search-input").on("input", searchParticipantLogs)
+
 const appendParticipantLog = (data) => {
     const message = `${data.name} ${data.type==="join" ? "joined" : "left"} the stream. <b>${data.email}</b>`
     $(".viewer-logs-container .logs-container").prepend(`
-        <div class="log ${data.type}">
+        <div class="log ${data.type}" data-name="${data.name}" data-email="${data.email}">
             <p class="msg">${message}</p>
-            <p class="time">${moment(data.timestamp).format("h:m A")}</p>
+            <p class="time">${moment(data.timestamp).format("LLL")}</p>
         </div>
     `)
     $(".logs-container .no-logs").hide()
@@ -136,13 +188,20 @@ const appendAllParticipantLogs = () => {
         $(".logs-container .no-logs").show()
         return;
     }
-    window.participantLogs = window.participantLogs.sort((a, b) =>  b.timestamp - a.timestamp)
+    window.participantLogs = window.participantLogs.sort((a, b) =>  a.timestamp - b.timestamp)
     window.participantLogs.forEach(appendParticipantLog)
+    updateLogsCounts()
+}
+
+const updateLogsCounts = () => {
+    const count = window.participantLogs.length
+    $(".viewer-logs-container .title").html(`Viewer Logs <b>(${count})</b>`)
 }
 
 $(document).ready(() => {
     appendParticipants()
     appendAllParticipantLogs()
+    updateCSVArr()
 })
 
 $(() => { // BAN CODE
@@ -190,4 +249,10 @@ socket.on("participantsChange", () => {
     })
 })
 
-socket.on("participantsChangeAdmin", appendParticipantLog)
+socket.on("participantsChangeAdmin", (data) => {
+    window.participantLogs.push(data)
+    window.participantLogs = window.participantLogs.sort((a, b) =>  a.timestamp - b.timestamp)
+    updateCSVArr()
+    updateLogsCounts()
+    appendParticipantLog(data)
+})
