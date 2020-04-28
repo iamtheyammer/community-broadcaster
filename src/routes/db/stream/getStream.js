@@ -1,7 +1,7 @@
 module.exports = async (db) => {
     const getStream  = () => {
         return new Promise((resolve,reject) => {
-            db.collection('stream').find({}).toArray((err,data) => {
+            db.collection("siteControls").find({"identifier": "currentStream"}).toArray((err,data) => {
                 err ? reject(err) : resolve(data)
             })
         })

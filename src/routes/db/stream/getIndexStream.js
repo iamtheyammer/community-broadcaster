@@ -19,6 +19,5 @@ module.exports = async (db) => {
     streamObj.chatSettings = stream.chatSettings
     streamObj.streamName = stream.streamName
     streamObj.streamRunner = stream.streamRunner
-
     return streamObj
 }

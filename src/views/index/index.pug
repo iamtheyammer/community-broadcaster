@@ -13,14 +13,15 @@ html
       window.tokens = JSON.parse(rawTokens.replace(/&quot;/g,'"'));
 
       var siteControlsRaw = "#{controlArr}"
-      window.siteControls = JSON.parse(siteControlsRaw.replace(/&quot;/g,'"'));
+      window.siteControls = JSON.parse(siteControlsRaw.replace(/&quot;/g,'"'))
 
       var userRaw = "#{user}"
       users = JSON.parse(userRaw.replace(/&quot;/g,'"'));
       window.user = users[0]
       
       var streamRaw = "#{stream}"
-      window.stream = JSON.parse(streamRaw.replace(/&quot;/g,'"'));
+      window.stream = JSON.parse(streamRaw.replace(/&quot;/g,'"'))[0]
+      
   body
     //- .index-wrapper
     //-   .index-wrapper-logo-wrapper
@@ -39,7 +40,7 @@ html
           img(src="/img/countdown-bg.png")
           .slate.reg-image
           video(id="my-video" muted="muted" class="video-js" controls preload="auto" width="1920" height="1080" poster="/img/download.jpeg")
-            source(src="https://stream.designtechhs.com/hls/livestream.m3u8" type="application/x-mpegURL")
+            source(src="https://stream.designtechhs.com/playlist.m3u8" type="application/x-mpegURL")
         .stream-info-container
           .stream-info-content
             h1.stream-title
@@ -63,7 +64,10 @@ html
             .icon
     include ./reportErrors
     include ../notifications
+  
 script(src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.8.0/video.min.js")
 script(src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.15.0/videojs-contrib-hls.min.js")
+script(src="/videojs/videojs-contrib-quality-levels/dist/videojs-contrib-quality-levels.min.js")
+script(src="/videojs/videojs-hls-quality-selector/dist/videojs-hls-quality-selector.min.js")
 script(src="/js/index/index.js")
 script(src="/js/index/chat.js")

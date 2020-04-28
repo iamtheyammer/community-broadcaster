@@ -2,6 +2,11 @@ html
     head
         include ./main
         link(rel="stylesheet" href="/css/countdown.css")
+        script.
+            var rawUpcomingStreams = "#{nextStream}"
+            if(rawUpcomingStreams) {
+                window.upcomingStream = JSON.parse(rawUpcomingStreams.replace(/&quot;/g,'"'));
+            }
     body
         .bg
         .logo-container

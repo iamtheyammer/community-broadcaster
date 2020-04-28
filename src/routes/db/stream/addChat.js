@@ -12,8 +12,7 @@ module.exports = (db, user, message, approved) => {
         flagData: {},
         approved: approved
     }
-    db.collection("stream").updateOne(
-        {currentStream: true},
+    db.collection("siteControls").updateOne({"identifier": "currentStream"},
         {$push: {liveChats: data}}
     )
     return data;

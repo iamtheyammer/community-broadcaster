@@ -18,6 +18,37 @@ const adminAuth = (req,res,next) => {
     }
 }
 
+router.post('/endStream', adminAuth, (req,res,next) => {
+    const db = req.app.get("db")
+    const socket = req.app.get("socketio")
+    async function getData() {
+        var streamState = await db.collection('siteControls').find({"identifier": "streamState"}).toArray()
+        if(streamState[0].state) {
+            db.collection('siteControls').updateOne({"identifier": "streamState"}, {$set: {
+                "state": false,
+                "associatedStream": 0
+            }})
+            db.collection('siteControls').updateOne({"identifier": "currentStream"}, {$set: {
+                streamId: 0,
+                liveStream: false,
+                streamName: "Pending",
+                streamRunner: "Pending",
+                liveChats: [],
+                participants: [],
+                participantLogs: []
+
+            }})
+            res.sendStatus(200)
+            setTimeout(function(){
+                socket.emit('reloadSiteClients');
+            }, 1000)
+        } else {
+            res.sendStatus(500)
+        }
+    } 
+    getData()
+})
+
 router.post('/createStream', adminAuth, (req,res,next) => {
     const db = req.app.get("db")
     const data = {

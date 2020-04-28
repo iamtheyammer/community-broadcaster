@@ -20,7 +20,6 @@ function sendNotification() {
   $('.notifTXT').val('')
 }
 
-
 findDBSlateState()
 
 function slateState(stateSelection) {
@@ -39,6 +38,20 @@ function slateState(stateSelection) {
     }
   })
 
+}
+
+function endCurrentStream() {
+  if(window.prompt('To confirm enter "END STREAM"') == "END STREAM") {
+    $.ajax({
+      url: "/admin/api/endStream",
+      method: "POST",
+      success: function(result) {
+        window.alert('Successfully Ended the Current Stream')
+      }
+    })
+  } else {
+    window.alert('Unable to verify.')
+  }
 }
 
 function findDBSlateState() {
@@ -263,3 +276,11 @@ $('#logoutStreamClients').click(function(){
     $('#logoutStreamClients').removeClass("active")
   }, 2000)
 })
+
+// Stream Checks
+
+if(stream.liveStream) {
+  $('.tahj').hide()
+} else {
+  $(".currentStream-wrapper").hide()
+}
