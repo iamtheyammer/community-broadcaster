@@ -274,14 +274,88 @@
 		left: 59.9%;
 	select 
 		width: 140px;
-		cursor pointer
-		height: 30px;
+		cursor: pointer;
+		height: 31px;
 		bottom: 7px;
 		position: relative;
+		border-radius: 4px;
 		border: none;
-		background: #737373;
+		background: #212121;
 		margin-left: 20px;
-		color: white;
-		outline none
+		color: #fff;
+		outline: none;
+		-webkit-appearance none
 		font-size: 12px;
 		font-weight: 300;
+		padding-left: 10px;
+
+@media screen and (max-width: 1400px) {
+	.currentStream-wrapper-body-s1 {
+		flex-wrap: wrap;
+		height fit-content
+	}
+	.currentStream-wrapper-body-s1-currentViewersGraph, .currentStream-wrapper-body-s1-demographicsGraph {
+		width 100%
+	}
+	.currentStream-wrapper-body-s1-demographicsGraph {
+		margin-top 20px
+	}
+	.currentStream-wrapper-body-s1-demographicsGraph-wrapper {
+		width: 30vw;
+		height: 30vw;
+		position relative 
+		top 0px
+		transform translateX(-50%)
+	}
+	.currentStream-wrapper-body-s2-modWrap {
+		flex-wrap wrap
+		transform scale(1)
+		top 0px
+		position relative
+		height fit-content
+	}
+	.currentStream-wrapper-body-s1-module {
+		width: 45%;
+		height: 170px;
+		&:nth-child(3) {
+			margin-top 20px
+		}
+		&:nth-child(4) {
+			margin-top 20px
+		}
+	}
+	.currentStream-wrapper-body-s2 {
+		height fit-content
+		margin-top 20px
+		margin-bottom 20px
+	}
+	.currentStream-wrapper-body-s3 {
+		height fit-content
+		flex-wrap wrap
+	}
+	.currentStream-wrapper-body-s3-object {
+		width 45%
+		height 500px
+		&:nth-child(3) {
+			display none
+		}
+	}
+}
+
+@media screen and (max-height: 1300px) {
+	.currentStream-wrapper-body-s3-object {
+		height 480px
+	}
+	.currentStream-wrapper-body-s1-module-icon {
+		width 50px !important
+		height 50px !important
+	}
+	.currentStream-wrapper-body-s1-module-txt {
+		h2 {
+			font-size 30px
+		}
+		p {
+			font-size 14px
+		}
+	}
+}

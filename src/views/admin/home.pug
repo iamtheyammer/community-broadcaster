@@ -7,7 +7,7 @@ html
 		.nav-container
 			.nav-content
 				.logo-container
-					.logo
+					.logo(onclick="window.location.href='/'")
 					.logo-title-container
 						h1.logo-title Community Meeting
 						p.logo-subtitle Admin Dashboard
@@ -25,6 +25,7 @@ html
 						link(rel='stylesheet', href="/css/admin/current-stream.css")
 						include pages/currentStream
 						script(src="/js/admin/current-stream.js")
+						script(src="/js/admin/current-stream_GRAPHS.js")
 					when 'Upcoming Streams'
 						link(rel='stylesheet', href="/css/admin/upcoming-streams.css")
 						include pages/upcomingStreams

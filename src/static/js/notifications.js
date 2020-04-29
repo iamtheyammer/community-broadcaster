@@ -1,4 +1,12 @@
 socket.on('siteNotification', function(data) {
+    siteNotification(data)
+})
+
+socket.on('siteAlert', function(data) {
+    siteAlert(data)
+})
+
+function siteNotification(data) { 
     var message = data[1].input
     var id = makeid(5)
     var idNW = makeid(5)
@@ -15,9 +23,9 @@ socket.on('siteNotification', function(data) {
             $("#" + idNW).remove()
         }, 1000)
     }, 20000)
-})
+}
 
-socket.on('siteAlert', function(data) {
+function siteAlert(data) {
     var message = data[1].input
     var id = makeid(5)
     var idNW = makeid(5)
@@ -36,4 +44,4 @@ socket.on('siteAlert', function(data) {
             $("#" + idNW).remove()
         }, 1000)
     }, 20000)
-})
+}
