@@ -4,6 +4,32 @@
 		flex-flow column wrap
 		margin 75px auto 0
 
+.viewers-table,
+.viewer-logs-container
+	.title-container
+		display flex
+		align-items center
+		justify-content left
+		.title
+			font-size 25px
+			color #333
+			letter-spacing .5px
+			margin-right 20px
+			b
+				font-weight 400
+				color grey
+				font-size 20px
+		.download-csv-btn
+			color #f05027
+			font-size 15px
+			letter-spacing .3px
+			margin 5px 0 0
+			width fit-content
+			cursor pointer
+			text-deocration none
+			&:hover
+				text-decoration underline !important
+
 .viewers-table
 	width 100%
 	.search-container
@@ -104,10 +130,6 @@
 	min-width 500px
 	max-width 1200px
 	margin 0 auto 80px
-	.table-title
-		font-size 25px
-		color #333
-		letter-spacing .5px
 	table
 		width 100%
 		margin 15px auto !important
@@ -178,29 +200,6 @@
 	min-width 500px
 	width 100%
 	margin 40px auto
-	.logs-title-container
-		display flex
-		align-items center
-		justify-content left
-		.title
-			font-size 25px
-			color #333
-			letter-spacing .5px
-			margin-right 20px
-			b
-				font-weight 400
-				color grey
-				font-size 20px
-		.download-csv-btn
-			color #f05027
-			font-size 15px
-			letter-spacing .3px
-			margin 5px 0 0
-			width fit-content
-			cursor pointer
-			text-deocration none
-			&:hover
-				text-decoration underline !important
 	.search-container
 		width 100%
 		margin-top 30px

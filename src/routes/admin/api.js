@@ -9,6 +9,7 @@ const getSocketId = require('../db/stream/getSocketId')
 const getAllParticipants = require('../db/stream/getAllParticipants')
 const getUserByGoogleId = require('../db/users/getUserByGoogleId')
 const addLog = require("../db/logs/addLog")
+const editStream = require("../db/stream/editStream")
 
 const adminAuth = (req,res,next) => {
     if(req.user.auth >= 2) {
@@ -17,6 +18,15 @@ const adminAuth = (req,res,next) => {
         res.sendStatus(403);
     }
 }
+
+router.post("/userAuth", adminAuth, (req, res, next) => {
+    const db = req.app.get("db")
+    const socket = req.app.get("socketio")
+    db.collection('users').updateOne({'googleId': req.body.googleId}, {$set: {
+        auth: req.body.auth
+    }})
+    res.sendStatus(200)
+})
 
 router.post('/endStream', adminAuth, (req,res,next) => {
     const db = req.app.get("db")
@@ -36,7 +46,6 @@ router.post('/endStream', adminAuth, (req,res,next) => {
                 liveChats: [],
                 participants: [],
                 participantLogs: []
-
             }})
             res.sendStatus(200)
             setTimeout(function(){
@@ -53,9 +62,10 @@ router.post('/createStream', adminAuth, (req,res,next) => {
     const db = req.app.get("db")
     const data = {
         name: req.body.name,
+        runner: req.body.runner,
         date: new Date(req.body.date)
     }
-    if(data.name.trim().length <= 0 || !data.date) {
+    if(data.name.trim().length <= 0 || !data.date || data.runner.trim().length <= 0) {
         res.sendStatus(500)
         return;
     }
@@ -64,6 +74,26 @@ router.post('/createStream', adminAuth, (req,res,next) => {
     } catch(e) {
         throw new Error(e);
         res.sendStatus(500)
+    }
+})
+
+router.post('/editStream', adminAuth, (req,res,next) => {
+    const db = req.app.get("db")
+    const data = {
+        name: req.body.name,
+        runner: req.body.runner,
+        date: new Date(req.body.date),
+        streamId: req.body.streamId
+    }
+    if(data.name.trim().length <= 0 || !data.date || data.runner.trim().length <= 0) {
+        res.sendStatus(500)
+        return;
+    }
+    try {
+        res.json(editStream(db, data, req.user))
+    } catch(e) {
+        res.sendStatsu(500)
+        throw new Error(e);
     }
 })
 

@@ -8,6 +8,7 @@ body
     background white
     border-bottom 1px solid #f2f3f5
     box-shadow 0 4px 8px 0 rgba(0,0,0,0.05)
+    z-index 20
     .nav-content
         width calc(100% - 60px)
         margin 0 auto
@@ -45,12 +46,68 @@ body
             display flex
             justify-content right
             align-items center
+            .nav-link-dropdown-container
+                position relative
+                margin 0 30px
+                &.active
+                    .nav-link-btn .icon
+                        transform rotate(180deg)
+                    .nav-link-dropdown-menu
+                        visibility visible
+                        opacity 1
+                        top 30px
+                .nav-link-btn
+                    display flex
+                    justify-content center
+                    align-items center
+                    cursor pointer
+                    p
+                        color #333
+                        
+                        font-size 15px
+                        margin 0 10px 0 0
+                        letter-spacing .3px
+                    .icon
+                        background-image url("/img/select-down-arrow.svg")
+                        background-size cover
+                        background-position center
+                        background-repeat no-repeat
+                        width 15px
+                        height 15px
+                        margin-top 3px
+                        opacity .8
+                        transform rotate(0)
+                        transition transform .3s
+                .nav-link-dropdown-menu
+                    visibility hidden
+                    opacity 0
+                    top 45px
+                    position absolute
+                    background white
+                    box-shadow 0 0 10px 0 rgba(0,0,0,0.1)
+                    width 200px
+                    left 50%
+                    transform translateX(-50%)
+                    height fit-content
+                    transition top .3s, visibility .3s, opacity .3s
+                    .nav-dropdown-link
+                        color #333
+                        cursor pointer
+                        letter-spacing .3px
+                        margin 30px 0 30px 30px
+                        display block
+                        font-size 15px
+                        text-align left
+                        transition color .3s
+                        &:hover,
+                        &.active
+                            color #f05027
             .nav-link
                 color #333
                 cursor pointer
                 letter-spacing .3px
                 margin 0 30px
-                font-size 14px
+                font-size 15px
                 transition color .3s
                 &:hover,
                 &.active

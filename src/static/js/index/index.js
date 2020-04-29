@@ -121,16 +121,16 @@ $(".stream-info-container .viewer-count-container p").text(`${count} Viewers`)
 })
 
 $(document).ready(() => {
-$('.stream-info-container .stream-title').text(stream.streamName)
-$('.stream-info-container .stream-runner').text(stream.streamRunner)
+$('.stream-info-container .stream-title').text(stream.name)
+$('.stream-info-container .stream-runner').text(stream.runner)
 $(".stream-info-container .viewer-count-container p").text(`${stream.participantCount + 1} Viewers`)
 })
 
 
 window.onload = () => {
-setTimeout(() => {
-  socket.emit('initParticipant', window.user.googleId)
-}, 3000)
+  setTimeout(() => {
+    socket.emit('initParticipant', window.user.googleId)
+  }, 3000)
 }
 
 // const fixVideoHeight = () => {

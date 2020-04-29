@@ -87,6 +87,8 @@ if(siteControls[0].state) {
   $('#slateControl').removeClass('active')
 }
 
+$('.csv').text(viewersArr.data.site_clients[viewersArr.data.site_clients.length - 1])
+
 let dbVal;
 if(siteControls[0].slateType == 1) {
   dbVal = "Bars and Tones"
@@ -99,16 +101,66 @@ if(siteControls[0].slateType == 3) {
 }
 $('.slateSelectionDrop').val(dbVal)
 
+let freshman = 0
+let sophomores = 0
+let juniors = 0
+let seniors = 0
+let faculty = 0
+let other = 0
+
+for(var i = 0; i < users.length; i++) {
+    if(users[i].schoolAssociation != "none") {
+      if(users[i].schoolAssociation == "faculty") {
+        faculty++
+      } else {
+        if(users[i].grade == 9) {
+          freshman++
+        }
+        if(users[i].grade == 10) {
+          sophomores++
+        }
+        if(users[i].grade == 11) {
+          juniors++
+        }
+        if(users[i].grade == 12) {
+          seniors++
+        }
+      }
+    } else {
+      other++
+    }
+}
+
+$('.valFreshmen').text(freshman)
+$('.valSophomores').text(sophomores)
+$('.valJuniors').text(juniors)
+$('.valSeniors').text(seniors)
+$('.valFaculty').text(faculty)
+$('.valOther').text(other)
+
+for(var i = 0; i < stream.liveChats.length; i++) {
+  var chatINPUT = stream.liveChats[i].message
+  var sender = stream.liveChats[i].userName.split(" ")
+  sender = sender[0][0].toUpperCase() + sender[0].slice(1) + " " +
+  sender[1][0].toUpperCase() + sender[1].slice(1) + " | " + cap(stream.liveChats[i].userChatTag)
+  
+  $('.currentStream-chatWrapper').append('<div class="currentStream-chatWrapper-chatObject"> <div class="currentStream-chatWrapper-chatObject-sender"> <p>'+sender+'</p> </div> <div class="currentStream-chatWrapper-chatObject-msg"> <h5>'+chatINPUT+'</h5> </div> </div>')
+  $('.scrollTPPS').scrollTop(999999999)
+}
+
+
 // Websockets
 
 socket.on('participantsChange', function(count){
   log(count)
   $('.clvv').text(count)
+  updateStreamGraph(count)
 })
 
 socket.on('clientChange', function(data){
   log(data)
   $('.csv').text(data);
+  updateSiteClientsGraph(data)
 })
 
 socket.on('slateControl', function(data){
@@ -117,10 +169,20 @@ socket.on('slateControl', function(data){
   $('.slateSelectionDrop').val(data[1].selection)
 })
 
+socket.on("newChatAdmin", function(data) {
+  console.log(data)
+  var chatINPUT = data.message
+  var sender = data.userName.split(" ")
+  sender = sender[0][0].toUpperCase() + sender[0].slice(1) + " " +
+  sender[1][0].toUpperCase() + sender[1].slice(1) + " | " + cap(data.userChatTag)
+  $('.currentStream-chatWrapper').append('<div class="currentStream-chatWrapper-chatObject"> <div class="currentStream-chatWrapper-chatObject-sender"> <p>'+sender+'</p> </div> <div class="currentStream-chatWrapper-chatObject-msg"> <h5>'+chatINPUT+'</h5> </div> </div>')
+  $('.scrollTPPS').scrollTop(999999999)
+})
+
 // VideoJS
+var player = videojs('#my-video');
 
 setTimeout(function(){
-  var player = videojs('#my-video');
   var videoPlay = player.play();
   if(videoPlay !== undefined) {
     videoPlay.then(_ => {
@@ -131,10 +193,13 @@ setTimeout(function(){
       player.muted(false);
     })
   }
-  if(!player.readyState()) {
+}, 1000)
+
+player.on('error', function(e) {
+  if(e.type == 'error') {
     siteAlert(["local", {"input": "Unable to load livestream!"}])
   }
-}, 1000)
+})
 
 // Switches
 
@@ -185,7 +250,7 @@ $('.slateSelectionDrop').change(() => {
 
 // Stream Checks
 
-if(stream.liveStream) {
+if(stream.active) {
   $('.tahj').hide()
 } else {
   $(".currentStream-wrapper").hide()

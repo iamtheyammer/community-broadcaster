@@ -1,23 +1,33 @@
-
-let viwerLogsCSVArr = [];
-let csvContent;
-let encodedUri;
-
-
-const updateCSVArr = () => {
-    viwerLogsCSVArr = [];
-    viwerLogsCSVArr.push(["GoogleID", "Email", "Name", "Action", "Date/Time"])
-    viwerLogsCSVArr = [...viwerLogsCSVArr, ...window.participantLogs.sort((a, b) =>  b.timestamp - a.timestamp).map(x => [x.googleId, x.email, x.name, x.type === "join" ? "joined" : "left", moment(x.timestamp).format("LLL").replace(/,/g, "")])]
-    csvContent = "data:text/csv;charset=utf-8," 
-    viwerLogsCSVArr.forEach(function(rowArray) {
+const updateParticipantLogsCSVArr = () => {
+    let CSVArr = [];
+    CSVArr.push(["GoogleID", "Name", "Email", "Action", "Date/Time"])
+    CSVArr = [...CSVArr, ...window.participantLogs.sort((a, b) =>  b.timestamp - a.timestamp).map(x => [x.googleId, x.name, x.email, x.type === "join" ? "joined" : "left", moment(x.timestamp).format("LLL").replace(/,/g, "")])]
+    let csvContent = "data:text/csv;charset=utf-8," 
+    CSVArr.forEach(function(rowArray) {
         let row = rowArray.join(",");
         csvContent += row + "\r\n";
     });
-    viewerLogsFile = encodeURI(csvContent)
+    let = file = encodeURI(csvContent)
     const btn = $(".viewer-logs-container .download-csv-btn")
-    btn.attr("href", viewerLogsFile)
+    btn.attr("href", file)
     btn.attr("target", "_blank")
-    btn.attr("download", `viewerLogs${moment(Date.now()).format("MM-DD-YYYY")}.csv`)
+    btn.attr("download", `viewerLogs${moment(Date.now()).format("MM-DD-YYYY_hh-mmA")}.csv`)
+}
+
+const updateViewersCSVArr = () => {
+    let CSVArr = [];
+    CSVArr.push(["GoogleID", "Name",  "Email", "Grade"])
+    CSVArr = [...CSVArr, ...window.allParticipants.sort((a, b) =>  a.grade - b.grade).map(x => [x.googleId, x.firstName[0].toUpperCase() + x.firstName.slice(1) + " " + x.lastName[0].toUpperCase() + x.lastName.slice(1), x.email, x.grade === 0 ? "None" : x.grade])]
+    let csvContent = "data:text/csv;charset=utf-8," 
+    CSVArr.forEach(function(rowArray) {
+        let row = rowArray.join(",");
+        csvContent += row + "\r\n";
+    });
+    let = file = encodeURI(csvContent)
+    const btn = $(".viewers-table .download-csv-btn")
+    btn.attr("href", file)
+    btn.attr("target", "_blank")
+    btn.attr("download", `activeViewers${moment(Date.now()).format("MM-DD-YYYY_hh-mmA")}.csv`)
 }
 
 const viewerCounts = () => {
@@ -64,9 +74,9 @@ const searchViewers = () => {
     })
 
     if($('.viewers-table .viewer:not(.grade-hidden, .search-hidden)').length <= 0 ) {
-        $(".viewers-table .no-viewers").show()
+        $(".viewers-table .no-viewers").css("display", "block")
     } else {
-        $(".viewers-table .no-viewers").hide()
+        $(".viewers-table .no-viewers").css("display", "none")
     }
 }
 
@@ -105,7 +115,7 @@ $(".viewers-table .search-container .grade-filter-container .grade-option").clic
 const appendParticipants = () => {
     $(".viewers-table tbody .viewer").remove()
     if(!window.allParticipants || window.allParticipants.length <= 0) {
-        $(".viewers-table .no-viewers").show()
+        $(".viewers-table .no-viewers").css("display", "block")
         return;
     }
     viewerCounts()
@@ -201,7 +211,8 @@ const updateLogsCounts = () => {
 $(document).ready(() => {
     appendParticipants()
     appendAllParticipantLogs()
-    updateCSVArr()
+    updateParticipantLogsCSVArr()
+    updateViewersCSVArr()
 })
 
 $(() => { // BAN CODE
@@ -243,16 +254,17 @@ socket.on("participantsChange", () => {
         url: "/admin/api/getParticipants",
         success: (data) => {
             window.allParticipants = data
+            updateViewersCSVArr()
             appendParticipants()
             applyGradeFilter($(".viewers-table .search-container .grade-filter-container .grade-option.active").data("grade"))
         }
     })
 })
 
-socket.on("participantsChangeAdmin", (data) => {
+socket.on("participantLogsChange", (data) => {
     window.participantLogs.push(data)
     window.participantLogs = window.participantLogs.sort((a, b) =>  a.timestamp - b.timestamp)
-    updateCSVArr()
+    updateParticipantLogsCSVArr()
     updateLogsCounts()
     appendParticipantLog(data)
 })

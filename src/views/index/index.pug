@@ -20,7 +20,10 @@ html
       window.user = users[0]
       
       var streamRaw = "#{stream}"
-      window.stream = JSON.parse(streamRaw.replace(/&quot;/g,'"'))[0]
+      if(streamRaw) {
+         window.stream = JSON.parse(streamRaw.replace(/&quot;/g,'"'))
+      }
+     
       
   body
     //- .index-wrapper
@@ -50,7 +53,7 @@ html
               p Report an Error
             .viewer-count-container
               .icon
-              p
+              p 0 Viewers
       .chat-widget
         .title-container
           h1.title Live Chat

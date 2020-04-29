@@ -6,10 +6,19 @@ module.exports = (db, data, user) => {
         length: 8,
         charset: 'alphanumeric'
     });
-    db.collection("upcomingStreams").insert({
+
+    db.collection("streams").insert({
         name: data.name,
+        runner: data.runner,
         startTime: data.date,
-        streamId: streamId
+        streamId: streamId,
+        finished: false,
+        active: false,
+        chatSettings: {},
+        liveChats: [],
+        participants: [],
+        participantLogs: [],
+        streamVideo: ""
     })
     const fullName = 
         user.firstName[0].toUpperCase() + user.firstName.slice(1) + " " +

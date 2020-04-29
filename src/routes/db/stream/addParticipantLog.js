@@ -12,7 +12,7 @@ module.exports = async (db, type, googleId) => {
         name: fullName,
         timestamp: Date.now()
     }
-    db.collection("siteControls").updateOne({"identifier": "currentStream"}, 
+    db.collection("streams").updateOne({"active": true}, 
         {
             $push: {
                 participantLogs: data

@@ -1,12 +1,13 @@
 module.exports = async (db) => {
     const getUpcomingStreams  = () => {
         return new Promise((resolve,reject) => {
-            db.collection('upcomingStreams').find({}).toArray((err,data) => {
+            db.collection('streams').find({}).toArray((err,data) => {
                 err ? reject(err) : resolve(data)
             })
         })
     }
 
-    const upcomingStreams = await getUpcomingStreams();
+    let upcomingStreams = await getUpcomingStreams();
+    upcomingStreams = upcomingStreams.filter(x => !x.active && !x.finished)
     return upcomingStreams
 }

@@ -22,16 +22,12 @@ router.get('/', authMeetingStarted, async function(req, res, next) {
         var arr1 = await db.collection('siteControls').find({}).toArray()
         var arr2 = await db.collection('users').find({"auth": 3}).toArray()
         var arr3 = await getIndexStream(db)
-        var streamState = await db.collection('siteControls').find({"identifier": "streamState"}).toArray()
         var arr4 = await db.collection('users').find({"googleId": req.user.googleId}).toArray()
         for(var i =0; i < arr2.length; i++) {
           tempArr2.push(arr2[i]._id)
         }
-        if(streamState[0].state) {
-          res.render('index/index', { title: 'd.tech Community', "user": JSON.stringify(arr4), "controlArr": JSON.stringify(arr1), "tokenArr": JSON.stringify(tempArr2), "stream": JSON.stringify(arr3)});
-        } else {
-          res.redirect('/countdown')
-        }
+        console.log(arr3)
+        res.render('index/index', { title: 'd.tech Community', "user": JSON.stringify(arr4), "controlArr": JSON.stringify(arr1), "tokenArr": JSON.stringify(tempArr2), "stream": JSON.stringify(arr3)});
       } 
       getData()
     } else {

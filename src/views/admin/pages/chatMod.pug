@@ -1,0 +1,129 @@
+html
+	head
+		include ../../main
+		link(rel="stylesheet" href="/css/admin/main.css")
+		link(rel="stylesheet" href="/css/admin/mod.css")
+		script.
+			let allParticipantsRaw = "#{allParticipants}"
+			if(allParticipantsRaw) {
+				window.allParticipants  = JSON.parse(allParticipantsRaw.replace(/&quot;/g,'"'));
+			}
+			let streamRaw = "#{stream}"
+			if(streamRaw) {
+				window.stream = JSON.parse(streamRaw.replace(/&quot;/g,'"'));
+			}
+	body 
+		.nav-container
+			.nav-content
+				.logo-container
+					.logo(onclick="window.location.href='/'")
+					.logo-title-container
+						h1.logo-title Community Meeting
+						p.logo-subtitle Admin Dashboard
+				.nav-links
+					.nav-link-dropdown-container
+						.nav-link-btn
+							p Stream
+							.icon
+						.nav-link-dropdown-menu
+							a.nav-dropdown-link.current-streams-link(href="/admin/current-stream") Current Stream
+							a.nav-dropdown-link.chat-moderation-link(href="/admin/chat-moderation") Chat Moderation
+							a.nav-dropdown-link.upcoming-streams-link(href="/admin/upcoming-streams") Upcoming Streams
+							a.nav-dropdown-link.viewers-link(href="/admin/viewers") Viewers
+					a.nav-link.logs-link(href="/admin/logs") Logs
+					a.nav-link.users-link(href="/admin/users") Users
+		.admin-home-wrapper
+			.admin-home-content
+				.mod-wrapper.fullCenter
+					.mod-wrapper-left
+						.mod-wrapper-left-header
+							p.fullVertCenter Participants
+						.mod-wrapper-left-body.fullXCenter
+							
+							
+
+
+					.mod-wrapper-right
+						.mod-wrapper-right-top
+							p.fullVertCenter Chat Moderation
+							input(type="button" value="Chat Settings")
+						.mod-wrapper-right-body
+							.mod-wrapper-right-body-wrapper.fullXCenter
+						.mod-wrapper-right-bottom
+							.mod-wrapper-right-bottom-hr.fullXCenter
+							.mod-wrapper-right-bottom-chatWrap
+								.mod-wrapper-right-bottom-chatWrap-textarea.fullVertCenter
+									textarea(placeholder="Type a message")
+								.mod-wrapper-right-bottom-chatWrap-buttons.fullVertCenter
+									.mod-wrapper-right-bottom-chatWrap-buttons-code
+									.mod-wrapper-right-bottom-chatWrap-buttons-send
+
+script(src="/js/admin/main.js")
+script.
+
+	allParticipants.forEach(user => {
+		var fullName = cap(user.firstName) + " " + cap(user.lastName)
+		var chatTag = cap(user.chatTag)
+		var avatar = user.googleProfilePicture
+		var gID = user.googleId
+		$(".mod-wrapper-left-body").append('<div id='+gID+' class="mod-wrapper-left-body-object"> <div class="mod-wrapper-left-body-object-left"> <div class="mod-wrapper-left-body-object-left-avatar fullCenter reg-image"></div> </div> <div class="mod-wrapper-left-body-object-middle"> <div class="mod-wrapper-left-body-object-middle-wrapper fullVertCenter"> <h2>'+fullName+'</h2> <p>'+chatTag+'</p> </div> </div> </div>')
+		$('#' + gID).find('.mod-wrapper-left-body-object-left').find('.mod-wrapper-left-body-object-left-avatar').css('background-image', 'url('+avatar+')')
+	})
+
+
+	socket.on("participantsChange", () => {
+		$.get({
+			url: "/admin/api/getParticipants",
+			success: (data) => {
+				$(".mod-wrapper-left-body").empty()
+				data.forEach(user => {
+					var fullName = cap(user.firstName) + " " + cap(user.lastName)
+					var chatTag = cap(user.chatTag)
+					var avatar = user.googleProfilePicture
+					var gID = user.googleId
+					$(".mod-wrapper-left-body").append('<div id='+gID+' class="mod-wrapper-left-body-object"> <div class="mod-wrapper-left-body-object-left"> <div class="mod-wrapper-left-body-object-left-avatar fullCenter reg-image"></div> </div> <div class="mod-wrapper-left-body-object-middle"> <div class="mod-wrapper-left-body-object-middle-wrapper fullVertCenter"> <h2>'+fullName+'</h2> <p>'+chatTag+'</p> </div> </div> </div>')
+					$('#' + gID).find('.mod-wrapper-left-body-object-left').find('.mod-wrapper-left-body-object-left-avatar').css('background-image', 'url('+avatar+')')
+				})
+			}
+		})
+	})
+
+	socket.on("newChatAdmin", function(data) {
+		console.log(data)
+		var chatINPUT = data.message
+		var sender = data.userName.split(" ")
+		var chatID = data.chatID
+		sender = sender[0][0].toUpperCase() + sender[0].slice(1) + " " +
+		sender[1][0].toUpperCase() + sender[1].slice(1) + " | " + cap(data.userChatTag)
+		$('.mod-wrapper-right-body-wrapper').append('<div id='+chatID+' class="currentStream-chatWrapper-chatObject"> <div class="currentStream-chatWrapper-chatObject-sender"> <p>'+sender+'</p> </div> <div class="currentStream-chatWrapper-chatObject-msg"> <h5>'+chatINPUT+'</h5> </div> </div>')
+		$('.mod-wrapper-right-body-wrapper').scrollTop(999999999)
+	})
+
+	for(var i = 0; i < stream.liveChats.length; i++) {
+		var chatINPUT = stream.liveChats[i].message
+		var sender = stream.liveChats[i].userName.split(" ")
+		var chatID = stream.liveChats[i].chatID
+		sender = sender[0][0].toUpperCase() + sender[0].slice(1) + " " +
+		sender[1][0].toUpperCase() + sender[1].slice(1) + " | " + cap(stream.liveChats[i].userChatTag)
+		
+		$('.mod-wrapper-right-body-wrapper').append('<div id='+chatID+' class="currentStream-chatWrapper-chatObject"> <div class="currentStream-chatWrapper-chatObject-sender"> <p>'+sender+'</p> </div> <div class="currentStream-chatWrapper-chatObject-msg"> <h5>'+chatINPUT+'</h5> </div> </div>')
+		$('.mod-wrapper-right-body-wrapper').scrollTop(999999999)
+	}
+
+	$('.mod-wrapper-right-bottom-chatWrap-buttons-send').click(function(){
+		var val = $('.mod-wrapper-right-bottom-chatWrap-textarea textarea').val()
+		if(val.trim().length > 0) {
+			var data = {
+				"message": val
+			}
+			$.post({
+				url: "/api/chat/sendMessage",
+				data: data,
+				success: () => {
+					$('.mod-wrapper-right-bottom-chatWrap-textarea textarea').val("")
+				}
+			});
+		} else {
+			log('Input insufficient')
+		}
+	})

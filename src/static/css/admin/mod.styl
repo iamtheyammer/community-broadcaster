@@ -1,0 +1,167 @@
+.mod-wrapper
+    width 80%
+    height 80%
+    max-width 1400px
+    max-height 1200px
+    display flex
+    justify-content space-between
+
+.mod-wrapper-left
+    width 30%
+    height 100%
+    background white
+    border-radius 5px
+    box-shadow: 0px 0px 8px 2px rgba(0,0,0,0.05)
+
+.mod-wrapper-right
+    width 65%
+    height 100%
+    background white
+    border-radius 5px
+    box-shadow: 0px 0px 8px 2px rgba(0,0,0,0.05)
+
+.mod-wrapper-left-header
+    width 100%
+    height 120px
+    position relative
+    p
+        font-size: 30px;
+        left: 8%;
+        font-weight: 300;
+
+.mod-wrapper-left-body
+    height calc(100% - 120px)
+    width 84%
+    
+.mod-wrapper-left-body-object
+    width 100%
+    margin-top 10px
+    height 60px
+    background #f5f5f5
+    display -webkit-box
+    border-radius 5px
+
+.mod-wrapper-left-body-object-left
+    width 30%
+    height 100%
+
+.mod-wrapper-left-body-object-left-avatar
+    width 50px
+    height 50px
+    border-radius 50%
+
+.mod-wrapper-left-body-object-middle
+    width 50%
+    height 100%
+    h2  
+        font-size 17px
+    p
+        font-weight: 100;
+        font-size: 13px;
+
+.mod-wrapper-right-top
+    width 100%
+    height 120px
+    p
+        font-size: 30px;
+        left: 8%;
+        font-weight: 100;
+        left 5%
+    input 
+        right: 0px;
+        top - 50px
+        position absolute
+        width: 130px;
+        height: 32px;
+        border: none;
+        background: #f0542c;
+        color: #fff;
+        cursor: pointer;
+        outline: none;
+
+.mod-wrapper-right-body
+    height calc(100% - 240px)
+    width 100%
+
+.mod-wrapper-right-bottom
+    width 100%
+    height 120px
+
+.mod-wrapper-right-bottom-hr
+    width 90%
+    height 1px
+    background #d4d4d4
+    position relative 
+
+.mod-wrapper-right-bottom-chatWrap
+    width 100%
+    height 119px
+
+.mod-wrapper-right-bottom-chatWrap-textarea
+    margin-left 5%
+    width 60%
+    textarea
+        width 100%
+        height 50px
+        padding-top: 15px;
+        padding-left: 30px;
+        outline: none;
+        border: none;
+        font-size: 16px;
+        font-weight: 200;
+        resize none
+
+.mod-wrapper-right-bottom-chatWrap-buttons
+    display -webkit-box
+    right 5%
+    width fit-content
+    height fit-content
+
+.mod-wrapper-right-bottom-chatWrap-buttons-send
+    width 45px
+    height 45px
+    background #f05027
+    border-radius 50%
+    cursor pointer
+    background-repeat no-repeat
+    background-position center
+    background-size 16px
+    background-image url('/img/sendW.svg')
+
+.mod-wrapper-right-body-wrapper
+    width 90%
+    height 96%
+    overflow-y scroll
+    overflow-x: hidden;
+
+.currentStream-chatWrapper
+	width 100%
+	height fit-content
+
+.currentStream-chatWrapper-chatObject
+    width 100%
+    height fit-content
+    display -webkit-box
+    margin-bottom 10px
+    background white
+    transition .3s
+    cursor pointer
+    padding 10px
+    &:hover
+        background #f3f3f3
+    p, h5
+        font-weight 200
+        font-size 14px
+    p
+        font-weight 500
+    h5
+        width: 90%;
+
+.currentStream-chatWrapper-chatObject-sender
+	width 30%
+	height 100%
+
+.currentStream-chatWrapper-chatObject-msg
+	width 70%
+	height fit-content
+	word-wrap: break-word;

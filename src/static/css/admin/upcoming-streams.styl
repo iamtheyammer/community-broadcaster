@@ -74,6 +74,7 @@
             float none !important
             width fit-content
             margin 30px auto 0
+
 .add-meeting-modal,
 .edit-meeting-modal
     width 600px
@@ -96,40 +97,45 @@
     .modal-form
         padding 10px 30px 30px
         overflow auto
-        .input-container
-            margin 0 auto 20px
-            position relative
+        .name-input
             width 100%
+            border none
+            border-bottom 1px solid #dcdce6
+            color #333333
+            font-size 17px
+            letter-spacing .3px
+            font-weight 600
+            margin-top 20px
+            padding 8px
+            background #f7f7f7
+            outline none
             &.error
-                .name-input
-                    border-bottom-color #f23452
-                .placeholder
+                border-bottom 1px solid #f23452
+                &::placeholder
                     color #f23452
-            &.active
-                .placeholder
-                    bottom 33px
-                    font-size 11px
-            .placeholder
-                font-size 17px
-                position absolute
+            &::placeholder
                 color rgb(186, 186, 196)
-                letter-spacing .3px
-                bottom 8px
-                left 2px
-                z-index -1
-                transition font-size .2s, bottom .2s
-            .name-input
-                width 100%
-                background none
-                z-index 5
-                border none
-                border-bottom 1px solid #dcdce6
-                color #333333
-                font-size 17px
-                letter-spacing .3px
-                font-weight 500
-                padding 28px 2px 8px
-                outline none
+                font-weight 400
+        .runner-input
+            width 100%
+            outline none
+            border none
+            letter-spacing .3px
+            background #f7f7f7
+            border-bottom 1px solid #dcdce6
+            color #333
+            padding 8px
+            font-weight 500
+            font-size 17px
+            margin 20px 0 40px
+            resize none
+            &.error
+                border-bottom 1px solid #f23452
+                &::placeholder
+                    color #f23452
+            &::placeholder
+                color rgb(186, 186, 196)
+                font-weight 400
         .btn-wrap
             margin-top 50px
         .date-time-container

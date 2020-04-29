@@ -6,6 +6,6 @@ module.exports = async (db, socketId) => {
     if(!googleId) {
         return false;
     }
-    db.collection("siteControls").updateOne({"identifier": "currentStream"},{ "$pull": {"participants": {googleId: googleId}} } )
+    db.collection("streams").updateOne({"active": true},{ "$pull": {"participants": {googleId: googleId}} } )
     return await addParticipantLog(db, "leave", googleId)
 }

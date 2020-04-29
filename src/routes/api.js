@@ -24,9 +24,14 @@ router.post('/chat/sendMessage', [
     const io = req.app.get("socketio")
     const approved = true; // Add approval mode
     const chatData = addChat(db, req.user, req.body.message, approved)
-    chatData.message = filter.clean(chatData.message)
-    io.emit("newChat", {
+    io.emit("newChatAdmin", {
         message: chatData.message.replace(/&/g, "&amp;"),
+        userName: chatData.userName,
+        userChatTag: chatData.userChatTag,
+        timestamp: chatData.timestamp
+    })
+    io.emit("newChat", {
+        message: filter.clean(chatData.message).replace(/&/g, "&amp;"),
         userName: chatData.userName,
         userChatTag: chatData.userChatTag,
         timestamp: chatData.timestamp

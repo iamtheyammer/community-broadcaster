@@ -28,11 +28,16 @@ script.
 	if(participantLogsRaw) {
 		window.participantLogs = JSON.parse(participantLogsRaw.replace(/&quot;/g,'"'));
 	}
+	
+	var viewersArrRaw = "#{viewersArr}"
+	if(viewersArrRaw) {
+		window.viewersArr = JSON.parse(viewersArrRaw.replace(/&quot;/g,'"'))[0]
+	}
 
 head
 	script(src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.8.0/video.min.js")
 	link(href="https://unpkg.com/video.js@7/dist/video-js.min.css" rel="stylesheet")
-
+	script(src="/js/admin/chartjs-plugin-crosshair.js")
 
 
 body
@@ -49,13 +54,48 @@ body
 						p.fullVertCenter Viewers
 					.currentStream-wrapper-body-s1-currentViewersGraph-body.fullXCenter
 						canvas(id="viewersGraph") // Render Viewers Graph
-
 				.currentStream-wrapper-body-s1-demographicsGraph
 					.currentStream-wrapper-body-s1-demographicsGraph-top
 						p.fullVertCenter Demographics
 					.currentStream-wrapper-body-s1-demographicsGraph-body
-						.currentStream-wrapper-body-s1-demographicsGraph-wrapper.fullCenter
-							canvas(id="demographicsPie")
+						.currentStream-wrapper-body-s1-demographicsGraph-body-wrapper.fullXCenter
+							.currentStream-wrapper-body-s1-demographicsGraph-body-flex.fullVertCenter
+								.currentStream-wrapper-body-s1-demographicsGraph-body-flex-object
+									.currentStream-wrapper-body-s1-demographicsGraph-body-flex-object-left.fullVertCenter
+										p Freshmen
+										h2 Past Connections
+									.currentStream-wrapper-body-s1-demographicsGraph-body-flex-object-right.fullVertCenter
+										p.valFreshmen Val
+								.currentStream-wrapper-body-s1-demographicsGraph-body-flex-object
+									.currentStream-wrapper-body-s1-demographicsGraph-body-flex-object-left.fullVertCenter
+										p Sophomore
+										h2 Past Connections
+									.currentStream-wrapper-body-s1-demographicsGraph-body-flex-object-right.fullVertCenter
+										p.valSophomores Val
+								.currentStream-wrapper-body-s1-demographicsGraph-body-flex-object
+									.currentStream-wrapper-body-s1-demographicsGraph-body-flex-object-left.fullVertCenter
+										p Junior
+										h2 Past Connections
+									.currentStream-wrapper-body-s1-demographicsGraph-body-flex-object-right.fullVertCenter
+										p.valJuniors Val
+								.currentStream-wrapper-body-s1-demographicsGraph-body-flex-object
+									.currentStream-wrapper-body-s1-demographicsGraph-body-flex-object-left.fullVertCenter
+										p Senior
+										h2 Past Connections
+									.currentStream-wrapper-body-s1-demographicsGraph-body-flex-object-right.fullVertCenter
+										p.valSeniors Val
+								.currentStream-wrapper-body-s1-demographicsGraph-body-flex-object
+									.currentStream-wrapper-body-s1-demographicsGraph-body-flex-object-left.fullVertCenter
+										p Faculty
+										h2 Past Connections
+									.currentStream-wrapper-body-s1-demographicsGraph-body-flex-object-right.fullVertCenter
+										p.valFaculty Val
+								.currentStream-wrapper-body-s1-demographicsGraph-body-flex-object
+									.currentStream-wrapper-body-s1-demographicsGraph-body-flex-object-left.fullVertCenter
+										p Other
+										h2 Past Connections
+									.currentStream-wrapper-body-s1-demographicsGraph-body-flex-object-right.fullVertCenter
+										p.valOther Val
 
 			.currentStream-wrapper-body-s2
 				.currentStream-wrapper-body-s2-modWrap.fullVertCenter
@@ -133,7 +173,14 @@ body
 						input.fullVertCenter.goHomeButton(type="button" value="Go To Livestream" onclick="window.location.href='/'")
 					.currentStream-wrapper-body-s3-object-body.fullXCenter
 						video.fullCenter(id="my-video" muted="muted" class="video-js" controls preload="auto" width="1920" height="1080" poster="/img/download.jpeg")
-							source(src="https://stream.designtechhs.com/hls/livestream.m3u8" type="application/x-mpegURL")
-				.currentStream-wrapper-body-s3-object
+							source(src="https://stream.designtechhs.com/playlist.m3u8" type="application/x-mpegURL")
 				
+				.currentStream-wrapper-body-s3-object
+					.currentStream-wrapper-body-s3-object-header
+						p.fullVertCenter Chats
+					.currentStream-wrapper-body-s3-object-body.fullXCenter.scrollTPPS
+						.currentStream-chatWrapper
+							
+
+
 include ../../notifications

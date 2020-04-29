@@ -84,6 +84,7 @@ const appendUsers = () => {
         return;
     }
     window.users.forEach((u) => {
+        const authorized =  u.auth > 0
         const fullName = 
             u.firstName[0].toUpperCase() + u.firstName.slice(1) + " " +
             u.lastName[0].toUpperCase() + u.lastName.slice(1);
@@ -102,6 +103,7 @@ const appendUsers = () => {
                         <h2 class="value">${u.banned ? "Yes" : "No"}</h2>
                     </div>
                 </div>
+                <button class="auth-btn" data-action="${authorized ? "unauthorize" : "authorize"}">${authorized ? "Unauthorize" : "Authorize"} User</button>
                 <button class="ban-btn" data-action="${u.banned ? "unban" : "ban"}">${u.banned ? "Unban" : "Ban"} User</button>
         </div>
         `) 
@@ -134,5 +136,21 @@ $(() => { // BAN CODE
                 }
             })
         }
+    })
+    $(document).on("click", ".users-container .user .auth-btn", function() {
+        let setAuth = 0
+        if($(this).attr('data-action') == "authorize") {setAuth = 1}
+        if($(this).attr('data-action') == "unauthorize") {setAuth = 0}
+        const data = {
+            googleId: $(this).parents(".user").data("google-id"),
+            auth: setAuth
+        }
+        $.post({
+            url: "/admin/api/userAuth",
+            data: data,
+            success: () => {
+                window.location.reload()
+            }
+        })
     })
 })

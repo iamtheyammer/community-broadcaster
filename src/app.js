@@ -93,22 +93,27 @@ const io = require('socket.io').listen(server);
 app.set('socketio', io)
 
 let connectedUsers = 0
+let connectedStreamClients = 0
 
 io.on('connection', function(socket){
   app.set('socketId', socket.id)
   connectedUsers++
+  updateSiteClients([connectedUsers, connectedStreamClients])
   console.log('connect')
   io.emit('clientChange', connectedUsers)
   socket.on('disconnect', () => {
     connectedUsers--
+    updateSiteClients([connectedUsers, connectedStreamClients])
     console.log('disconnect')
     io.emit('clientChange', connectedUsers)
   });
   socket.on('disconnect', async function(){
     const log = await removeParticipant(app.get("db"), socket.id)
     if(log) {
-      io.emit('participantsChangeAdmin', log)
+      io.emit('participantLogsChange', log)
       io.emit('participantsChange', await getParticipantCount(app.get("db")))
+      updateSiteClients([connectedUsers, await getParticipantCount(app.get("db"))])
+      connectedStreamClients = await getParticipantCount(app.get("db"))
     }
   });
   socket.on('reloadStreamClients', function(msg){
@@ -116,8 +121,10 @@ io.on('connection', function(socket){
   });
   socket.on('initParticipant', async (googleId) => {
     const log = await addParticipant(app.get("db"), socket.id, googleId)
-    io.emit('participantsChangeAdmin', log)
+    io.emit('participantLogsChange', log)
     io.emit('participantsChange', await getParticipantCount(app.get("db")))
+    updateSiteClients([connectedUsers, await getParticipantCount(app.get("db"))])
+    connectedStreamClients = await getParticipantCount(app.get("db"))
   })
   socket.on('reloadSiteClients', function(msg){
     console.log('message: ' + msg);
@@ -139,10 +146,24 @@ io.on('connection', function(socket){
     console.log('newChat: ' + msg);
     io.emit('newChat', msg)
   });
+  socket.on('newChatAdmin', function(msg){
+    console.log('newChat: ' + msg);
+    io.emit('newChatAdmin', msg)
+  });
   socket.on('siteNotification', function(msg){
     console.log('newChat: ' + msg);
     io.emit('siteNotification', msg)
   });
 });
+
+function updateSiteClients(data) {
+  mongoose.connect('mongodb://localhost:27017/DesignTechHS', {useNewUrlParser: true, useUnifiedTopology: true }, (err, client) => {
+    client.collection('data_tracking').updateOne({"tags": "most_recent"}, { $push: {
+      "data.site_clients": data[0],
+      "data.stream_clients": data[1]
+    }})
+  })
+}
+
 
 module.exports = app;

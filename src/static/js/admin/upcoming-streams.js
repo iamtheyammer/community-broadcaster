@@ -39,6 +39,7 @@ $(".modal-container .cancel-btn").click(function() {
     $(".modal-container").removeClass("active")
     $(".darken-overlay").removeClass("active")
     $(".modal-container input").val("")
+    $(".modal-container textarea").val("")
     $(".modal-container .input-container.name-input-container").removeClass("active")
     $('.modal-container .input-container').removeClass("error")
     $(".modal-container .date-time-container .date-time-display").removeClass("error")
@@ -47,28 +48,27 @@ $(".modal-container .cancel-btn").click(function() {
     $(".modal-container .date-time-container .date-time-display").removeAttr("data-date")
 })
 
-$(".modal-container .name-input").focus(function() {
-    $(this).parent(".input-container").addClass("active")
-})
-
-$('.modal-container .name-input').on('input', function() {
-    if($(this).val().trim().length > 0) {
-        $(this).parent(".input-container").removeClass("error")
-    }
-})
-
-$(".modal-container .name-input").focusout(function() {
-    const val = $(this).val().replace(" ", "")
-    if(val.length <= 0) {
-        $(this).parent(".input-container").removeClass("active")
-    }
-})
-
 $(document).on('click', '.upcoming-streams-table .action-btn.delete-btn', function() {
     const streamId = $(this).parents("tr.stream").attr('data-stream-id')
     $(".delete-meeting-modal .modal-title").text(`Delete Community Meeting: ${streamId}`)
     $(".delete-meeting-modal .submit-btn").attr("data-stream-id", streamId)
     $(".delete-meeting-modal").addClass("active")
+    $(".darken-overlay").addClass("active")
+})
+
+$(document).on('click', '.upcoming-streams-table .action-btn.edit-btn', function() {
+    const streamId = $(this).parents("tr.stream").attr('data-stream-id')
+    const stream = window.streams.filter(x => x.streamId === streamId)[0]
+    if(!stream) return;
+    $('.edit-meeting-modal .name-input').val(stream.name)
+    $('.edit-meeting-modal .runner-input').val(stream.runner)
+
+    datePicker.setDate(new Date(stream.startTime))
+    $(".date-time-container .date-time-display").text(moment(stream.startTime).format("D MMMM YYYY h:mm A"))
+    $(".date-time-container .date-time-display").attr("data-date", stream.startTime)
+
+    $(".edit-meeting-modal .submit-btn").attr("data-stream-id", streamId)
+    $(".edit-meeting-modal").addClass("active")
     $(".darken-overlay").addClass("active")
 })
 
@@ -80,16 +80,30 @@ $('.add-meeting-modal .date-time-picker-btn').click(() => {
 
 const checkErrors = (container) => {
     const case1 = container.find(".name-input").val().trim().length <= 0
-    const case2 = ! container.find(".date-time-display").attr('data-date')
+    const case2 = container.find(".runner-input").val().trim().length <= 0
+    const case3 = ! container.find(".date-time-display").attr('data-date')
     let shouldReturn = false;
     if(case1) {
-        container.find(".name-input-container").addClass("error")
+        container.find(".name-input").addClass("error")
         shouldReturn = true;
+    } else {
+        container.find(".name-input").removeClass("error")
     }
+
     if(case2) {
+        container.find(".runner-input").addClass("error")
+        shouldReturn = true;
+    } else {
+        container.find(".runner-input").removeClass("error")
+    }
+ 
+    if(case3) {
         container.find(".date-time-display").addClass("error")
         shouldReturn = true;
+    } else {
+        container.find(".date-time-display").removeClass("error")
     }
+
     return shouldReturn;
 }
 
@@ -114,13 +128,34 @@ $('.add-meeting-modal .submit-btn').click(() => {
     if(checkErrors($(".add-meeting-modal"))) return;
     const data = {
         name: $(".add-meeting-modal .name-input").val(),
+        runner: $(".add-meeting-modal .runner-input").val(),
         date: $(".add-meeting-modal .date-time-display").attr('data-date')
     }
+    console.log(data)
     $.post({
         url: "/admin/api/createStream",
         data:data,
         success: (data) => {
             window.location.reload()
+        }
+    })
+})
+
+$('.edit-meeting-modal .submit-btn').click(function() {
+    if(checkErrors($(".edit-meeting-modal"))) return;
+    const data = {
+        name: $(".edit-meeting-modal .name-input").val(),
+        runner: $(".edit-meeting-modal .runner-input").val(),
+        date: $(".edit-meeting-modal .date-time-display").attr('data-date'),
+        streamId: $(this).attr("data-stream-id")
+    }
+    console.log(data)
+    $.post({
+        url: "/admin/api/editStream",
+        data:data,
+        success: (data) => {
+            window.location.reload()
+            // Message Updated Successful
         }
     })
 })

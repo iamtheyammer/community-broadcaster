@@ -12,10 +12,16 @@ html
 						h1.logo-title Community Meeting
 						p.logo-subtitle Admin Dashboard
 				.nav-links
-					a.nav-link.current-streams-link(href="/admin/current-stream") Current Stream
-					a.nav-link.upcoming-streams-link(href="/admin/upcoming-streams") Upcoming Streams
+					.nav-link-dropdown-container
+						.nav-link-btn
+							p Stream
+							.icon
+						.nav-link-dropdown-menu
+							a.nav-dropdown-link.current-streams-link(href="/admin/current-stream") Current Stream
+							a.nav-dropdown-link.chat-moderation-link(href="/admin/chat-moderation") Chat Moderation
+							a.nav-dropdown-link.upcoming-streams-link(href="/admin/upcoming-streams") Upcoming Streams
+							a.nav-dropdown-link.viewers-link(href="/admin/viewers") Viewers
 					a.nav-link.logs-link(href="/admin/logs") Logs
-					a.nav-link.viewers-link(href="/admin/viewers") Viewers
 					a.nav-link.users-link(href="/admin/users") Users
 		.admin-home-wrapper
 			.admin-home-content

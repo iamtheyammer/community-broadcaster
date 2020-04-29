@@ -17,7 +17,8 @@ module.exports = async (db) => {
     streamObj.liveChats = chats
     streamObj.participantCount = participantCount
     streamObj.chatSettings = stream.chatSettings
-    streamObj.streamName = stream.streamName
-    streamObj.streamRunner = stream.streamRunner
+    streamObj.name = stream.name
+    streamObj.runner = stream.runner
+    console.log(streamObj)
     return streamObj
 }

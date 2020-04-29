@@ -1,5 +1,5 @@
 module.exports = (db, streamId) => {
-    db.collection("upcomingStreams").deleteOne({
+    db.collection("streams").deleteOne({
         streamId: streamId
     })
 }

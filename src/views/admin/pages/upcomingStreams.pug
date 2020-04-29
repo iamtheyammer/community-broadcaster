@@ -9,11 +9,10 @@ script.
 .darken-overlay
 .add-meeting-modal.modal-container
 	.top
-		h1.modal-title Schedule Community Meeting
+		h1.modal-title Add a Community Meeting
 	.modal-form
-		.input-container.name-input-container
-			span.placeholder Community Meeting Name
-			input.name-input(type="text")
+		input.name-input(type="text" placeholder="Stream Name")
+		textarea.runner-input(placeholder="Stream Description" data-gramm_editor="false")
 		.date-time-container
 			button.date-time-picker-btn Pick Time
 			p.date-time-display No selected date or time.
@@ -21,6 +20,17 @@ script.
 			p.cancel-btn Cancel
 			button.submit-btn Done
 .edit-meeting-modal.modal-container
+	.top
+		h1.modal-title Edit Community Meeting
+	.modal-form
+		input.name-input(type="text" placeholder="Stream Name")
+		textarea.runner-input(placeholder="Stream Description" data-gramm_editor="false")
+		.date-time-container
+			button.date-time-picker-btn Pick Time
+			p.date-time-display No selected date or time.
+		.btn-wrap
+			p.cancel-btn Cancel
+			button.submit-btn Update
 .delete-meeting-modal.modal-container
 	.modal-content
 		h1.modal-title Delete Community Meeting: (Name)

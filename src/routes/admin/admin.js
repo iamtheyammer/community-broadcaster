@@ -22,14 +22,32 @@ const authCheck = (req, res, next) => {
 
 const getUpcomingStreams = require('../db/stream/getUpcomingStreams')
 
+router.get('/betaTesting', authCheck, (req, res, next) => {
+    res.render('admin/betaTestPage')
+})
+
 router.get('/current-stream', authCheck, function(req, res, next) {
     const db = req.app.get("db")
     async function getData() {
         var arr1 = await db.collection('siteControls').find({}).toArray()
         var arr2 = await db.collection('users').find({}).toArray()
+        var dataTracking = await db.collection('data_tracking').find({"ident": "viewers"}).toArray()
         var arr3 = await getStream(db)
         var arr4 = await getAllParticipants(db)
-        res.render('admin/home', { title: 'Current Stream', userArr: JSON.stringify(arr2), controlArr: JSON.stringify(arr1), user: JSON.stringify(req.user), stream: JSON.stringify(arr3), allParticipants: JSON.stringify(arr4) });
+        res.render('admin/home', { title: 'Current Stream', viewersArr: JSON.stringify(dataTracking), userArr: JSON.stringify(arr2), controlArr: JSON.stringify(arr1), user: JSON.stringify(req.user), stream: JSON.stringify(arr3), allParticipants: JSON.stringify(arr4) });
+    } 
+    getData()
+});
+
+router.get('/chat-moderation', authCheck, function(req, res, next) {
+    const db = req.app.get("db")
+    async function getData() {
+        var arr1 = await db.collection('siteControls').find({}).toArray()
+        var arr2 = await db.collection('users').find({}).toArray()
+        var arr3 = await getStream(db)
+        const allParticipants = await getAllParticipants(db)
+        var arr4 = await getAllParticipants(db)
+        res.render('admin/pages/chatMod', { title: 'Current Stream', allParticipants: JSON.stringify(allParticipants), userArr: JSON.stringify(arr2), controlArr: JSON.stringify(arr1), user: JSON.stringify(req.user), stream: JSON.stringify(arr3), allParticipants: JSON.stringify(arr4) });
     } 
     getData()
 });
