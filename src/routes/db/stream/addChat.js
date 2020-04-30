@@ -1,6 +1,6 @@
 const randomstring = require("randomstring")
 
-module.exports = (db, user, message, approved) => {
+module.exports = (db, user, message, adminOnly) => {
     const data = {
         message: message,
         chatID: randomstring.generate(),
@@ -10,7 +10,7 @@ module.exports = (db, user, message, approved) => {
         timestamp: Date.now(),
         flagged: false,
         flagData: {},
-        approved: approved
+        adminOnly: adminOnly
     }
     db.collection("streams").updateOne({"active": true},
         {$push: {liveChats: data}}

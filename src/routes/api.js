@@ -6,6 +6,8 @@ const Filter = require('bad-words'),
     filter = new Filter();
 
 const addChat = require('./db/stream/addChat')
+const getStreamChatSettings = require('./db/stream/getStreamChatSettings')
+const getSocketId = require('./db/stream/getSocketId')
 
 const authCheck = (req, res, next) => {
     if(req.user) {
@@ -19,24 +21,39 @@ const authCheck = (req, res, next) => {
 
 router.post('/chat/sendMessage', [
     check('message').escape()
-], (req, res, next) => {
+], async (req, res, next) => {
     const db = req.app.get("db")
+    const streamChatSettings = await getStreamChatSettings(db)
+    if(streamChatSettings.status === "disabled") {
+        res.sendStatus(200)
+        return;
+    }
     const io = req.app.get("socketio")
-    const approved = true; // Add approval mode
-    const chatData = addChat(db, req.user, req.body.message, approved)
+    const adminOnly = streamChatSettings.status === "private" ? true : false
+    const chatData = addChat(db, req.user, req.body.message, adminOnly)
     io.emit("newChatAdmin", {
         message: chatData.message.replace(/&/g, "&amp;"),
         userName: chatData.userName,
         userChatTag: chatData.userChatTag,
         timestamp: chatData.timestamp
     })
-    io.emit("newChat", {
-        message: filter.clean(chatData.message).replace(/&/g, "&amp;"),
-        userName: chatData.userName,
-        userChatTag: chatData.userChatTag,
-        timestamp: chatData.timestamp
-    })
-    res.sendStatus(200)
+
+    if(adminOnly) {
+        res.json({
+            message: filter.clean(chatData.message).replace(/&/g, "&amp;"),
+            userName: chatData.userName,
+            userChatTag: chatData.userChatTag,
+            timestamp: chatData.timestamp
+        })
+    } else {
+        io.emit("newChat", {
+            message: filter.clean(chatData.message).replace(/&/g, "&amp;"),
+            userName: chatData.userName,
+            userChatTag: chatData.userChatTag,
+            timestamp: chatData.timestamp
+        })
+        res.sendStatus(200)
+    }
 })
 
 router.post('/errorReport', authCheck, (req, res, next) => {

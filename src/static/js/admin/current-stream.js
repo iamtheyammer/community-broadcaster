@@ -138,15 +138,18 @@ $('.valSeniors').text(seniors)
 $('.valFaculty').text(faculty)
 $('.valOther').text(other)
 
-for(var i = 0; i < stream.liveChats.length; i++) {
-  var chatINPUT = stream.liveChats[i].message
-  var sender = stream.liveChats[i].userName.split(" ")
-  sender = sender[0][0].toUpperCase() + sender[0].slice(1) + " " +
-  sender[1][0].toUpperCase() + sender[1].slice(1) + " | " + cap(stream.liveChats[i].userChatTag)
-  
-  $('.currentStream-chatWrapper').append('<div class="currentStream-chatWrapper-chatObject"> <div class="currentStream-chatWrapper-chatObject-sender"> <p>'+sender+'</p> </div> <div class="currentStream-chatWrapper-chatObject-msg"> <h5>'+chatINPUT+'</h5> </div> </div>')
-  $('.scrollTPPS').scrollTop(999999999)
+if(stream.liveChats) {
+  for(var i = 0; i < stream.liveChats.length; i++) {
+    var chatINPUT = stream.liveChats[i].message
+    var sender = stream.liveChats[i].userName.split(" ")
+    sender = sender[0][0].toUpperCase() + sender[0].slice(1) + " " +
+    sender[1][0].toUpperCase() + sender[1].slice(1) + " | " + cap(stream.liveChats[i].userChatTag)
+    
+    $('.currentStream-chatWrapper').append('<div class="currentStream-chatWrapper-chatObject"> <div class="currentStream-chatWrapper-chatObject-sender"> <p>'+sender+'</p> </div> <div class="currentStream-chatWrapper-chatObject-msg"> <h5>'+chatINPUT+'</h5> </div> </div>')
+    $('.scrollTPPS').scrollTop(999999999)
+  }
 }
+
 
 
 // Websockets

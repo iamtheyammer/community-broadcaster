@@ -36,15 +36,15 @@ player.on('playing', function() {
   isPlaying = true;
 });
 
-document.body.onkeyup = function(e){
-  if(e.keyCode == 32){
-    if(isPlaying){
-      player.pause();
-    } else {
-      player.play();
-    }
-  }
-}
+// document.body.onkeyup = function(e){
+//   if(e.keyCode == 32){
+//     if(isPlaying){
+//       player.pause();
+//     } else {
+//       player.play();
+//     }
+//   }
+// }
 
 socket.on('reloadStreamClients', function(data) {
   location.reload();

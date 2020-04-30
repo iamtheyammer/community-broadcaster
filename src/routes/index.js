@@ -21,7 +21,7 @@ router.get('/', authMeetingStarted, async function(req, res, next) {
         var tempArr2 = []
         var arr1 = await db.collection('siteControls').find({}).toArray()
         var arr2 = await db.collection('users').find({"auth": 3}).toArray()
-        var arr3 = await getIndexStream(db)
+        var arr3 = await getIndexStream(db, req.user)
         var arr4 = await db.collection('users').find({"googleId": req.user.googleId}).toArray()
         for(var i =0; i < arr2.length; i++) {
           tempArr2.push(arr2[i]._id)
@@ -35,6 +35,14 @@ router.get('/', authMeetingStarted, async function(req, res, next) {
     }
   }
 });
+
+router.get('/new-login', (req,res,next) => {
+  if(!req.user) {
+    res.redirect("/")
+  } else {
+    res.render('new-login', {title: "New Login"})
+  }
+})
 
 router.get('/countdown', function(req, res, next) {
   const db = req.app.get('db')

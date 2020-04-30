@@ -36,11 +36,13 @@
 script.
 
     $('.report-error').click(function(){
+        $("body").css("overflow", "hidden")
         $('.REPOP-darken').fadeToggle()
         $('.REPOP-wrapper').fadeToggle()
     })
 
     $('.cancel-btn').click(function(){
+        $("body").css("overflow", "auto")
         $('.REPOP-wrapper-modal-body-selectors input[type="radio"]').prop("checked", false)
         $('.REPOP-wrapper-modal-body-selectors #errorType1').prop("checked", true)
         $('.REPOP-darken').fadeToggle()

@@ -120,7 +120,7 @@ io.on('connection', function(socket){
     io.emit('reloadStreamClients', msg)
   });
   socket.on('initParticipant', async (googleId) => {
-    const log = await addParticipant(app.get("db"), socket.id, googleId)
+    const log = await addParticipant(app.get("db"), io, socket.id, googleId)
     io.emit('participantLogsChange', log)
     io.emit('participantsChange', await getParticipantCount(app.get("db")))
     updateSiteClients([connectedUsers, await getParticipantCount(app.get("db"))])

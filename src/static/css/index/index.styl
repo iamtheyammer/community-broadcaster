@@ -1,6 +1,7 @@
 body
     background #eeeeee
     overflow-y hidden
+    overflow-x hidden !important
 
 .nav-container
     width 100%
@@ -13,6 +14,7 @@ body
         display flex 
         height 100%
         justify-content space-between
+        flex-flow wrap row
         align-items center
         .logo-wrap
             display flex
@@ -54,6 +56,7 @@ body
     justify-content left
     position relative
     overflow-y hidden
+    overflow-x hidden
     .stream-container
         margin-right 30px
         overflow-y auto
@@ -83,7 +86,7 @@ body
             .stream-info-content
                 width 95%
                 margin 0 auto
-                padding 40px 0
+                padding 45px 0
                 height fit-content
                 position relative
                 .stream-title
@@ -109,8 +112,7 @@ body
                             text-decoration underline
                     .icon
                         background-image url("/img/alert.svg")
-                        background-size 15px !important
-                        background-size cover
+                        background-size 15px
                         background-position center
                         background-repeat no-repeat
                         width 25px
@@ -154,20 +156,33 @@ body
         background white
         box-shadow 0 0 10px 0 rgba(0,0,0,0.06)
         position relative
+        &.disabled
+            .input-container
+                display none
+            .enable-autoscroll
+                bottom 20px
+            .live-chat-container
+                height calc(100% - 61px)
         .title-container
             height 60px
             border-bottom 1px solid #ededed
-            width 100%
+            width calc(100% - 30px)
+            padding 0 15px
             position relative
+            display flex
+            justify-content space-between
+            align-items center
             .title
                 color grey
                 font-size 20px
                 font-weight 500
                 letter-spacing .3px
-                position absolute
-                top 50%
-                left 50%
-                transform translate(-50%, -50%)
+            .chat-status
+                text-transform uppercase
+                font-size 14px
+                font-weight 800
+                letter-spacing .3px
+                margin-top 3px
         .enable-autoscroll
             background rgba(0,0,0,0.8)
             color white
@@ -213,11 +228,19 @@ body
                     word-wrap break-word;
                     letter-spacing .3px
                     margin-bottom 25px
+                    &:last-child
+                        margin-bottom 0
+                        padding-bottom 25px
                     .sender
                         color #adadad
                         font-size 14px
                         font-weight 600
                         margin-right 3px
+                    a
+                        color #f05027
+                        text-decoration none
+                        &:hover
+                            text-decoration underline !important
         .input-container
             width 100%
             height 50px
@@ -264,14 +287,6 @@ body
                         opacity .9
 
 // Report Error
-
-.RE-wrapper
-    width fit-content
-    height fit-conttent
-    position fixed
-    bottom 5%
-    right 5%
-    cursor pointer
 
 .REPOP-wrapper
     position fixed !important 
@@ -393,6 +408,7 @@ button , video, div
         overflow-y auto
     .page-content
         height fit-content
+        width calc(100% - 20px) !important
         justify-content center !important
         flex-flow column wrap !important
         .stream-container
@@ -403,7 +419,7 @@ button , video, div
             .stream-video
                 margin-top 30px !important
             .stream-info-container
-                margin-top 0 !important
+                margin 0 !important
                 .stream-title
                     font-size 25px !important
                 .stream-runner
@@ -412,12 +428,48 @@ button , video, div
             height 500px !important
             margin-top 30px !important
             width 100% !important
-            margin-bottom 30px
+            margin-bottom 150px !important
 
-@media only screen and (max-height: 900px)
-    .chat-widget
+@media only screen and (max-width: 600px)
+    .stream-container
+        .stream-info-container
+            .stream-info-content
+                padding-top 50px !important
+                text-align center
+                .viewer-count-container
+                    left 50%
+                    transform translateX(-50%)
+                    right none !important
+                .stream-title
+                    font-size 22px !important
+                .stream-runner
+                    margin-top 5px !important
+                    font-size 15px !important
+                .report-error
+                    margin 20px auto 0
+                    .icon
+                        width 23px !important
+                        height 23px !important
+                        background-size 13px !important
+                    p
+                        font-size 14px !important
+
+@media only screen and (max-width: 450px)
+    .REPOP-darken
+        display none !important
+    .REPOP-wrapper
+        width 100% !important
+        height 100% !important
+    .REPOP-wrapper-modal
+        width 100% !important
         height 100% !important
 
-// @media only screen and(max-width: 700px)
-//     .stream-container
-//         .stream-info-container 
+@media only screen and (max-width: 360px)
+    .nav-container
+        height 100px
+        .nav-content
+            justify-content center
+            flex-flow nowrap column
+            .logout-btn
+                margin-top 10px !important
+

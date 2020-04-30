@@ -35,7 +35,7 @@ html
         .nav-content
             .logo-wrap
                 .logo(onclick="window.location.href='/auth/redirect'")
-                h1.title Community Broadcast
+                h1.title KoiStream
             button.logout-btn(onclick="window.location.href='/auth/logout'") Logout
     .page-content
       .stream-container
@@ -57,10 +57,12 @@ html
       .chat-widget
         .title-container
           h1.title Live Chat
+          p.chat-status
         button.enable-autoscroll Enable Autoscroll
         .live-chat-container
           .chat-content
-            h1.no-chats No Messages
+            //h1.no-chats No Messages
+            p.chat <b class="sender">Administrator - Jackson Lawrence</b> Welcome to KoiStream! Today we are running our first school-wide test of the stream. We will be using this platform to broadcast community meetings in the near future. If you have and issues, make sure to report an error. If you have any questions, feel free to email either of us at <a href="mailto:jlawrence21@dtechhs.com">jlawrence21@dtechhs.com</a> or <a href="mailto:aappleby21@dtechhs.com">aappleby21@dtechhs.com</a>
         .input-container
           textarea.chat-input(data-gramm_editor="false" placeholder="Send a message...")
           .submit-chat-btn

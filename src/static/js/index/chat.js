@@ -28,9 +28,28 @@ const appendAllChats = () => {
     chats.forEach(appendChat)
 }
 
+const setChatStatus = () => {
+    const status = window.stream.chatSettings.status
+    const statusColors = {
+        disabled: "#db1212",
+        active: "#00c47c",
+        private: "#edc00c"
+    }
+    $(".chat-widget .title-container .chat-status").css("color", statusColors[status]).text(status)
+    
+    if(status === "disabled") {
+        $(".chat-widget").addClass("disabled")
+    }
+}
+
 
 
 socket.on('newChat', appendChat)
+
+socket.on('chatStatusChange', (status) => {
+    window.stream.chatSettings.status = status
+    setChatStatus()
+})
 
 $('.chat-widget .submit-chat-btn .icon').click(function(){
     var val = $('.chat-widget .chat-input').val()
@@ -41,7 +60,10 @@ $('.chat-widget .submit-chat-btn .icon').click(function(){
         $.post({
             url: "/api/chat/sendMessage",
             data: data,
-            success: () => {
+            success: (data) => {
+                if(typeof(data) === Object) {
+                    appendChat(data)
+                }
                 $('.chat-widget .chat-input').val("")
             }
         });
@@ -74,9 +96,10 @@ $('.chat-widget .chat-input').keypress((e) => {
         e.preventDefault();
         $('.chat-widget .submit-chat-btn .icon').click();
     }
-});   
+});  
 
 $(document).ready(() => {
     window.stream.liveChats = window.stream.liveChats.sort((a, b) =>  a.timestamp - b.timestamp)
     appendAllChats()
+    setChatStatus()
 })
