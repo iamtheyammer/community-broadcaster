@@ -1,0 +1,149 @@
+body {
+  background: #fcfdff;
+  overflow: hidden;
+}
+.nav-container {
+  height: 80px;
+  width: 100%;
+  background: #fff;
+  border-bottom: 1px solid #f2f3f5;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.05);
+  z-index: 20;
+}
+.nav-container .nav-content {
+  width: calc(100% - 60px);
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.nav-container .nav-content .logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+}
+.nav-container .nav-content .logo-container .logo {
+  background-image: url("/img/dtech-logo.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 40px;
+  height: 40px;
+}
+.nav-container .nav-content .logo-container .logo-title-container {
+  margin: 0 0 0 10px;
+}
+.nav-container .nav-content .logo-container .logo-title-container h1.logo-title {
+  color: #333;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: 0.3px;
+  font-size: 22px;
+}
+.nav-container .nav-content .logo-container .logo-title-container p.logo-subtitle {
+  color: #808080;
+  font-size: 13px;
+  font-weight: 400;
+  margin: -2px 0 2px;
+  letter-spacing: 0.3px;
+}
+.nav-container .nav-content .nav-links {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+.nav-container .nav-content .nav-links .nav-link-dropdown-container {
+  position: relative;
+  margin: 0 30px;
+}
+.nav-container .nav-content .nav-links .nav-link-dropdown-container.active .nav-link-btn .icon {
+  transform: rotate(180deg);
+}
+.nav-container .nav-content .nav-links .nav-link-dropdown-container.active .nav-link-dropdown-menu {
+  visibility: visible;
+  opacity: 1;
+  top: 30px;
+}
+.nav-container .nav-content .nav-links .nav-link-dropdown-container .nav-link-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.nav-container .nav-content .nav-links .nav-link-dropdown-container .nav-link-btn p {
+  color: #333;
+  font-size: 15px;
+  margin: 0 10px 0 0;
+  letter-spacing: 0.3px;
+}
+.nav-container .nav-content .nav-links .nav-link-dropdown-container .nav-link-btn .icon {
+  background-image: url("/img/select-down-arrow.svg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 15px;
+  height: 15px;
+  margin-top: 3px;
+  opacity: 0.8;
+  transform: rotate(0);
+  transition: transform 0.3s;
+}
+.nav-container .nav-content .nav-links .nav-link-dropdown-container .nav-link-dropdown-menu {
+  visibility: hidden;
+  opacity: 0;
+  top: 45px;
+  position: absolute;
+  background: #fff;
+  box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
+  width: 200px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: fit-content;
+  transition: top 0.3s, visibility 0.3s, opacity 0.3s;
+}
+.nav-container .nav-content .nav-links .nav-link-dropdown-container .nav-link-dropdown-menu .nav-dropdown-link {
+  color: #333;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  margin: 30px 0 30px 30px;
+  display: block;
+  font-size: 15px;
+  text-align: left;
+  transition: color 0.3s;
+}
+.nav-container .nav-content .nav-links .nav-link-dropdown-container .nav-link-dropdown-menu .nav-dropdown-link:hover,
+.nav-container .nav-content .nav-links .nav-link-dropdown-container .nav-link-dropdown-menu .nav-dropdown-link.active {
+  color: #f05027;
+}
+.nav-container .nav-content .nav-links .nav-link {
+  color: #333;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  margin: 0 30px;
+  font-size: 15px;
+  transition: color 0.3s;
+}
+.nav-container .nav-content .nav-links .nav-link:hover,
+.nav-container .nav-content .nav-links .nav-link.active {
+  color: #f05027;
+}
+.admin-home-wrapper {
+  height: calc(100% - 81px);
+  width: 100%;
+  position: relative;
+}
+.admin-home-wrapper .admin-home-content {
+  width: calc(100% - 60px);
+  height: calc(100% - 30px);
+  margin: 30px auto 0;
+  overflow-y: auto;
+}
+.admin-home-wrapper .admin-home-content .page-title {
+  color: #333;
+  font-size: 30px;
+  letter-spacing: 0.3px;
+  margin: 0;
+  font-weight: 400;
+  text-align: center;
+}

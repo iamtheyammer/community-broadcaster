@@ -1,0 +1,137 @@
+body {
+  margin: 0;
+  overflow: hidden;
+}
+.content {
+  width: 100%;
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.logo-container {
+  background-image: url("../img/dtech-logo.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 45px;
+  height: 45px;
+  position: absolute;
+  top: 30px;
+  left: 37.5px;
+  cursor: pointer;
+}
+#main {
+  position: absolute;
+  top: calc(50% - 20px);
+  transform: translateY(-50%);
+  height: fit-content;
+  margin: 0 auto;
+  width: 95%;
+}
+#main h1.title {
+  color: #333;
+  font-size: 25px;
+  text-align: center;
+  letter-spacing: 0.3px;
+  margin: 0;
+}
+#main p.disclaimer {
+  color: #8c8c8c;
+  font-size: 13px;
+  margin: 10px 0 0;
+  text-align: center;
+  letter-spacing: 0.3px;
+}
+#main .input-container {
+  margin: 10px auto 0;
+  position: relative;
+}
+#main .input-container.active .placeholder {
+  bottom: 35px;
+  font-size: 11px;
+}
+#main .input-container .placeholder {
+  font-size: 18px;
+  position: absolute;
+  color: #babac4;
+  letter-spacing: 0.3px;
+  bottom: 8px;
+  left: 2px;
+  z-index: -1;
+  transition: font-size 0.2s, bottom 0.2s;
+}
+#main .input-container .name-input {
+  width: 500px;
+  background: none;
+  z-index: 5;
+  border: none;
+  border-bottom: 1px solid #dcdce6;
+  color: #333;
+  font-size: 18px;
+  letter-spacing: 0.3px;
+  font-weight: 500;
+  padding: 30px 2px 8px;
+  outline: none;
+}
+#main .input-container .next-btn {
+  opacity: 0.3;
+  position: absolute;
+  right: 10px;
+  bottom: 12px;
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  background-image: url("../img/black-right-arrow.svg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: opacity 0.3s;
+}
+#main .input-container .next-btn:hover {
+  opacity: 0.7;
+}
+.google-auth-container {
+  width: 100%;
+  height: fit-content;
+  margin-top: 40px;
+  position: relative;
+}
+.google-auth-container-btn-wrapper {
+  width: 240px;
+  cursor: pointer;
+  height: 50px;
+  background: #4285f4;
+  border-radius: 1px;
+  transition: 0.3s;
+  -webkit-box-shadow: 0 2px 4px 0px rgba(0,0,0,0.25);
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.25);
+}
+.google-auth-container-btn-wrapper p {
+  font-family: Roboto, arial, sans-serif;
+  color: #fff;
+  font-family: Roboto, arial, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.21px;
+  right: 25px;
+}
+.google-auth-container-btn-wrapper:hover {
+  transform: translateX(-50%) scale(1.03);
+}
+.google-auth-container-btn-wrapper-iconWrappe {
+  width: 48px;
+  height: 48px;
+  background-color: #fff;
+  border-radius: 1px;
+  margin-left: 1px;
+  margin-top: 1px;
+  background-image: url("/img/google.png");
+  background-size: 18px;
+}
+@media only screen and (max-width: 385px) {
+  .title {
+    font-size: 20px !important;
+  }
+}

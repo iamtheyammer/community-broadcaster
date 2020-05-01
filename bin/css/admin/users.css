@@ -1,0 +1,239 @@
+.users-page-content {
+  width: 1280px;
+  margin: 0 auto;
+  position: relative;
+}
+.users-page-content .search-container {
+  width: calc(100% - 20px);
+  margin: 20px auto;
+}
+.users-page-content .search-container .input-wrap {
+  position: relative;
+  width: 100%;
+}
+.users-page-content .search-container .input-wrap .search-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 12px;
+  background-image: url("/img/black-search-icon.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 20px;
+  height: 20px;
+  opacity: 0.15;
+}
+.users-page-content .search-container .input-wrap .search-input {
+  font-size: 17px;
+  border: none;
+  outline: none;
+  color: #333;
+  background: transparent;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #e7e8ea;
+  padding: 7px 7px 7px 45px;
+  width: 100%;
+}
+.users-page-content .search-container .input-wrap .search-input::placeholder {
+  color: #cdc8c8;
+  font-weight: 400;
+}
+.users-page-content .search-container .filters-container {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  width: 100%;
+  margin: 20px auto 0;
+}
+.users-page-content .search-container .filters-container .filter p.label {
+  color: #cdc8c8;
+  font-size: 14px;
+  margin: 0 0 5px 5px;
+  letter-spacing: 0.3px;
+}
+.users-page-content .search-container .filters-container .filter .select {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+.users-page-content .search-container .filters-container .filter .select.grade-select {
+  margin-right: 50px;
+}
+.users-page-content .search-container .filters-container .filter .select .option {
+  width: 70px;
+  position: relative;
+  height: 30px;
+  border: 1px solid #e7e8ea;
+  cursor: pointer;
+  transition: background 0.3s, border-color 0.3s;
+}
+.users-page-content .search-container .filters-container .filter .select .option.banned-option {
+  width: 125px !important;
+}
+.users-page-content .search-container .filters-container .filter .select .option:hover {
+  background: #e6e6e6;
+  border-color: #e6e6e6;
+}
+.users-page-content .search-container .filters-container .filter .select .option.active {
+  background: #f05027;
+  border-color: #f05027;
+}
+.users-page-content .search-container .filters-container .filter .select .option.active p {
+  color: #fff;
+}
+.users-page-content .search-container .filters-container .filter .select .option p {
+  color: #333;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  position: absolute;
+  width: fit-content;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: color 0.3s;
+}
+.users-page-content .search-container .filters-container .filter .select .option:first-child {
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+.users-page-content .search-container .filters-container .filter .select .option:last-child {
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+.users-page-content .users-container {
+  display: flex;
+  flex-flow: wrap row;
+  justify-content: left;
+  margin: 30px auto 40px;
+}
+.users-page-content .users-container .no-users {
+  color: #b5b5b5;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  margin: 40px auto 0;
+  text-align: center;
+  display: none;
+}
+.users-page-content .users-container .user {
+  width: 300px;
+  height: 350px;
+  margin: 10px;
+  background: #fff;
+  border-radius: 0.3em;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.02), 0 0 10px 0 rgba(0,0,0,0.04);
+}
+.users-page-content .users-container .user.hidden {
+  display: none;
+}
+.users-page-content .users-container .user .user-picture {
+  width: 75px;
+  height: 75px;
+  border-radius: 75px;
+  background-color: #000;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: 20px auto 0;
+}
+.users-page-content .users-container .user .user-name {
+  color: #333;
+  font-weight: 500;
+  font-size: 22px;
+  letter-spacing: 0.3px;
+  margin: 20px 0 0;
+  text-align: center;
+}
+.users-page-content .users-container .user .user-email {
+  color: #9d9d9d;
+  font-weight: 400;
+  font-size: 13px;
+  letter-spacing: 0.3px;
+  margin: 2px 0 0;
+  text-align: center;
+}
+.users-page-content .users-container .user .basic-info-container {
+  margin: 20px auto 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.users-page-content .users-container .user .basic-info-container .info {
+  width: 150px;
+  text-align: center;
+  height: fit-content;
+}
+.users-page-content .users-container .user .basic-info-container .info .label {
+  color: #b5b5b5;
+  font-size: 12px;
+  margin: 0;
+  letter-spacing: 0.3px;
+}
+.users-page-content .users-container .user .basic-info-container .info .value {
+  margin: 2px 0 0;
+  color: #333;
+  font-size: 16px;
+  letter-spacing: 0.3px;
+}
+.users-page-content .users-container .user .ban-btn,
+.users-page-content .users-container .user .auth-btn {
+  background: #f05027;
+  outline: none;
+  border: none;
+  color: #fff;
+  padding: 7px;
+  width: 200px;
+  margin: 20px auto 0;
+  display: block;
+  font-size: 15px;
+  cursor: pointer;
+  letter-spacing: 0.4px;
+  border-radius: 0.3em;
+  transition: background 0.3s;
+}
+.users-page-content .users-container .user .ban-btn:hover,
+.users-page-content .users-container .user .auth-btn:hover {
+  background: #ff663e;
+}
+@media only screen and (max-width: 1350px) {
+  .users-page-content {
+    width: 960px !important;
+  }
+  .users-page-content .filters-container {
+    justify-content: center !important;
+  }
+}
+@media only screen and (max-width: 1040px) {
+  .users-page-content {
+    width: 640px !important;
+  }
+  .users-page-content .filters-container {
+    flex-direction: column !important;
+  }
+  .users-page-content .filters-container .filter {
+    margin-bottom: 25px !important;
+  }
+  .users-page-content .filters-container .filter:first-child {
+    margin-bottom: 30px !important;
+  }
+  .users-page-content .filters-container .filter .grade-select {
+    margin-right: 0 !important;
+  }
+  .users-page-content .filters-container .filter .label {
+    text-align: center !important;
+  }
+}
+@media only screen and (max-width: 730px) {
+  .users-page-content {
+    width: 450px !important;
+  }
+  .users-page-content .users-container {
+    justify-content: center !important;
+  }
+  .users-page-content .users-container .user {
+    margin: 10px 0 !important;
+  }
+}

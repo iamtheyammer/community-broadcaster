@@ -1,0 +1,391 @@
+.darken-overlay {
+  position: fixed;
+  opacity: 0;
+  visibility: hidden;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: #000;
+  z-index: 100;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+.darken-overlay.active {
+  opacity: 0.5;
+  visibility: visible;
+}
+.modal-container {
+  background: #fff;
+  position: fixed;
+  z-index: 120;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.modal-container.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, -50%) scale(1);
+}
+.modal-container .btn-wrap {
+  display: flex;
+  justify-content: right;
+  float: right;
+  align-items: center;
+}
+.modal-container .btn-wrap .cancel-btn {
+  color: #808080;
+  font-size: 14px;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  margin: 0;
+}
+.modal-container .btn-wrap .cancel-btn:hover {
+  text-decoration: underline;
+}
+.modal-container .btn-wrap .submit-btn {
+  background: #f05027;
+  outline: none;
+  border-radius: 0.3em;
+  font-size: 14px;
+  color: #fff;
+  padding: 10px 25px;
+  margin-left: 15px;
+  cursor: pointer;
+  border: none;
+  transition: background 0.3s;
+}
+.modal-container .btn-wrap .submit-btn:hover {
+  background: #f26946;
+}
+.delete-meeting-modal {
+  width: 600px;
+}
+.delete-meeting-modal .modal-content {
+  padding: 30px;
+  overflow: auto;
+  text-align: center;
+}
+.delete-meeting-modal .modal-content .modal-title {
+  color: #333;
+  font-size: 22px;
+  letter-spacing: 0.3px;
+  margin: 0;
+}
+.delete-meeting-modal .modal-content .confirm-msg {
+  color: #7c8994;
+  font-size: 15px;
+  letter-spacing: 0.3px;
+  margin: 10px 0 0;
+}
+.delete-meeting-modal .modal-content .btn-wrap {
+  float: none !important;
+  width: fit-content;
+  margin: 30px auto 0;
+}
+.add-meeting-modal,
+.edit-meeting-modal {
+  width: 600px;
+}
+.add-meeting-modal .top,
+.edit-meeting-modal .top {
+  background: #e9e9e9;
+  width: 100%;
+  height: 100px;
+  position: relative;
+}
+.add-meeting-modal .top h1.modal-title,
+.edit-meeting-modal .top h1.modal-title {
+  color: #333;
+  font-size: 22px;
+  text-align: center;
+  letter-spacing: 0.3px;
+  margin: 0;
+  width: fit-content;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.add-meeting-modal .modal-form,
+.edit-meeting-modal .modal-form {
+  padding: 10px 30px 30px;
+  overflow: auto;
+}
+.add-meeting-modal .modal-form .name-input,
+.edit-meeting-modal .modal-form .name-input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #dcdce6;
+  color: #333;
+  font-size: 17px;
+  letter-spacing: 0.3px;
+  font-weight: 600;
+  margin-top: 20px;
+  padding: 8px;
+  background: #f7f7f7;
+  outline: none;
+}
+.add-meeting-modal .modal-form .name-input.error,
+.edit-meeting-modal .modal-form .name-input.error {
+  border-bottom: 1px solid #f23452;
+}
+.add-meeting-modal .modal-form .name-input.error::placeholder,
+.edit-meeting-modal .modal-form .name-input.error::placeholder {
+  color: #f23452;
+}
+.add-meeting-modal .modal-form .name-input::placeholder,
+.edit-meeting-modal .modal-form .name-input::placeholder {
+  color: #babac4;
+  font-weight: 400;
+}
+.add-meeting-modal .modal-form .runner-input,
+.edit-meeting-modal .modal-form .runner-input {
+  width: 100%;
+  outline: none;
+  border: none;
+  letter-spacing: 0.3px;
+  background: #f7f7f7;
+  border-bottom: 1px solid #dcdce6;
+  color: #333;
+  padding: 8px;
+  font-weight: 500;
+  font-size: 17px;
+  margin: 20px 0 40px;
+  resize: none;
+}
+.add-meeting-modal .modal-form .runner-input.error,
+.edit-meeting-modal .modal-form .runner-input.error {
+  border-bottom: 1px solid #f23452;
+}
+.add-meeting-modal .modal-form .runner-input.error::placeholder,
+.edit-meeting-modal .modal-form .runner-input.error::placeholder {
+  color: #f23452;
+}
+.add-meeting-modal .modal-form .runner-input::placeholder,
+.edit-meeting-modal .modal-form .runner-input::placeholder {
+  color: #babac4;
+  font-weight: 400;
+}
+.add-meeting-modal .modal-form .btn-wrap,
+.edit-meeting-modal .modal-form .btn-wrap {
+  margin-top: 50px;
+}
+.add-meeting-modal .modal-form .date-time-container,
+.edit-meeting-modal .modal-form .date-time-container {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+.add-meeting-modal .modal-form .date-time-container .date-time-display,
+.edit-meeting-modal .modal-form .date-time-container .date-time-display {
+  color: #333;
+  font-size: 14px;
+  margin: 0;
+  letter-spacing: 0.3px;
+}
+.add-meeting-modal .modal-form .date-time-container .date-time-display.error,
+.edit-meeting-modal .modal-form .date-time-container .date-time-display.error {
+  color: #f23452;
+}
+.add-meeting-modal .modal-form .date-time-container .date-time-picker-btn,
+.edit-meeting-modal .modal-form .date-time-container .date-time-picker-btn {
+  background: #f05027;
+  outline: none;
+  border-radius: 0.3em;
+  font-size: 14px;
+  color: #fff;
+  padding: 8px 30px;
+  cursor: pointer;
+  border: none;
+  margin-right: 15px;
+  transition: background 0.3s;
+}
+.add-meeting-modal .modal-form .date-time-container .date-time-picker-btn:hover,
+.edit-meeting-modal .modal-form .date-time-container .date-time-picker-btn:hover {
+  background: #f26946;
+}
+.add-meeting-btn {
+  margin-top: 75px;
+  background: #f05027;
+  outline: none;
+  color: #fff;
+  font-size: 14px;
+  padding: 12px 55px 12px 30px;
+  letter-spacing: 0.3px;
+  border-radius: 0.3em;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+  position: relative;
+}
+.add-meeting-btn::after {
+  content: "";
+  background-image: url("/img/add-icon.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+}
+.add-meeting-btn:hover {
+  background: #f26946;
+}
+.upcoming-streams-table {
+  width: 100%;
+  margin: 20px 0 0;
+}
+.upcoming-streams-table .no-streams {
+  color: #adadad;
+  display: none;
+  font-size: 22px;
+  text-align: center;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  margin: 30px 0 0;
+}
+.upcoming-streams-table .no-streams.active {
+  display: block;
+}
+.upcoming-streams-table table {
+  width: 100%;
+  margin: 0 !important;
+  border-collapse: collapse;
+  overflow-x: auto;
+  min-width: 1000px;
+}
+.upcoming-streams-table table thead {
+  border-color: #edeaea;
+  box-sizing: border-box;
+}
+.upcoming-streams-table table thead tr {
+  width: 100%;
+  padding: 0;
+  box-sizing: border-box;
+  border: 0;
+}
+.upcoming-streams-table table thead tr th {
+  text-align: left;
+  padding: 13px;
+  background: #f1f0f0;
+  color: #333;
+  font-size: 14px;
+  font-weight: 500;
+}
+.upcoming-streams-table tbody {
+  margin: 0;
+  height: 47px;
+}
+.upcoming-streams-table tbody tr.stream {
+  width: 100%;
+  vertical-align: middle;
+}
+.upcoming-streams-table tbody tr.stream.hidden {
+  display: none;
+}
+.upcoming-streams-table tbody tr.stream td {
+  height: 20px !important;
+  padding: 30px 13px;
+}
+.upcoming-streams-table tbody tr.stream td p {
+  margin: 0;
+  color: #4e4e4e;
+  letter-spacing: 0.3px;
+  font-weight: 600;
+}
+.upcoming-streams-table tbody tr.stream td .action-btn-wrap {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+.upcoming-streams-table tbody tr.stream td .action-btn-wrap .action-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 0.3em;
+  position: relative;
+  cursor: pointer;
+  background: #222;
+  margin-right: 20px;
+  transition: background 0.3s;
+}
+.upcoming-streams-table tbody tr.stream td .action-btn-wrap .action-btn:hover {
+  background: #f05027;
+}
+.upcoming-streams-table tbody tr.stream td .action-btn-wrap .action-btn.edit-btn .icon {
+  background-image: url("/img/edit-icon.svg");
+}
+.upcoming-streams-table tbody tr.stream td .action-btn-wrap .action-btn.delete-btn .icon {
+  background-image: url("/img/delete-icon.svg");
+}
+.upcoming-streams-table tbody tr.stream td .action-btn-wrap .action-btn .icon {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.simplepicker-wrapper {
+  z-index: 1000 !important;
+}
+.simpilepicker-date-picker {
+  position: absolute !important;
+  margin: 0 !important;
+  top: calc(50% - 10%) !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+}
+.simplepicker-day-header {
+  background-color: #e0461f !important;
+  color: #fff !important;
+}
+.simplepicker-date-section {
+  background-color: #f05027 !important;
+  color: #fff !important;
+}
+.simplepicker-time {
+  color: #fff !important;
+}
+.simplepicker-fade {
+  color: #fff !important;
+}
+.simplepicker-time-section input {
+  transition: border-bottom-color 0.3s;
+}
+.simplepicker-time-section input:focus {
+  border-bottom-color: #f05027 !important;
+}
+.simplepicker-calender td {
+  cursor: pointer !important;
+}
+.simplepicker-calender td::after {
+  background-color: #f05027 !important;
+}
+.simplepicker-calender td:hover::after {
+  background-color: transparent !important;
+}
+.simplepicker-calender td.active::after {
+  background-color: #f05027 !important;
+}
+.simplepicker-btn {
+  border-color: #f05027 !important;
+  color: #f05027 !important;
+  outline: none !important;
+  cursor: pointer !important;
+  boder-radius: 0.3em !important;
+  transition: background 0.3s, color 0.3s !important;
+}
+.simplepicker-btn:hover {
+  background: #f05027 !important;
+  color: #fff !important;
+}
