@@ -8,6 +8,7 @@ const Filter = require('bad-words'),
 const addChat = require('./db/stream/addChat')
 const getStreamChatSettings = require('./db/stream/getStreamChatSettings')
 const getSocketId = require('./db/stream/getSocketId')
+const getUserLastChatTime = require('./db/users/getUserLastChatTime')
 
 const authCheck = (req, res, next) => {
     if(req.user) {
@@ -24,18 +25,29 @@ router.post('/chat/sendMessage', [
 ], async (req, res, next) => {
     const db = req.app.get("db")
     const streamChatSettings = await getStreamChatSettings(db)
-    if(streamChatSettings.status === "disabled") {
+    if(streamChatSettings.status === "disabled" || req.user.muted) {
         res.sendStatus(200)
+        return;
+    }
+    let userLastChatTime = await getUserLastChatTime(db, req.user.googleId)
+    if(userLastChatTime.getTime() + 5000 >= Date.now()) {
+        const timeLeft = Math.round(((userLastChatTime.getTime() + 5000) - Date.now()) / 1000)
+        res.json({
+            timeLeft: timeLeft,
+            type: "cooldown"
+        })
         return;
     }
     const io = req.app.get("socketio")
     const adminOnly = streamChatSettings.status === "private" ? true : false
     const chatData = addChat(db, req.user, req.body.message, adminOnly)
+    db.collection("users").updateOne({googleId: req.user.googleId}, {$set: {lastChatTime: new Date()}})
     io.emit("newChatAdmin", {
         message: chatData.message.replace(/&/g, "&amp;"),
         userName: chatData.userName,
         userChatTag: chatData.userChatTag,
-        timestamp: chatData.timestamp
+        timestamp: chatData.timestamp,
+        chatID: chatData.chatID
     })
 
     if(adminOnly) {
@@ -43,14 +55,17 @@ router.post('/chat/sendMessage', [
             message: filter.clean(chatData.message).replace(/&/g, "&amp;"),
             userName: chatData.userName,
             userChatTag: chatData.userChatTag,
-            timestamp: chatData.timestamp
+            timestamp: chatData.timestamp,
+            chatID: chatData.chatID,
+            type: "chat"
         })
     } else {
         io.emit("newChat", {
             message: filter.clean(chatData.message).replace(/&/g, "&amp;"),
             userName: chatData.userName,
             userChatTag: chatData.userChatTag,
-            timestamp: chatData.timestamp
+            timestamp: chatData.timestamp,
+            chatID: chatData.chatID
         })
         res.sendStatus(200)
     }
@@ -59,7 +74,6 @@ router.post('/chat/sendMessage', [
 router.post('/errorReport', authCheck, (req, res, next) => {
     var db = req.app.get('db')
     var errorTitle;
-    console.log(req.body.errorType)
     if(req.body.errorType == '1') {
         errorTitle = "Video is buffering excessively"
     } else if(req.body.errorType == '2') {

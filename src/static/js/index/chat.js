@@ -6,10 +6,15 @@ const scrollToBottom = () => {
     }
 }
 
+const deleteChat = (chatID) => {
+    $(`.chat-widget .live-chat-container .chat-content #${chatID}`).remove()
+}
+
 const appendChat = (data) => {
+    $('.chat-widget .chat-content .chat.cooldown').remove()
     let message = $('<textarea/>').html(data.message).text(); 
     $(".chat-widget .live-chat-container .chat-content").append(`
-    <p class="chat">
+    <p class="chat" id ="${data.chatID}">
         <b class="sender">${_.capitalize(data.userChatTag)} - ${_.startCase(_.toLower(data.userName))}</b> 
         ${message}
     </p>
@@ -65,6 +70,8 @@ socket.on('chatStatusChange', (status) => {
     setChatStatus()
 })
 
+socket.on("deleteChat", deleteChat)
+
 socket.on('muteUser', (status) => {
     window.user.muted = status
     setChatStatus()
@@ -80,8 +87,19 @@ $('.chat-widget .submit-chat-btn .icon').click(function(){
             url: "/api/chat/sendMessage",
             data: data,
             success: (data) => {
-                if(typeof(data) === Object) {
-                    appendChat(data)
+                if(typeof(data) === "object") {
+                    if(data.type === "chat") {
+                        appendChat(data)
+                    } else if (data.type === "cooldown") {
+                        $('.chat-widget .chat-content .chat.cooldown').remove()
+                        $(".chat-widget .live-chat-container .chat-content").append(`
+                            <p class="chat cooldown">
+                                Wait ${data.timeLeft} seconds before chatting again.
+                            </p>
+                        `)
+                        $(".chat-widget .live-chat-container").scrollTop($(".chat-widget .live-chat-container")[0].scrollHeight)
+                    }
+                    
                 }
                 $('.chat-widget .chat-input').val("")
             }

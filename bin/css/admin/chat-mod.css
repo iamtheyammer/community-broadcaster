@@ -83,46 +83,76 @@
   background-size: 16px;
   background-image: url("/img/sendW.svg");
 }
+.enable-autoscroll {
+  background: rgba(0,0,0,0.8);
+  color: #fff;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  position: absolute;
+  padding: 8px 20px;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  z-index: 100;
+  border-radius: 0.3em;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+.enable-autoscroll.active {
+  opacity: 1;
+  visibility: visible;
+}
 .mod-wrapper-right-body-wrapper {
   width: 90%;
   height: 96%;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
+  position: relative;
+  background: #f7f7f7;
 }
-.currentStream-chatWrapper {
-  width: 100%;
+.mod-wrapper-right-body-wrapper .chat-wrap {
+  width: calc(100% - 30px);
   height: fit-content;
-}
-.currentStream-chatWrapper-chatObject {
-  width: 100%;
-  height: fit-content;
-  display: -webkit-box;
-  margin-bottom: 10px;
-  background: #fff;
-  transition: 0.3s;
+  padding: 15px;
+  margin: 15px 0;
   cursor: pointer;
-  padding: 10px;
+  transition: background 0.3s;
 }
-.currentStream-chatWrapper-chatObject:hover {
-  background: #f3f3f3;
+.mod-wrapper-right-body-wrapper .chat-wrap:hover,
+.mod-wrapper-right-body-wrapper .chat-wrap.active {
+  background: #f0f0f0;
 }
-.currentStream-chatWrapper-chatObject p,
-.currentStream-chatWrapper-chatObject h5 {
-  font-weight: 200;
-  font-size: 14px;
-}
-.currentStream-chatWrapper-chatObject p {
+.mod-wrapper-right-body-wrapper .chat-wrap .chat {
+  color: #333;
+  font-size: 15px;
   font-weight: 500;
-}
-.currentStream-chatWrapper-chatObject h5 {
-  width: 90%;
-}
-.currentStream-chatWrapper-chatObject-sender {
-  width: 30%;
-  height: 100%;
-}
-.currentStream-chatWrapper-chatObject-msg {
-  width: 70%;
-  height: fit-content;
   word-wrap: break-word;
+  letter-spacing: 0.3px;
+}
+.mod-wrapper-right-body-wrapper .chat-wrap .chat .sender {
+  color: #adadad;
+  font-size: 14px;
+  font-weight: 600;
+  margin-right: 3px;
+}
+.chat-options-container {
+  position: fixed;
+  background: #fff;
+  border: 1px solid #ebebeb;
+  box-shadow: 0 0 12px 0 rgba(0,0,0,0.1);
+  padding: 12px 30px;
+  z-index: 10000;
+}
+.chat-options-container p.delete-chat-btn {
+  font-size: 15px;
+  color: #f0542c;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+}
+.chat-options-container p.delete-chat-btn:hover {
+  text-decoration: underline;
 }

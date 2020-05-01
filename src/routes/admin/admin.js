@@ -47,7 +47,7 @@ router.get('/chat-moderation', authCheck, function(req, res, next) {
         var arr3 = await getStream(db)
         const allParticipants = await getAllParticipants(db)
         var arr4 = await getAllParticipants(db)
-        res.render('admin/pages/chatMod', { title: 'Current Stream', allParticipants: JSON.stringify(allParticipants), userArr: JSON.stringify(arr2), controlArr: JSON.stringify(arr1), user: JSON.stringify(req.user), stream: JSON.stringify(arr3), allParticipants: JSON.stringify(arr4) });
+        res.render('admin/home', { title: 'Chat Moderation', allParticipants: JSON.stringify(allParticipants), userArr: JSON.stringify(arr2), controlArr: JSON.stringify(arr1), user: JSON.stringify(req.user), stream: JSON.stringify(arr3), allParticipants: JSON.stringify(arr4) });
     } 
     getData()
 });

@@ -32,6 +32,10 @@ html
 						include pages/currentStream
 						script(src="/js/admin/current-stream.js")
 						script(src="/js/admin/current-stream_GRAPHS.js")
+					when 'Chat Moderation'
+						link(rel='stylesheet', href="/css/admin/chat-mod.css")
+						include pages/chatMod
+						script(src="/js/admin/chat-mod.js")
 					when 'Upcoming Streams'
 						link(rel='stylesheet', href="/css/admin/upcoming-streams.css")
 						include pages/upcomingStreams

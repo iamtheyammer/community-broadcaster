@@ -265,6 +265,11 @@ body {
   color: #f00;
   text-align: center;
 }
+.page-content .chat-widget .live-chat-container .chat-content .chat.cooldown {
+  color: #808080;
+  font-size: 14px;
+  font-weight: 400;
+}
 .page-content .chat-widget .live-chat-container .chat-content .chat:last-child {
   margin-bottom: 0;
   padding-bottom: 25px;

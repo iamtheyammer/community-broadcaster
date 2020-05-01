@@ -62,6 +62,10 @@ function findDBSlateState() {
   }
 }
 
+const deleteChat = (chatID) => {
+  $(`.currentStream-chatWrapper #${chatID}`).remove()
+}
+
 // Functions
 
 function updateDashboardSlateState(stateSelection) {
@@ -141,11 +145,12 @@ $('.valOther').text(other)
 if(stream.liveChats) {
   for(var i = 0; i < stream.liveChats.length; i++) {
     var chatINPUT = stream.liveChats[i].message
+    chatINPUT = $('<textarea/>').html(chatINPUT).text(); 
     var sender = stream.liveChats[i].userName.split(" ")
     sender = sender[0][0].toUpperCase() + sender[0].slice(1) + " " +
     sender[1][0].toUpperCase() + sender[1].slice(1) + " | " + cap(stream.liveChats[i].userChatTag)
     
-    $('.currentStream-chatWrapper').append('<div class="currentStream-chatWrapper-chatObject"> <div class="currentStream-chatWrapper-chatObject-sender"> <p>'+sender+'</p> </div> <div class="currentStream-chatWrapper-chatObject-msg"> <h5>'+chatINPUT+'</h5> </div> </div>')
+    $('.currentStream-chatWrapper').append('<div class="currentStream-chatWrapper-chatObject" id="' + stream.liveChats[i].chatID + '"> <div class="currentStream-chatWrapper-chatObject-sender"> <p>'+sender+'</p> </div> <div class="currentStream-chatWrapper-chatObject-msg"> <h5>'+chatINPUT+'</h5> </div> </div>')
     $('.scrollTPPS').scrollTop(999999999)
   }
 }
@@ -159,6 +164,8 @@ socket.on('participantsChange', function(count){
   $('.clvv').text(count)
   updateStreamGraph(count)
 })
+
+socket.on("deleteChat", deleteChat)
 
 socket.on('clientChange', function(data){
   log(data)

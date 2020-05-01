@@ -11,6 +11,7 @@ const getUserByGoogleId = require('../db/users/getUserByGoogleId')
 const addLog = require("../db/logs/addLog")
 const editStream = require("../db/stream/editStream")
 const muteUser = require("../db/users/muteUser")
+const deleteChat = require("../db/stream/deleteChat")
 
 const adminAuth = (req,res,next) => {
     if(req.user) {
@@ -49,6 +50,18 @@ router.post("/muteUser", adminAuth, async (req, res, next) => {
     if(socketId) {
         io.to(socketId).emit('muteUser', mute);
     }
+    res.sendStatus(200)
+})
+
+router.post('/deleteChat', adminAuth, (req,res,next) => {
+    if(!req.body.chatID) {
+        res.sendStatus(500)
+        return;
+    }
+    const db = req.app.get("db")
+    const io = req.app.get("socketio")
+    deleteChat(db, req.body.chatID)
+    io.emit("deleteChat", req.body.chatID)
     res.sendStatus(200)
 })
 
