@@ -120,7 +120,7 @@
 }
 .users-page-content .users-container .user {
   width: 300px;
-  height: 350px;
+  height: 395px;
   margin: 10px;
   background: #fff;
   border-radius: 0.3em;
@@ -179,7 +179,8 @@
   letter-spacing: 0.3px;
 }
 .users-page-content .users-container .user .ban-btn,
-.users-page-content .users-container .user .auth-btn {
+.users-page-content .users-container .user .auth-btn,
+.users-page-content .users-container .user .mute-btn {
   background: #f05027;
   outline: none;
   border: none;
@@ -195,7 +196,8 @@
   transition: background 0.3s;
 }
 .users-page-content .users-container .user .ban-btn:hover,
-.users-page-content .users-container .user .auth-btn:hover {
+.users-page-content .users-container .user .auth-btn:hover,
+.users-page-content .users-container .user .mute-btn:hover {
   background: #ff663e;
 }
 @media only screen and (max-width: 1350px) {

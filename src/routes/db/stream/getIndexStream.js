@@ -11,7 +11,7 @@ module.exports = async (db, user) => {
     if(stream.liveChats && stream.liveChats.length > 0) {
         stream.liveChats = stream.liveChats.filter(x => ! x.adminOnly || x.userGoogleId === user.googleId)
         chats = stream.liveChats.map((x) => {
-            return {message: filter.clean(x.message), userName: x.userName, userChatTag: x.userChatTag, timestamp: x.timestamp}
+            return {message: filter.clean(x.message), userName: x.userName, userChatTag: x.userChatTag, timestamp: x.timestamp, chatId: xchatID}
         })
     }
     streamObj.liveChats = chats

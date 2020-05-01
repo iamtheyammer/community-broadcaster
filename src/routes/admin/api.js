@@ -10,6 +10,7 @@ const getAllParticipants = require('../db/stream/getAllParticipants')
 const getUserByGoogleId = require('../db/users/getUserByGoogleId')
 const addLog = require("../db/logs/addLog")
 const editStream = require("../db/stream/editStream")
+const muteUser = require("../db/users/muteUser")
 
 const adminAuth = (req,res,next) => {
     if(req.user) {
@@ -30,6 +31,24 @@ router.post("/userAuth", adminAuth, (req, res, next) => {
     db.collection('users').updateOne({'googleId': req.body.googleId}, {$set: {
         auth: req.body.auth
     }})
+    res.sendStatus(200)
+})
+
+router.post("/muteUser", adminAuth, async (req, res, next) => {
+    if(req.body.mute != "true" && req.body.mute != "false") {
+        res.sendStatus(500)
+        return;
+    }
+    const db = req.app.get("db")
+    const io = req.app.get("socketio")
+    const googleId = req.body.googleId
+    const socketId = await getSocketId(db, googleId)
+    const mute = req.body.mute === "true" ? true : false
+    console.log(mute)
+    muteUser(db, googleId, mute)
+    if(socketId) {
+        io.to(socketId).emit('muteUser', mute);
+    }
     res.sendStatus(200)
 })
 

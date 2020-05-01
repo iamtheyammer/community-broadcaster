@@ -33,24 +33,25 @@ script.
 						p 12th <b>(0)</b>
 					.grade-option(data-grade="none")
 						p None <b>(0)</b>
-		table
-			thead
-				tr
-					th.viewer-picture-head
-					th.viewer-name-head Name
-					th.viewer-name-head Email
-					th.viewer-name-head Grade
-					th.actions-head Actions
-			tbody
-		a.no-viewers No viewers
+		.table-scroll
+			table
+				thead
+					tr
+						th.viewer-picture-head
+						th.viewer-name-head Name
+						th.viewer-name-head Email
+						th.viewer-name-head Grade
+						th.actions-head Actions
+				tbody
+			a.no-viewers No viewers
 
-.viewer-logs-container
-	.title-container
-		h1.title Viewer Logs
-		a.download-csv-btn Download Viewer Logs as CSV
-	.search-container
-		.input-wrap
-			.search-icon
-			input(type="text" placeholder="Search by name or email" class="search-input")
-	.logs-container
-		p.no-logs No Viewer Logs
+//- .viewer-logs-container
+//- 	.title-container
+//- 		h1.title Viewer Logs
+//- 		a.download-csv-btn Download Viewer Logs as CSV
+//- 	.search-container
+//- 		.input-wrap
+//- 			.search-icon
+//- 			input(type="text" placeholder="Search by name or email" class="search-input")
+//- 	.logs-container
+//- 		p.no-logs No Viewer Logs

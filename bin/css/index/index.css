@@ -261,6 +261,10 @@ body {
   letter-spacing: 0.3px;
   margin-bottom: 25px;
 }
+.page-content .chat-widget .live-chat-container .chat-content .chat.muted {
+  color: #f00;
+  text-align: center;
+}
 .page-content .chat-widget .live-chat-container .chat-content .chat:last-child {
   margin-bottom: 0;
   padding-bottom: 25px;

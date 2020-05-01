@@ -29,16 +29,30 @@ const appendAllChats = () => {
 }
 
 const setChatStatus = () => {
-    const status = window.stream.chatSettings.status
+    let status = window.stream.chatSettings.status
+    if(window.user.muted) status = "muted"
     const statusColors = {
         disabled: "#db1212",
+        muted: "#db1212",
         active: "#00c47c",
         private: "#edc00c"
     }
+    $(".chat-widget .chat.muted").remove()
+    
     $(".chat-widget .title-container .chat-status").css("color", statusColors[status]).text(status)
     
-    if(status === "disabled") {
+    if(status === "disabled" || status === "muted") {
         $(".chat-widget").addClass("disabled")
+    } else {
+        $(".chat-widget").removeClass("disabled")
+    }
+
+    if(status === "muted") {
+        $(".chat-widget .live-chat-container .chat-content").append(`
+            <p class="chat muted">
+                You have been muted by a moderator.
+            </p>
+        `)
     }
 }
 
@@ -48,6 +62,11 @@ socket.on('newChat', appendChat)
 
 socket.on('chatStatusChange', (status) => {
     window.stream.chatSettings.status = status
+    setChatStatus()
+})
+
+socket.on('muteUser', (status) => {
+    window.user.muted = status
     setChatStatus()
 })
 

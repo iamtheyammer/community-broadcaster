@@ -155,52 +155,58 @@
   max-width: 1200px;
   margin: 0 auto 80px;
 }
-.table-container table {
+.table-container .table-scroll {
+  max-height: 500px;
   width: 100%;
   margin: 15px auto !important;
+  overflow-y: auto;
+}
+.table-container .table-scroll table {
+  width: 100%;
   border-collapse: collapse;
   overflow-x: auto;
-  min-width: 500px;
-  max-width: 1200px;
 }
-.table-container table thead {
+.table-container .table-scroll table thead {
   border-color: #edeaea;
   box-sizing: border-box;
 }
-.table-container table thead tr {
+.table-container .table-scroll table thead tr {
   width: 100%;
   padding: 0;
   box-sizing: border-box;
   border: 0;
 }
-.table-container table thead tr th {
+.table-container .table-scroll table thead tr th {
   text-align: left;
   padding: 13px;
   background: #f1f0f0;
   color: #333;
+  z-index: 10;
   font-size: 14px;
   font-weight: 500;
+  top: 0;
+  position: sticky;
 }
-.table-container tbody {
+.table-container .table-scroll tbody {
   margin: 0;
 }
-.table-container tbody tr.viewer {
+.table-container .table-scroll tbody tr.viewer {
   width: 100%;
   vertical-align: middle;
   background: #f8f8f8;
 }
-.table-container tbody tr.viewer.search-hidden,
-.table-container tbody tr.viewer.grade-hidden {
+.table-container .table-scroll tbody tr.viewer.search-hidden,
+.table-container .table-scroll tbody tr.viewer.grade-hidden {
   display: none;
 }
-.table-container tbody tr.viewer td {
+.table-container .table-scroll tbody tr.viewer td {
   height: 20px !important;
   padding: 30px 13px;
 }
-.table-container tbody tr.viewer td.viewer-picture-container {
+.table-container .table-scroll tbody tr.viewer td.viewer-picture-container {
   width: 60px;
 }
-.table-container tbody tr.viewer td.viewer-picture-container .viewer-picture-info {
+.table-container .table-scroll tbody tr.viewer td.viewer-picture-container .viewer-picture-info {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -208,28 +214,28 @@
   height: 40px;
   border-radius: 100%;
 }
-.table-container tbody tr.viewer td p {
+.table-container .table-scroll tbody tr.viewer td p {
   margin: 0;
   color: #4e4e4e;
   letter-spacing: 0.3px;
   font-weight: 600;
 }
-.table-container tbody tr.viewer td .action-btn-wrap {
+.table-container .table-scroll tbody tr.viewer td .action-btn-wrap {
   display: flex;
   justify-content: left;
   align-items: center;
 }
-.table-container tbody tr.viewer td .action-btn-wrap p {
+.table-container .table-scroll tbody tr.viewer td .action-btn-wrap p {
   color: #f05027;
   font-size: 14px;
   margin: 0;
   cursor: pointer;
   letter-spacing: 0.3px;
 }
-.table-container tbody tr.viewer td .action-btn-wrap p.kick-user {
+.table-container .table-scroll tbody tr.viewer td .action-btn-wrap p.kick-user {
   margin-right: 30px !important;
 }
-.table-container tbody tr.viewer td .action-btn-wrap p:hover {
+.table-container .table-scroll tbody tr.viewer td .action-btn-wrap p:hover {
   text-decoration: underline;
 }
 .viewer-logs-container {

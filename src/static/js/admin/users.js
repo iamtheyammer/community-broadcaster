@@ -84,6 +84,7 @@ const appendUsers = () => {
         return;
     }
     window.users.forEach((u) => {
+        const muted = u.muted
         const authorized =  u.auth > 0
         const fullName = 
             u.firstName[0].toUpperCase() + u.firstName.slice(1) + " " +
@@ -103,8 +104,9 @@ const appendUsers = () => {
                         <h2 class="value">${u.banned ? "Yes" : "No"}</h2>
                     </div>
                 </div>
-                <button class="auth-btn" data-action="${authorized ? "unauthorize" : "authorize"}">${authorized ? "Unauthorize" : "Authorize"} User</button>
-                <button class="ban-btn" data-action="${u.banned ? "unban" : "ban"}">${u.banned ? "Unban" : "Ban"} User</button>
+                <button class="mute-btn" data-action="${muted ? "unmute" : "mute"}">${muted ? "Unmute" : "Mute"}</button>
+                <button class="auth-btn" data-action="${authorized ? "unauthorize" : "authorize"}">${authorized ? "Unauthorize" : "Authorize"}</button>
+                <button class="ban-btn" data-action="${u.banned ? "unban" : "ban"}">${u.banned ? "Unban" : "Ban"}</button>
         </div>
         `) 
     })
@@ -124,7 +126,7 @@ $(() => { // BAN CODE
                 url: "/admin/api/banUser",
                 data: data,
                 success: () => {
-                    window.location.reload()
+                    $(`.user[data-google-id="${data.googleId}"] .ban-btn`).attr("data-action", "unban").text("Unban")
                 }
             })
         } else {
@@ -132,11 +134,30 @@ $(() => { // BAN CODE
                 url: "/admin/api/unbanUser",
                 data: data,
                 success: () => {
-                    window.location.reload()
+                    $(`.user[data-google-id="${data.googleId}"] .ban-btn`).attr("data-action", "ban").text("Ban")
                 }
             })
         }
     })
+
+    $(document).on("click", ".users-container .user .mute-btn", function() {
+        let mute;
+        if($(this).attr('data-action') == "mute") {mute = true}
+        if($(this).attr('data-action') == "unmute") {mute = false}
+        const data = {
+            googleId: $(this).parents(".user").data("google-id"),
+            mute: mute
+        }
+        console.log(data)
+        $.post({
+            url: "/admin/api/muteUser",
+            data: data,
+            success: () => {
+                $(`.user[data-google-id="${data.googleId}"] .mute-btn`).attr("data-action", data.mute ? "unmute" : "mute").text(data.mute ? "Unmute" : "Mute")
+            }
+        })
+    })
+
     $(document).on("click", ".users-container .user .auth-btn", function() {
         let setAuth = 0
         if($(this).attr('data-action') == "authorize") {setAuth = 1}
@@ -149,7 +170,7 @@ $(() => { // BAN CODE
             url: "/admin/api/userAuth",
             data: data,
             success: () => {
-                window.location.reload()
+                $(`.user[data-google-id="${data.googleId}"] .auth-btn`).attr("data-action", data.auth === 1 ? "unauthorize" : "authorize").text(data.auth === 1 ? "Unauthorize" : "Authorize")
             }
         })
     })
