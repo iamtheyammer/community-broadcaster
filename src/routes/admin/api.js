@@ -12,11 +12,16 @@ const addLog = require("../db/logs/addLog")
 const editStream = require("../db/stream/editStream")
 
 const adminAuth = (req,res,next) => {
-    if(req.user.auth >= 2) {
-        next();
+    if(req.user) {
+        if(req.user.auth >= 2) {
+            next();
+        } else {
+            res.redirect('/auth/redirect')
+        }
     } else {
-        res.sendStatus(403);
+        res.redirect('/')
     }
+
 }
 
 router.post("/userAuth", adminAuth, (req, res, next) => {

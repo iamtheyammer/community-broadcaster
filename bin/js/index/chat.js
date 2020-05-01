@@ -73,7 +73,7 @@ $('.chat-widget .submit-chat-btn .icon').click(function(){
 })
 
 setTimeout(() => {
-    $(".chat-widget .live-chat-container").scroll(() => {
+    $(".chat-widget .live-chat-container").scroll(    _.throttle(() => {
         const elem = $(".chat-widget .live-chat-container")
         if(elem[0].scrollTop + elem[0].offsetHeight === elem[0].scrollHeight) {
             autoScroll = true;
@@ -82,7 +82,8 @@ setTimeout(() => {
             autoScroll = false;
             $(".chat-widget .enable-autoscroll").addClass('active')
         }
-    })
+    }, 50, {leading: true}))
+    
     
     $(".chat-widget .enable-autoscroll").click(function() {
         autoScroll = true;

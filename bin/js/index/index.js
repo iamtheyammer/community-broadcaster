@@ -1,18 +1,20 @@
-var player = window.player = videojs('#my-video', {
-  html5: {
-    hls: {
-      overrideNative: true
-    },
-    nativeAudioTracks: false,
-    nativeVideoTracks: false
-  }
-});
-// player.src({
-//   type: 'application/x-mpegURL',
-//     src: 'https://stream.designtechhs.com/playlist.m3u8'
-// });
+if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
+  $(".stream-video").append('<video class="video-js" id="my-video" muted="muted" controls="controls" preload="auto" width="1920" height="1080" poster="/img/download.jpeg"><source class="vidSrc" src="https://stream.designtechhs.com/livestream/480p.m3u8" type="application/x-mpegURL"/></video>')
+} else {
+  $(".stream-video").append('<video class="video-js" id="my-video" muted="muted" controls="controls" preload="auto" width="1920" height="1080" poster="/img/download.jpeg"><source class="vidSrc" src="https://stream.designtechhs.com/playlist.m3u8" type="application/x-mpegURL"/></video>')
+}
+setTimeout(function(){
+  videojs.options.hls.overrideNative = true;
+  // Player instance options
+  var options = {
+    html5: {
+      nativeAudioTracks: false,
+      nativeVideoTracks: false
+    }
+  };
+var player = window.player = videojs('#my-video', options);
 
-// let qualityLevels = player.qualityLevels();
+let qualityLevels = player.qualityLevels();
 let videoPlay = player.play();
 player.hlsQualitySelector();
 
@@ -35,6 +37,8 @@ player.on(['waiting', 'pause'], function() {
 player.on('playing', function() {
   isPlaying = true;
 });
+},1000)
+
 
 // document.body.onkeyup = function(e){
 //   if(e.keyCode == 32){
@@ -65,7 +69,7 @@ socket.on('slateControl', function(data) {
       $('.slate').css('background-image', 'url("/img/download.jpeg")')
     }
     if(data[1].selection == "Maintainance") {
-      $('.slate').css('background-image', 'url("/img/dtech-logo.png")')
+      $('.slate').css('background-image', 'url("/img/maintainence.jpg")')
     }
   } else {
     $('.slate').hide()
@@ -76,7 +80,7 @@ socket.on('slateControl', function(data) {
       $('.slate').css('background-image', 'url("/img/download.jpeg")')
     }
     if(data[1].selection == "Maintainance") {
-      $('.slate').css('background-image', 'url("/img/dtech-logo.png")')
+      $('.slate').css('background-image', 'url("/img/maintainence.jpg")')
     }
   }
 })
@@ -91,7 +95,7 @@ for(var i = 0; i < siteControls.length; i++) {
       $('.slate').css('background-image', 'url("/img/download.jpeg")')
     }
     if(slateType == 3) {
-      $('.slate').css('background-image', 'url("/img/dtech-logo.png")')
+      $('.slate').css('background-image', 'url("/img/maintainence.jpg")')
     }
   }
 }

@@ -26,7 +26,6 @@ router.get('/', authMeetingStarted, async function(req, res, next) {
         for(var i =0; i < arr2.length; i++) {
           tempArr2.push(arr2[i]._id)
         }
-        console.log(arr3)
         res.render('index/index', { title: 'd.tech Community', "user": JSON.stringify(arr4), "controlArr": JSON.stringify(arr1), "tokenArr": JSON.stringify(tempArr2), "stream": JSON.stringify(arr3)});
       } 
       getData()

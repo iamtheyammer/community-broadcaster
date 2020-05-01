@@ -99,12 +99,10 @@ io.on('connection', function(socket){
   app.set('socketId', socket.id)
   connectedUsers++
   updateSiteClients([connectedUsers, connectedStreamClients])
-  console.log('connect')
   io.emit('clientChange', connectedUsers)
   socket.on('disconnect', () => {
     connectedUsers--
     updateSiteClients([connectedUsers, connectedStreamClients])
-    console.log('disconnect')
     io.emit('clientChange', connectedUsers)
   });
   socket.on('disconnect', async function(){
@@ -127,31 +125,24 @@ io.on('connection', function(socket){
     connectedStreamClients = await getParticipantCount(app.get("db"))
   })
   socket.on('reloadSiteClients', function(msg){
-    console.log('message: ' + msg);
     io.emit('reloadSiteClients', msg)
   });
   socket.on('logoutAllStreamClients', function(msg){
-    console.log('message: ' + msg);
     io.emit('logoutAllStreamClients', msg)
   });
   socket.on('siteAlert', function(msg){
-    console.log('message: ' + msg);
     io.emit('siteAlert', msg)
   });
   socket.on('slateControl', function(msg){
-    console.log('message: ' + msg);
     io.emit('slateControl', msg)
   });
   socket.on('newChat', function(msg){
-    console.log('newChat: ' + msg);
     io.emit('newChat', msg)
   });
   socket.on('newChatAdmin', function(msg){
-    console.log('newChat: ' + msg);
     io.emit('newChatAdmin', msg)
   });
   socket.on('siteNotification', function(msg){
-    console.log('newChat: ' + msg);
     io.emit('siteNotification', msg)
   });
 });

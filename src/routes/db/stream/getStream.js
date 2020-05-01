@@ -12,6 +12,5 @@ module.exports = async (db) => {
     } catch (e) {
         return true;
     }
-    console.log("STREAM", stream)
     return stream
 }

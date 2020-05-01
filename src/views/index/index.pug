@@ -42,8 +42,6 @@ html
         .stream-video
           img(src="/img/countdown-bg.png")
           .slate.reg-image
-          video(id="my-video" muted="muted" class="video-js" controls preload="auto" width="1920" height="1080" poster="/img/download.jpeg")
-            source(src="https://stream.designtechhs.com/playlist.m3u8" type="application/x-mpegURL")
         .stream-info-container
           .stream-info-content
             h1.stream-title
@@ -62,7 +60,7 @@ html
         .live-chat-container
           .chat-content
             //h1.no-chats No Messages
-            p.chat <b class="sender">Administrator - Jackson Lawrence</b> Welcome to KoiStream! Today we are running our first school-wide test of the stream. We will be using this platform to broadcast community meetings in the near future. If you have and issues, make sure to report an error. If you have any questions, feel free to email either of us at <a href="mailto:jlawrence21@dtechhs.com">jlawrence21@dtechhs.com</a> or <a href="mailto:aappleby21@dtechhs.com">aappleby21@dtechhs.com</a>
+            p.chat <b class="sender">Administrator - Jackson Lawrence</b> Welcome to KoiStream! We will be using this platform to broadcast community meetings in the near future. If you have and issues, make sure to report an error. If you have any questions, feel free to email either of us at <a href="mailto:jlawrence21@dtechhs.com">jlawrence21@dtechhs.com</a> or <a href="mailto:aappleby21@dtechhs.com">aappleby21@dtechhs.com</a>
         .input-container
           textarea.chat-input(data-gramm_editor="false" placeholder="Send a message...")
           .submit-chat-btn
@@ -70,6 +68,7 @@ html
     include ./reportErrors
     include ../notifications
   
+script(src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js")  
 script(src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.8.0/video.min.js")
 script(src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.15.0/videojs-contrib-hls.min.js")
 script(src="/videojs/videojs-contrib-quality-levels/dist/videojs-contrib-quality-levels.min.js")

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "watchDev": "NODE_ENV=development gulp static && gulp watch",
+    "watchDev": "gulp static && gulp watch",
     "watch": "gulp static && gulp watch"
   },
   "dependencies": {
@@ -37,6 +37,8 @@
     "@babel/preset-env": "^7.7.7",
     "babel-preset-minify": "^0.3.0",
     "gulp-babel": "^8.0.0",
+    "gulp-image": "^6.1.0",
+    "gulp-imagemin": "^7.1.0",
     "gulp-nodemon": "^2.4.2",
     "gulp-sourcemaps": "^2.6.5",
     "gulp-stylus": "^2.7.0"
