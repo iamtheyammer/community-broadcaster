@@ -7,7 +7,6 @@ const del = require('del');
 const using = require('gulp-using')
 const cache = require('gulp-cached');
 const isDev = process.env.NODE_ENV === 'development'
-const image = require('gulp-image');
 
 gulp.task('stylus', () => {
   return gulp.src('./src/static/css/**/*.styl')
