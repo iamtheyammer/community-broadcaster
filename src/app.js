@@ -1,4 +1,4 @@
-const dotenv = require('dotenv').config()
+require('dotenv').config()
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -24,9 +24,7 @@ var apiRouter = require('./routes/api')
 var adminRouter = require('./routes/admin/admin')
 var adminAPIRouter = require('./routes/admin/api')
 
-console.log('    ')
-
-mongoose.connect('mongodb://localhost:27017/DesignTechHS', {useNewUrlParser: true, useUnifiedTopology: true }, (err, client) => {
+mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@73.222.19.63/DesignTechHS?authSource=admin`, {useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
   if(err) {
     console.log('    ')
     console.log(' DB Alert '.bgRed.white.bold + '  There was an issue connecting to the database.'.bold.red)
